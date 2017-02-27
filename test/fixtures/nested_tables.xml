@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE NewsML PUBLIC "urn:newsml:iptc.org:20001006:NewsMLv1.0:1" "http://www.comtexnews.net/newsmlresources/NewsMLv1.0.dtd" [
+<!ENTITY % nitf SYSTEM "http://www.comtexnews.net/newsmlresources/nitf-2-5.dtd">
+%nitf;
+]>
+  <NewsML><Catalog><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:ComtexStatus
+</Urn><DefaultVocabularyFor Context="Status" /></Resource><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:Delivery:1
+</Urn><DefaultVocabularyFor Context="SentFrom" /></Resource><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:NewsService:1
+</Urn><DefaultVocabularyFor Context="NewsService" /></Resource><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:NewsProduct:1
+</Urn><DefaultVocabularyFor Context="NewsProduct" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcRoleTypes
+</Urn><DefaultVocabularyFor Context="Role" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcNewsItemTypes
+</Urn><DefaultVocabularyFor Context="NewsItemType" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcMimeTypes
+</Urn><DefaultVocabularyFor Context="MimeType" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcMediaTypes
+</Urn><DefaultVocabularyFor Context="MediaType" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcPriority
+</Urn><DefaultVocabularyFor Context="Priority" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcUrgency
+</Urn><DefaultVocabularyFor Context="Urgency" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:Languages
+</Urn><DefaultVocabularyFor Context="Language" /></Resource></Catalog><NewsEnvelope><TransmissionId>200531614</TransmissionId><SentFrom><Party FormalName="Comtex" /></SentFrom><DateAndTime>20130712T154259</DateAndTime><NewsService FormalName="Comtex" /><NewsProduct FormalName="!abw&#xA;" /><Priority FormalName="5" /></NewsEnvelope><NewsItem><Identification><NewsIdentifier><ProviderId>comtexnews.net
+</ProviderId><DateId>20130712</DateId><NewsItemId>193e7679</NewsItemId><RevisionId PreviousRevision="0" Update="N">
+1
+</RevisionId><PublicIdentifier>urn:newsml:comtexnews.net:20130712:193e7679:1</PublicIdentifier></NewsIdentifier></Identification><NewsManagement><NewsItemType FormalName="News" /><FirstCreated>20130712T154259</FirstCreated><ThisRevisionCreated>20130712T154259</ThisRevisionCreated><Status Vocabulary="urn:newsml:comtexnews.net:20010101:ComtexStatus:1" Scheme="ComtexStatus" FormalName="Usable" /><Urgency FormalName="5" /></NewsManagement><NewsComponent Essential="yes" EquivalentsList="no"><Role FormalName="Main" /><NewsLines><HeadLine>Title</HeadLine><DateLine>Jul 12, 2013 (Al Bawaba Business via COMTEX) --
+</DateLine><CopyrightLine>Copyright (C) Euclid Infotech Pvt. Ltd.
+Provided by Syndigate.info an Albawaba.com company
+</CopyrightLine><KeywordLine xml:lang="en">acquisition
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">contract
+<Origin AssignedBy="Comtex" /></KeywordLine></NewsLines><AdministrativeMetadata><Catalog><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:Providers:1
+</Urn><DefaultVocabularyFor Context="Provider/Party" /></Resource><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:Source:1
+</Urn><DefaultVocabularyFor Context="Source/Party" /></Resource><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:SourceProperties:1
+</Urn><DefaultVocabularyFor Context="Property" /></Resource></Catalog><FileName>200531614.xml</FileName><Provider><Party FormalName="Comtex" /></Provider><Source><Party FormalName="Al Bawaba Business" /></Source><Property FormalName="SourceCode" Value="ABW" /></AdministrativeMetadata><RightsMetadata><Copyright><CopyrightHolder>Copyright (C) Euclid Infotech Pvt. Ltd.
+Provided by Syndigate.info an Albawaba.com company
+</CopyrightHolder><CopyrightDate>2013</CopyrightDate></Copyright></RightsMetadata><DescriptiveMetadata><Language FormalName="en" /></DescriptiveMetadata><ContentItem><Comment>
+Main
+</Comment><MediaType FormalName="Text" /><MimeType FormalName="text/vnd.IPTC.NITF" /><DataContent><head></head><body><body.head><distributor>Al Bawaba Business</distributor></body.head><body.content>
+<html>
+hello world
+    <table>
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td>URL1</td>
+                    </tr>
+                    <tr>
+                        <td>ONE</td>
+                        <td>TWO</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+with nested tables
+</html>
+</body.content>
+</body></DataContent></ContentItem></NewsComponent></NewsItem></NewsML>

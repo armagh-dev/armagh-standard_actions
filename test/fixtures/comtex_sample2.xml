@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE NewsML PUBLIC "urn:newsml:iptc.org:20001006:NewsMLv1.0:1" "http://www.comtexnews.net/newsmlresources/NewsMLv1.0.dtd" [
+<!ENTITY % nitf SYSTEM "http://www.comtexnews.net/newsmlresources/nitf-2-5.dtd">
+%nitf;
+]>
+  <NewsML><Catalog><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:ComtexStatus
+</Urn><DefaultVocabularyFor Context="Status" /></Resource><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:Delivery:1
+</Urn><DefaultVocabularyFor Context="SentFrom" /></Resource><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:NewsService:1
+</Urn><DefaultVocabularyFor Context="NewsService" /></Resource><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:NewsProduct:1
+</Urn><DefaultVocabularyFor Context="NewsProduct" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcRoleTypes
+</Urn><DefaultVocabularyFor Context="Role" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcNewsItemTypes
+</Urn><DefaultVocabularyFor Context="NewsItemType" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcMimeTypes
+</Urn><DefaultVocabularyFor Context="MimeType" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcMediaTypes
+</Urn><DefaultVocabularyFor Context="MediaType" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcPriority
+</Urn><DefaultVocabularyFor Context="Priority" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcUrgency
+</Urn><DefaultVocabularyFor Context="Urgency" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:Languages
+</Urn><DefaultVocabularyFor Context="Language" /></Resource></Catalog><NewsEnvelope><TransmissionId>260616286</TransmissionId><SentFrom><Party FormalName="Comtex" /></SentFrom><DateAndTime>20161003T111219</DateAndTime><NewsService FormalName="Comtex" /><NewsProduct FormalName="!BUSINESS&#xA;" /><NewsProduct FormalName="!bzx&#xA;" /><NewsProduct FormalName="!COMMUNITY&#xA;" /><NewsProduct FormalName="!hedge+funds&#xA;" /><NewsProduct FormalName="!iapws&#xA;" /><NewsProduct FormalName="!PUBCO+SELECT&#xA;" /><NewsProduct FormalName="!PUBLIC+COMPANIES&#xA;" /><NewsProduct FormalName="!WALL+STREET&#xA;" /><Priority FormalName="5" /></NewsEnvelope><NewsItem><Identification><NewsIdentifier><ProviderId>comtexnews.net
+</ProviderId><DateId>20161003</DateId><NewsItemId>277b3002</NewsItemId><RevisionId PreviousRevision="0" Update="N">
+1
+</RevisionId><PublicIdentifier>urn:newsml:comtexnews.net:20161003:277b3002:1</PublicIdentifier></NewsIdentifier></Identification><NewsManagement><NewsItemType FormalName="News" /><FirstCreated>20161003T111219</FirstCreated><ThisRevisionCreated>20161003T111219</ThisRevisionCreated><Status Vocabulary="urn:newsml:comtexnews.net:20010101:ComtexStatus:1" Scheme="ComtexStatus" FormalName="Usable" /><Urgency FormalName="5" /></NewsManagement><NewsComponent><Role FormalName="Logo" /><NewsLines><NewsLine><NewsLineType FormalName="ClickThru URL" /><NewsLineText>http://www.rosenlegal.com/cases-960.html
+</NewsLineText></NewsLine></NewsLines><ContentItem Duid="c71505133" Href="http://mms.businesswire.com/media/20161003006075/en/527137/2/Rosen-Law_Logo_-_Golden.jpg"><Format FormalName="JPEG Baseline" /><MimeType FormalName="image/jpeg" /><Characteristics><SizeInBytes>9689
+</SizeInBytes><Property FormalName="ImageUse" Value="Thumbnail" /><Property FormalName="PixelWidth" Value="120" /><Property FormalName="PixelHeight" Value="58" /></Characteristics></ContentItem><ContentItem Duid="c71505134" Href="http://mms.businesswire.com/media/20161003006075/en/527137/21/Rosen-Law_Logo_-_Golden.jpg"><Format FormalName="JPEG Baseline" /><MimeType FormalName="image/jpeg" /><Characteristics><SizeInBytes>13530
+</SizeInBytes><Property FormalName="ImageUse" Value="Square" /><Property FormalName="PixelWidth" Value="150" /><Property FormalName="PixelHeight" Value="150" /></Characteristics></ContentItem></NewsComponent><NewsComponent><NewsLines><NewsLine><NewsLineType FormalName="ClickThru URL" /><NewsLineText>http://www.rosenlegal.com/cases-960.html
+</NewsLineText></NewsLine></NewsLines></NewsComponent><NewsComponent Essential="yes" EquivalentsList="no"><Role FormalName="Main" /><NewsLines><HeadLine><b>EQUITY ALERT: Rosen Law Firm Announces Investigation of Securities 
+      Claims Against Fusion Pharm, Inc. </b></HeadLine><DateLine>NEW YORK, Oct 03, 2016 (BUSINESS WIRE) --
+</DateLine><CopyrightLine>Copyright Business Wire 2016
+</CopyrightLine><SlugLine>NY-ROSEN-LAW-FIRM
+</SlugLine><KeywordLine xml:lang="en">advertising
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">business
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">ceo
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">email
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">equity
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">investigation
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">law
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">lawsuit
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">money
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">otc
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">sales
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">securities
+<Origin AssignedBy="Comtex" /></KeywordLine></NewsLines><AdministrativeMetadata><Catalog><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:Providers:1
+</Urn><DefaultVocabularyFor Context="Provider/Party" /></Resource><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:Source:1
+</Urn><DefaultVocabularyFor Context="Source/Party" /></Resource><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:SourceProperties:1
+</Urn><DefaultVocabularyFor Context="Property" /></Resource></Catalog><FileName>260616286.xml</FileName><Provider><Party FormalName="Comtex" /></Provider><Source><Party FormalName="BusinessWire - BZX" /></Source><Property FormalName="SourceCode" Value="BZX" /></AdministrativeMetadata><RightsMetadata><Copyright><CopyrightHolder>Copyright Business Wire 2016
+</CopyrightHolder><CopyrightDate>2016</CopyrightDate></Copyright></RightsMetadata><DescriptiveMetadata><Language FormalName="en" /><Property FormalName="PublicCompany" Vocabulary="urn:newsml:comtexnews.net:20010201:DomesticPublicCompanies:1"><Property FormalName="CompanyName" Value="Fusion Pharm Inc" /><Property FormalName="StockSymbol" Value="FSPM" /><Property FormalName="StockExchange" Value="OTC US" /><Property FormalName="SICCode" Value="N/A" /><Property FormalName="CUSIP" Value="36113H100" /><Property FormalName="SEDOL" Value="N.S." /><Property FormalName="ISINNumber" Value="US36113H1005" /><Property FormalName="MarketStatus" Value="ACTV" /><Property FormalName="SecurityType" Value="Common Stock" /><Property FormalName="Country" Value="UNITED STATES" /><Property FormalName="IndustryGroup" Value="Healthcare-Products" /><Property FormalName="IndustrySubGroup" Value="Medical Products" /><Property FormalName="IndustrySector" Value="Consumer, Non-cyclical" /></Property></DescriptiveMetadata><ContentItem><Comment>
+Main
+</Comment><MediaType FormalName="Text" /><MimeType FormalName="text/vnd.IPTC.NITF" /><DataContent><head><meta name="BZX:StockSymbol" content="OTCBB:FSPM" /></head><body><body.head><distributor>BusinessWire - BZX</distributor></body.head><body.content><p>Rosen Law Firm, a global investor rights law firm, announces it is 
+      investigating potential securities claims on behalf of shareholders of 
+      Fusion Pharm, Inc. (OTC: FSPM) resulting from allegations that Fusion 
+      Pharm may have issued materially misleading business information to the 
+      investing public.
+</p><p>On September 16, 2016, the SEC announced fraud charges against Fusion 
+      Pharm and its CEO, Scott M. Dittman, among others, for misleading 
+      investors by recording and trumpeting revenues for purported sales of 
+      PharmPods by round-tripping money from illegal stock sales by hidden 
+      affiliates.
+</p><p>Rosen Law Firm is preparing a class action lawsuit to recover losses 
+      suffered by Fusion Pharm investors. If you purchased shares of Fusion 
+      Pharm on or before September 16, 2016, please visit the firm&#x2019;s website 
+      at <a href="http://cts.businesswire.com/ct/CT?id=smartlink&amp;url=http%3A%2F%2Fwww.rosenlegal.com%2Fcases-960.html&amp;esheet=51431835&amp;newsitemid=20161003006075&amp;lan=en-US&amp;anchor=http%3A%2F%2Fwww.rosenlegal.com%2Fcases-960.html&amp;index=1&amp;md5=7dd7b80ff51e106e83631b5e2d15b4ef" rel="nofollow">http://www.rosenlegal.com/cases-960.html</a> 
+      for more information. You may also contact Phillip Kim or Kevin Chan of 
+      Rosen Law Firm toll free at 866-767-3653 or via email at <a href="mailto:pkim@rosenlegal.com" rel="nofollow">pkim@rosenlegal.com</a> 
+      or <a href="mailto:kchan@rosenlegal.com" rel="nofollow">kchan@rosenlegal.com</a>.
+</p><p>Follow us for updates on LinkedIn: <a href="http://cts.businesswire.com/ct/CT?id=smartlink&amp;url=https%3A%2F%2Fwww.linkedin.com%2Fcompany%2Fthe-rosen-law-firm&amp;esheet=51431835&amp;newsitemid=20161003006075&amp;lan=en-US&amp;anchor=https%3A%2F%2Fwww.linkedin.com%2Fcompany%2Fthe-rosen-law-firm&amp;index=2&amp;md5=9820f4d09569f38e97a2f9a358f81181" rel="nofollow">https://www.linkedin.com/company/the-rosen-law-firm</a> 
+      or on Twitter: <a href="http://cts.businesswire.com/ct/CT?id=smartlink&amp;url=https%3A%2F%2Ftwitter.com%2Frosen_firm&amp;esheet=51431835&amp;newsitemid=20161003006075&amp;lan=en-US&amp;anchor=https%3A%2F%2Ftwitter.com%2Frosen_firm&amp;index=3&amp;md5=48870ad42792b593618fc531a8c0980a" rel="nofollow">https://twitter.com/rosen_firm</a>.
+</p><p>Rosen Law Firm represents investors throughout the globe, concentrating 
+      its practice in securities class actions and shareholder derivative 
+      litigation.
+</p><p>Attorney Advertising. Prior results do not guarantee a similar outcome.
+</p><p><img alt="" src="http://cts.businesswire.com/ct/CT?id=bwnews&amp;sty=20161003006075r1&amp;sid=cmtx5&amp;distro=nx&amp;lang=en"/><span class="bwct31415"/>
+</p><p><span id="mmgallerylink-phrase">View source version on businesswire.com: </span><span id="mmgallerylink-link"><a href="http://www.businesswire.com/news/home/20161003006075/en/" rel="nofollow">http://www.businesswire.com/news/home/20161003006075/en/</a></span>
+</p><p>SOURCE: Rosen Law Firm
+</p><pre>The Rosen Law Firm, P.A.<br/>Laurence Rosen, Esq.<br/>Phillip Kim, Esq.<br/>Kevin 
+      Chan, Esq.<br/>275 Madison Avenue, 34<sup>th</sup> Floor<br/>New York, 
+      NY 10016<br/>Tel: 212-686-1060<br/>Toll Free: 866-767-3653<br/>Fax: 
+      212-202-3827<br/><a href="mailto:lrosen@rosenlegal.com">lrosen@rosenlegal.com</a><br/><a href="mailto:pkim@rosenlegal.com">pkim@rosenlegal.com</a><br/><a href="mailto:kchan@rosenlegal.com">kchan@rosenlegal.com</a><br/><a href="http://cts.businesswire.com/ct/CT?id=smartlink&amp;url=http%3A%2F%2Fwww.rosenlegal.com&amp;esheet=51431835&amp;lan=en-US&amp;anchor=www.rosenlegal.com&amp;index=4&amp;md5=8bf9f347dd53e3dddabecc005229e195">www.rosenlegal.com</a>
+</pre></body.content></body></DataContent></ContentItem></NewsComponent></NewsItem></NewsML>

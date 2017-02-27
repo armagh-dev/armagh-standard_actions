@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE NewsML PUBLIC "urn:newsml:iptc.org:20001006:NewsMLv1.0:1" "http://www.comtexnews.net/newsmlresources/NewsMLv1.0.dtd" [
+<!ENTITY % nitf SYSTEM "http://www.comtexnews.net/newsmlresources/nitf-2-5.dtd">
+%nitf;
+]>
+  <NewsML><Catalog><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:ComtexStatus
+</Urn><DefaultVocabularyFor Context="Status" /></Resource><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:Delivery:1
+</Urn><DefaultVocabularyFor Context="SentFrom" /></Resource><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:NewsService:1
+</Urn><DefaultVocabularyFor Context="NewsService" /></Resource><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:NewsProduct:1
+</Urn><DefaultVocabularyFor Context="NewsProduct" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcRoleTypes
+</Urn><DefaultVocabularyFor Context="Role" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcNewsItemTypes
+</Urn><DefaultVocabularyFor Context="NewsItemType" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcMimeTypes
+</Urn><DefaultVocabularyFor Context="MimeType" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcMediaTypes
+</Urn><DefaultVocabularyFor Context="MediaType" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcPriority
+</Urn><DefaultVocabularyFor Context="Priority" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcUrgency
+</Urn><DefaultVocabularyFor Context="Urgency" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:Languages
+</Urn><DefaultVocabularyFor Context="Language" /></Resource></Catalog><NewsEnvelope><TransmissionId>266415110</TransmissionId><SentFrom><Party FormalName="Comtex" /></SentFrom><DateAndTime>20161214T140021</DateAndTime><NewsService FormalName="Comtex" /><NewsProduct FormalName="!BUSINESS&#xA;" /><NewsProduct FormalName="!bzx&#xA;" /><NewsProduct FormalName="!ENTERTAINMENT&#xA;" /><NewsProduct FormalName="!financenews&#xA;" /><NewsProduct FormalName="!financenews+select&#xA;" /><NewsProduct FormalName="!iapws&#xA;" /><NewsProduct FormalName="!WALL+STREET&#xA;" /><Priority FormalName="5" /></NewsEnvelope><NewsItem><Identification><NewsIdentifier><ProviderId>comtexnews.net
+</ProviderId><DateId>20161214</DateId><NewsItemId>349b5543</NewsItemId><RevisionId PreviousRevision="0" Update="N">
+1
+</RevisionId><PublicIdentifier>urn:newsml:comtexnews.net:20161214:349b5543:1</PublicIdentifier></NewsIdentifier></Identification><NewsManagement><NewsItemType FormalName="News" /><FirstCreated>20161214T140021</FirstCreated><ThisRevisionCreated>20161214T140021</ThisRevisionCreated><Status Vocabulary="urn:newsml:comtexnews.net:20010101:ComtexStatus:1" Scheme="ComtexStatus" FormalName="Usable" /><Urgency FormalName="5" /></NewsManagement><NewsComponent><Role FormalName="Logo" /><NewsLines><NewsLine><NewsLineType /></NewsLine></NewsLines><ContentItem Duid="c72810279" Href="http://mms.businesswire.com/media/20161214006036/en/560219/2/SkydanceTV_NoBug_Orange.jpg"><Format FormalName="JPEG Baseline" /><MimeType FormalName="image/jpeg" /><Characteristics><SizeInBytes>8688
+</SizeInBytes><Property FormalName="ImageUse" Value="Thumbnail" /><Property FormalName="PixelWidth" Value="120" /><Property FormalName="PixelHeight" Value="25" /></Characteristics></ContentItem><ContentItem Duid="c72810280" Href="http://mms.businesswire.com/media/20161214006036/en/560219/3/SkydanceTV_NoBug_Orange.jpg"><Format FormalName="JPEG Baseline" /><MimeType FormalName="image/jpeg" /><Characteristics><SizeInBytes>11428
+</SizeInBytes><Property FormalName="ImageUse" Value="Viewimage" /><Property FormalName="PixelWidth" Value="144" /><Property FormalName="PixelHeight" Value="30" /></Characteristics></ContentItem><ContentItem Duid="c72810281" Href="http://mms.businesswire.com/media/20161214006036/en/560219/4/SkydanceTV_NoBug_Orange.jpg"><Format FormalName="JPEG Baseline" /><MimeType FormalName="image/jpeg" /><Characteristics><SizeInBytes>52329
+</SizeInBytes><Property FormalName="ImageUse" Value="Lowres" /><Property FormalName="PixelWidth" Value="480" /><Property FormalName="PixelHeight" Value="99" /></Characteristics></ContentItem><ContentItem Duid="c72810282" Href="http://mms.businesswire.com/media/20161214006036/en/560219/5/SkydanceTV_NoBug_Orange.jpg"><Format FormalName="JPEG Baseline" /><MimeType FormalName="image/jpeg" /><Characteristics><SizeInBytes>239278
+</SizeInBytes><Property FormalName="ImageUse" Value="Highres" /><Property FormalName="PixelWidth" Value="2210" /><Property FormalName="PixelHeight" Value="455" /></Characteristics></ContentItem><ContentItem Duid="c72810283" Href="http://mms.businesswire.com/media/20161214006036/en/560219/21/SkydanceTV_NoBug_Orange.jpg"><Format FormalName="JPEG Baseline" /><MimeType FormalName="image/jpeg" /><Characteristics><SizeInBytes>13467
+</SizeInBytes><Property FormalName="ImageUse" Value="Square" /><Property FormalName="PixelWidth" Value="150" /><Property FormalName="PixelHeight" Value="150" /></Characteristics></ContentItem></NewsComponent><NewsComponent><Role FormalName="Photo" /><NewsLines><Caption>Laeta Kalogridis (Photo: Business Wire)
+</Caption></NewsLines><DescriptiveMetadata><Language FormalName="en" /><Property FormalName="IptcScene" Value="010100" /><Property FormalName="Rank" Value="1" /></DescriptiveMetadata><ContentItem Duid="c72810272" Href="http://mms.businesswire.com/media/20161214006036/en/560212/2/Laeta_Kalogridis_Headshot_thumbnail.jpg"><Format FormalName="JPEG Baseline" /><MimeType FormalName="image/jpeg" /><Characteristics><SizeInBytes>6792
+</SizeInBytes><Property FormalName="ImageUse" Value="Thumbnail" /><Property FormalName="PixelWidth" Value="44" /><Property FormalName="PixelHeight" Value="72" /></Characteristics></ContentItem><ContentItem Duid="c72810273" Href="http://mms.businesswire.com/media/20161214006036/en/560212/3/Laeta_Kalogridis_Headshot_viewimage.jpg"><Format FormalName="JPEG Baseline" /><MimeType FormalName="image/jpeg" /><Characteristics><SizeInBytes>19711
+</SizeInBytes><Property FormalName="ImageUse" Value="Viewimage" /><Property FormalName="PixelWidth" Value="88" /><Property FormalName="PixelHeight" Value="144" /></Characteristics></ContentItem><ContentItem Duid="c72810274" Href="http://mms.businesswire.com/media/20161214006036/en/560212/4/Laeta_Kalogridis_Headshot_webready.jpg"><Format FormalName="JPEG Baseline" /><MimeType FormalName="image/jpeg" /><Characteristics><SizeInBytes>170593
+</SizeInBytes><Property FormalName="ImageUse" Value="Lowres" /><Property FormalName="PixelWidth" Value="295" /><Property FormalName="PixelHeight" Value="480" /></Characteristics></ContentItem><ContentItem Duid="c72810275" Href="http://mms.businesswire.com/media/20161214006036/en/560212/5/Laeta_Kalogridis_Headshot_highres.jpg"><Format FormalName="JPEG Baseline" /><MimeType FormalName="image/jpeg" /><Characteristics><SizeInBytes>1362605
+</SizeInBytes><Property FormalName="ImageUse" Value="Highres" /><Property FormalName="PixelWidth" Value="867" /><Property FormalName="PixelHeight" Value="1413" /></Characteristics></ContentItem><ContentItem Duid="c72810276" Href="http://mms.businesswire.com/media/20161214006036/en/560212/21/Laeta_Kalogridis_Headshot_square.jpg"><Format FormalName="JPEG Baseline" /><MimeType FormalName="image/jpeg" /><Characteristics><SizeInBytes>31574
+</SizeInBytes><Property FormalName="ImageUse" Value="Square" /><Property FormalName="PixelWidth" Value="150" /><Property FormalName="PixelHeight" Value="150" /></Characteristics></ContentItem></NewsComponent><NewsComponent><NewsLines><NewsLine><NewsLineType FormalName="Multimedia Gallery URL" /><NewsLineText>http://www.businesswire.com/news/home/20161214006036/en/
+</NewsLineText></NewsLine></NewsLines></NewsComponent><NewsComponent Essential="yes" EquivalentsList="no"><Role FormalName="Main" /><NewsLines><HeadLine><b>Skydance Media Forms Exclusive Overall Agreement for Television with
+      Award-Winning Writer-Producer Laeta Kalogridis</b></HeadLine><SubHeadLine><b>First Projects Under New Agreement Are <i>Altered Carbon</i> and <i>Sword
+      Art Online</i></b>
+    <br/>
+</SubHeadLine><DateLine>SANTA MONICA, Calif., Dec 14, 2016 (BUSINESS WIRE) --
+</DateLine><CopyrightLine>Copyright Business Wire 2016
+</CopyrightLine><SlugLine>CA-SKYDANCE-MEDIA
+</SlugLine><KeywordLine xml:lang="en">art
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">business
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">ceo
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">entertainment
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">executive
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">film
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">jordan
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">media
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">men
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">multimedia
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">online
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">partnership
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">property
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">publishing
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">studio
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">television
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">tv
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">video
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">war
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">white+house
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">woman
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">writer
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">writing
+<Origin AssignedBy="Comtex" /></KeywordLine></NewsLines><AdministrativeMetadata><Catalog><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:Providers:1
+</Urn><DefaultVocabularyFor Context="Provider/Party" /></Resource><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:Source:1
+</Urn><DefaultVocabularyFor Context="Source/Party" /></Resource><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:SourceProperties:1
+</Urn><DefaultVocabularyFor Context="Property" /></Resource></Catalog><FileName>266415110.xml</FileName><Provider><Party FormalName="Comtex" /></Provider><Source><Party FormalName="BusinessWire - BZX" /></Source><Property FormalName="SourceCode" Value="BZX" /></AdministrativeMetadata><RightsMetadata><Copyright><CopyrightHolder>Copyright Business Wire 2016
+</CopyrightHolder><CopyrightDate>2016</CopyrightDate></Copyright></RightsMetadata><DescriptiveMetadata><Language FormalName="en" /></DescriptiveMetadata><ContentItem><Comment>
+Main
+</Comment><MediaType FormalName="Text" /><MimeType FormalName="text/vnd.IPTC.NITF" /><DataContent><head></head><body><body.head><distributor>BusinessWire - BZX</distributor></body.head><body.content><p>Skydance,&#x00A0;a diversified media company that creates event-level 
+      entertainment for global audiences, today announced that&#x00A0;it has formed 
+      an exclusive, multi-year overall agreement for television production 
+      with award-winning writer-producer Laeta Kalogridis (<i>Avatar</i>, <i>Shutter 
+      Island</i>, <i>Terminator Genisys</i>), who currently serves as writer 
+      and executive producer on Skydance Television&#x2019;s upcoming sci-fi drama 
+      series on Netflix, <i>Altered Carbon</i>. She also currently serves as 
+      executive producer on Skydance Television&#x2019;s <i>Sword Art Online</i>,<i> </i>the 
+      first-ever live action SAO television series. Executive producing both 
+      projects alongside Kalogridis are Skydance&#x2019;s David Ellison, Dana 
+      Goldberg, and Marcy Ross.
+</p><p>This Smart News Release features multimedia. View the full release here: 
+<a href="http://www.businesswire.com/news/home/20161214006036/en/" rel="nofollow">http://www.businesswire.com/news/home/20161214006036/en/
+</a>
+</p><p>&#x201C;Laeta is truly a visionary talent and we are incredibly honored that 
+      she has elected to make Skydance her creative home,&#x201D; said Skydance&#x2019;s 
+      Chief Executive Officer, David Ellison. &#x201C;Both <i>Altered Carbon </i>and <i>Sword 
+      Art Online </i>are epic stories that span massive worlds, and I can 
+      think of no greater artist than Laeta to bring these two series to the 
+      screen.&#x201D;
+</p><p>&#x201C;David and the entire team at Skydance have been so good to me over the 
+      last couple of years, giving me a great deal of artistic license and 
+      creative freedom to see the vision for my projects come to life, and I 
+      am beyond excited to extend this partnership into the future,&#x201D; added 
+      Kalogridis.
+</p><p>Today&#x2019;s announcement marks the third in a series of overall agreements 
+      that Skydance has recently put into place &#x2013; with Marti Noxon, Michael B. 
+      Jordan, and now Laeta Kalogridis &#x2013; a sign of its rapidly growing 
+      business and prolific television department. The studio anticipates 
+      making additional announcements of this nature in the near future.
+</p><p>Laeta Kalogridis is a film and television writer-producer.&#x00A0;Her writing 
+      work includes the first <i>X-Men</i>, <i>Tomb Raider</i>, <i>Scream</i> 
+      3, <i>Alexander</i>, <i>Night Watch</i>, <i>Bionic Woman</i>, <i>Pathfinder</i>, 
+      and Martin Scorsese&#x2019;s <i>Shutter Island</i>, which she also executive 
+      produced. She worked alongside Skydance as writer and producer on 2015&#x2019;s 
+      feature film <i>Terminator Genisys</i>. Additional producing credits 
+      include James Cameron&#x2019;s <i>Avatar</i> and <i>White House Down</i>. 
+      Kalogridis is repped by WME and Katz, Golden, Sullivan, &amp; Rosenman, LLP.
+</p><p>Today, Skydance is a leading producer of major Hollywood studio films 
+      and television shows. Since its inception in 2010, Skydance has produced 
+      11 feature films, which have cumulatively grossed approximately $4.2 
+      billion in worldwide box office receipts. Skydance Television was 
+      launched in 2013 and is&#x00A0;currently&#x00A0;slated to produce seven 
+      original&#x00A0;series across multiple networks. Skydance has over the past 
+      twelve months significantly expanded&#x00A0;its business operations by 
+      increasing the&#x00A0;production of both feature films and&#x00A0;television series&#x00A0;as 
+      well as launching Skydance International and Skydance Interactive.
+</p><p><span class="bwuline"><b>About Skydance Media</b></span>
+</p><p>Skydance is a diversified media company founded by David Ellison in 2010 
+      to create high quality, event-level entertainment for global audiences. 
+      The Company brings to life stories of immersive worlds across platforms, 
+      including feature film, television, and interactive. Its feature films 
+      include <i>Jack Reacher: Never Go Back,&#x00A0;Star Trek Beyond</i>, <i>Mission: 
+      Impossible &#x2013; Rogue Nation</i>,&#x00A0;<i>Terminator Genisys</i>,&#x00A0;<i>World 
+      War Z</i>,<i> Star Trek Into Darkness</i>,<i>&#x00A0;G.I. Joe: Retaliation</i>,&#x00A0;<i>Jack 
+      Reacher</i>,&#x00A0;<i>Mission: Impossible &#x2013; Ghost Protocol</i>,&#x00A0;and&#x00A0;<i>True 
+      Grit</i>. Skydance&#x2019;s 2017 film&#x00A0;slate&#x00A0;includes <i>Life </i>with 
+      Sony on March 24<sup>th</sup>,<i> Baywatch</i> with Paramount on May 26<sup>th</sup>, 
+      <i>Geostorm </i>with Warner Brothers on October 20<sup>th</sup>, and <i>Annihilation</i> 
+      with Paramount.&#x00A0;Skydance Television launched in&#x00A0;2013. Its current slate 
+      includes&#x00A0;Emmy-nominated&#x00A0;<i>Grace and Frankie</i> on Netflix,&#x00A0;<i>Altered 
+      Carbon&#x00A0;</i>on Netflix,&#x00A0;<i>Red Mars&#x00A0;</i>on Spike TV, <i>Jack 
+      Ryan&#x00A0;</i>on Amazon, <i>Condor</i> on DirecTV, <i>Ten Days in the 
+      Valley</i> on ABC, and <i>Dietland</i> on AMC. Skydance Interactive 
+      launched in 2016 following the acquisition of leading game developer The 
+      Workshop Entertainment. SDI is creating and publishing original and 
+      IP-based virtual reality experiences and video games, the first three of 
+      which will launch in 2017.
+</p><p><img alt="" src="http://cts.businesswire.com/ct/CT?id=bwnews&amp;sty=20161214006036r1&amp;sid=cmtx5&amp;distro=nx&amp;lang=en"/><span class="bwct31415"/>
+</p><p><span id="mmgallerylink-phrase">View source version on businesswire.com: </span><span id="mmgallerylink-link"><a href="http://www.businesswire.com/news/home/20161214006036/en/" rel="nofollow">http://www.businesswire.com/news/home/20161214006036/en/</a></span>
+</p><p>SOURCE: Skydance Media"&gt;
+&lt;Property FormalName="PrimaryTwitterHandle" Value="@skydance
+</p><pre>Skydance Media<br/>Shannon Olivas<br/>Corporate Communications<br/>(424)&#x00A0;291-3485<br/><a href="mailto:solivas@skydance.com">solivas@skydance.com</a>
+</pre></body.content></body></DataContent></ContentItem></NewsComponent></NewsItem></NewsML>
