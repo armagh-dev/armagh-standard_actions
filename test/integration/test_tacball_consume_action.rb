@@ -31,6 +31,7 @@ class TestIntegrationTacballConsumeAction < Test::Unit::TestCase
   include ActionsTestHelper
 
   READ_WRITE_DIR = 'readwrite_dir/tacballs'
+  DUP_PATHS      = [ 'readwrite_dir/tacdup' ]
 
   def setup
     local_integration_test_config = load_local_integration_test_config
@@ -39,12 +40,14 @@ class TestIntegrationTacballConsumeAction < Test::Unit::TestCase
     @password = local_integration_test_config['test_sftp_password']
     @port = local_integration_test_config['test_sftp_port']
     @directory_path = READ_WRITE_DIR
+    @duplicate_put_directory_paths = DUP_PATHS
 
     @sftp_config_values = {
       'host' => @host,
       'username' => @username,
       'password' => @password,
       'directory_path' => @directory_path,
+      'duplicate_put_directory_paths' => @duplicate_put_directory_paths,
       'create_directory_path' => true,
       'port' => @port
     }
@@ -120,10 +123,13 @@ class TestIntegrationTacballConsumeAction < Test::Unit::TestCase
       FileUtils.touch('/DocType.')
       @tacball_consume_action.consume(@doc)
     }
-    sftp_path = @config_values['tacball']['feed']
-    Armagh::Support::SFTP::Connection.open(config) do |sftp|
-      assert_equal ['DocType-dd123.tgz.1451696523.160102'], sftp.ls(sftp_path)
-      sftp.remove(sftp_path)
+    
+    [ READ_WRITE_DIR, *DUP_PATHS ].each do |target_dir|
+      sftp_path = File.join( target_dir, @config_values['tacball']['feed'] )
+      Armagh::Support::SFTP::Connection.open(config) do |sftp|
+        assert_equal ['DocType-dd123.tgz.1451696523.160102'], sftp.ls(sftp_path)
+        sftp.remove(sftp_path)
+      end
     end
   end
 
