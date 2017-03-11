@@ -34,7 +34,7 @@ class TestXMLDividerAction < Test::Unit::TestCase
     @xml_path     = File.join fixtures_path, 'big_xml.xml'
     @config_values = { 
       'input' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dan_indoc', Armagh::Documents::DocState::READY )},
-      'output' => { 'divided_xml' => Armagh::Documents::DocSpec.new( 'dans_output', Armagh::Documents::DocState::READY )},
+      'output' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dans_output', Armagh::Documents::DocState::READY )},
       'xml' => {'size_per_part' => 1000, 'xml_element' => 'sdnEntry'}
     }
     @config = Armagh::StandardActions::XMLDivider.create_configuration( [], 'test', @config_values )
@@ -46,7 +46,7 @@ class TestXMLDividerAction < Test::Unit::TestCase
     @caller.expects(:notify_ops).never
     @divider_action = Armagh::StandardActions::XMLDivider.new( @caller, 'logger_name', @config, @collection )
     @divider_action.doc_details = {}
-    @divider_action.divide(@xml_path,@config)
+    @divider_action.divide(@xml_path)
   end
 
   test "calls notify_ops when xml library errors when dividing source xml file" do
@@ -54,7 +54,6 @@ class TestXMLDividerAction < Test::Unit::TestCase
     @caller.expects(:create_document).never
     @caller.expects(:notify_ops).at_least_once
     @divider_action = Armagh::StandardActions::XMLDivider.new( @caller, 'logger_name', @config, @collection )
-    @divider_action.divide(@xml_path, @config)
+    @divider_action.divide(@xml_path,)
   end
-
 end

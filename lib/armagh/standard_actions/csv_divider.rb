@@ -24,13 +24,8 @@ module Armagh
     class CSVDivider < Armagh::Actions::Divide
       include Armagh::Support::CSV::Divider
       
-      # TODO: Cahill added this define_output_docspec to get the tests to pass, but
-      # the output docspec still has to be used in the create process...
-      define_output_docspec 'output_type', 'action description', default_type: 'OutputDocument', default_state: Armagh::Documents::DocState::READY
-
-      def divide(doc,config)
-        
-        Armagh::Support::CSV.divided_parts( doc, config) do |part|
+      def divide(doc)
+        Armagh::Support::CSV.divided_parts( doc, @config) do |part|
           create(part, {})
         end
       end

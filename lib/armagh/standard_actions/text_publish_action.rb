@@ -22,7 +22,7 @@ module Armagh
     class TextPublishAction < Armagh::Actions::Publish
 
       def publish(doc)
-        text = doc.raw
+        text = doc.raw.to_s
 
         doc.title              ||= doc.source.filename
         doc.document_timestamp ||= doc.source.mtime

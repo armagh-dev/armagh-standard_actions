@@ -44,9 +44,14 @@ class TestHTTPCollectAction < Test::Unit::TestCase
     }
     @config = Armagh::StandardActions::HTTPCollectAction.create_configuration( [], 'test', @config_values )
     @http_collect_action = instantiate_action(Armagh::StandardActions::HTTPCollectAction, @config )
+
+    @state = mock
   end
 
   def test_collect
+    @state.stubs(:content).returns({})
+    @http_collect_action.expects(:with_locked_action_state).yields(@state)
+
     expected_body = 'response body'
     expected_meta = {
         'url' => @config.http.url
@@ -69,6 +74,9 @@ class TestHTTPCollectAction < Test::Unit::TestCase
   end
 
   def test_collect_no_encoding
+    @state.stubs(:content).returns({})
+    @http_collect_action.expects(:with_locked_action_state).yields(@state)
+
     expected_body = 'response body'
     expected_meta = {
         'url' => @config.http.url,
@@ -89,6 +97,9 @@ class TestHTTPCollectAction < Test::Unit::TestCase
   end
 
   def test_collect_no_type
+    @state.stubs(:content).returns({})
+    @http_collect_action.expects(:with_locked_action_state).yields(@state)
+
     expected_body = 'response body'
     expected_meta = {
         'url' => @config.http.url,
@@ -109,6 +120,17 @@ class TestHTTPCollectAction < Test::Unit::TestCase
   end
 
   def test_collect_http_error
+    exception = Armagh::Support::HTTP::HTTPError.new('HTTP ERROR')
+    Armagh::Support::HTTP::Connection.any_instance.expects(:fetch).raises(exception)
+
+    assert_notify_ops(@http_collect_action) do |e|
+      assert_equal exception, e
+    end
+
+    @http_collect_action.collect
+  end
+
+  def test_collect_config_http_error
     @config_values['http']['url']= 'bad url'
     e = assert_raise( Configh::ConfigInitError ) do
       @config = Armagh::StandardActions::HTTPCollectAction.create_configuration( [], 'test2', @config_values )
@@ -123,12 +145,52 @@ class TestHTTPCollectAction < Test::Unit::TestCase
   end
 
   def test_collect_multiple_pages
+    @state.stubs(:content).returns({})
+    @http_collect_action.expects(:with_locked_action_state).yields(@state)
+
     Armagh::Support::HTTP::Connection.any_instance.expects(:fetch).returns([{'head' => '', 'body' => 'BODY ONE'},
                                                                             {'head' => '', 'body' => 'BODY TWO'},
                                                                             {'head' => '', 'body' => 'BODY THREE'}])
 
     assert_create(@http_collect_action) do |document_id, title, copyright, document_timestamp, body, meta, docspec_name, source|
-      assert_equal("BODY ONE*#Y*@^~YUBODY TWO*#Y*@^~YUBODY THREE", body)
+      assert_equal('BODY ONE*#Y*@^~YUBODY TWO*#Y*@^~YUBODY THREE', body)
+    end
+
+    @http_collect_action.collect
+  end
+
+  def test_collect_already_collected
+    @config_values['http_collect_action'] = {'deduplicate_content' => true}
+    @config = Armagh::StandardActions::HTTPCollectAction.create_configuration( [], 'test', @config_values )
+    @http_collect_action = instantiate_action(Armagh::StandardActions::HTTPCollectAction, @config )
+
+    expected_body = 'response body'
+    md5 = Armagh::Support::StringDigest.md5(expected_body)
+
+    @state.stubs(:content).returns({@config.http.url => md5})
+    @http_collect_action.expects(:with_locked_action_state).yields(@state)
+    @http_collect_action.expects(:create).never
+
+    stub_request(:get, @config.http.url).to_return(body: expected_body, headers: {'Content-Type' => 'text/html; charset=ISO-8859-1'})
+
+    @http_collect_action.collect
+  end
+
+  def test_collect_changed_collected
+    @config_values['http_collect_action'] = {'deduplicate_content' => true}
+    @config = Armagh::StandardActions::HTTPCollectAction.create_configuration( [], 'test', @config_values )
+    @http_collect_action = instantiate_action(Armagh::StandardActions::HTTPCollectAction, @config )
+
+    expected_body = 'response body'
+    md5 = Armagh::Support::StringDigest.md5('Old Content')
+
+    @state.stubs(:content).returns({@config.http.url => md5})
+    @http_collect_action.expects(:with_locked_action_state).yields(@state)
+
+    stub_request(:get, @config.http.url).to_return(body: expected_body, headers: {'Content-Type' => 'text/html; charset=ISO-8859-1'})
+
+    assert_create(@http_collect_action) do |document_id, title, copyright, document_timestamp, body, meta, docspec_name, source|
+      assert_equal(expected_body, body)
     end
 
     @http_collect_action.collect

@@ -18,6 +18,7 @@
 require 'armagh/actions'
 require 'armagh/support/http'
 require 'armagh/support/html'
+require 'armagh/support/string_digest'
 
 module Armagh
   module StandardActions
@@ -25,11 +26,11 @@ module Armagh
 
       include Armagh::Support::HTTP
 
+      define_parameter name: 'deduplicate_content', description: 'Prevent collection when the content of the URL has not changed since last collect.', type: 'boolean', required: true, default: false
+
       define_output_docspec 'http_collected_document', 'All documents collected from this web source in raw form'
 
-
       def collect
-
         log_debug "Collecting from '#{@config.http.url}'"
 
         begin
@@ -49,8 +50,17 @@ module Armagh
 
           content = response.collect{|r| r['body']}.join(Armagh::Support::HTML::HTML_PAGE_DELIMITER)
 
-          create(collected: content, metadata: metadata, docspec_name: 'http_collected_document', source: source)
-          log_info "Collected 1 document from '#{@config.http.url}'"
+          with_locked_action_state do |state|
+            md5 = Armagh::Support::StringDigest.md5(content)
+
+            if @config.http_collect_action.deduplicate_content && state.content[@config.http.url] == md5
+              log_info "Content of #{@config.http.url} has not changed since last collection."
+            else
+              state.content[@config.http.url] = md5
+              create(collected: content, metadata: metadata, docspec_name: 'http_collected_document', source: source)
+              log_info "Collected 1 document from '#{@config.http.url}'"
+            end
+          end
         rescue HTTPError => e
           notify_ops e
         end

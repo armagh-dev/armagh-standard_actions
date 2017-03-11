@@ -34,6 +34,7 @@ class TestCSVDivider < Test::Unit::TestCase
   test "it creates documents with draft_content from divided parts of larger source file" do
     @config_values = {
       'input' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dans_doctype', Armagh::Documents::DocState::READY ) },
+      'output' => { 'docspec' => Armagh::Documents::DocSpec.new( 'divided_doctype', Armagh::Documents::DocState::READY ) },
       'csv_divider' => {
         'size_per_part' => 100
       }
@@ -45,7 +46,6 @@ class TestCSVDivider < Test::Unit::TestCase
     @caller.expects(:create_document).at_least_once
 
     @divider_action.doc_details = {}
-    @divider_action.divide(@csv_path, @config)
+    @divider_action.divide(@csv_path)
   end
-
 end

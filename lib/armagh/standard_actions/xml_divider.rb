@@ -24,10 +24,8 @@ module Armagh
     class XMLDivider < Armagh::Actions::Divide
       include Armagh::Support::XML
       
-      define_output_docspec 'divided_xml', 'XML documents extracted from the input XML'
-
-      def divide(doc,config)
-        Armagh::Support::XML.divided_parts(doc, config) do |part, errors|
+      def divide(doc)
+        Armagh::Support::XML.divided_parts(doc, @config) do |part, errors|
           if errors.empty?
             create(part, {})
           else
