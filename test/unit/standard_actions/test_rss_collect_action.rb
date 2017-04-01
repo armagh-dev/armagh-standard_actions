@@ -28,7 +28,7 @@ class TestRSSCollectAction < Test::Unit::TestCase
   include ActionsTestHelper
 
   def setup
-    @docspec_name = 'rss_collected_document'
+    @docspec_name = 'docspec'
     @config_values = {
       'action' => {
         'name' => 'collect_me',
@@ -72,7 +72,6 @@ class TestRSSCollectAction < Test::Unit::TestCase
       assert_true(metadata.has_key?('collected_timestamp'))
       metadata.delete('collected_timestamp')
       assert_equal expected_meta, metadata
-      assert_equal @docspec_name, docspec_name
       assert_equal(expected_source.to_hash, source.to_hash)
     end
     @rss_collect_action.stubs(:collect_rss).yields(channel_details, item_details, [expected_content], type_details, doc_time, nil)
@@ -177,7 +176,6 @@ class TestRSSCollectAction < Test::Unit::TestCase
       assert_true(metadata.has_key?('collected_timestamp'))
       metadata.delete('collected_timestamp')
       assert_equal expected_meta, metadata
-      assert_equal @docspec_name, docspec_name
       assert_equal(expected_source.to_hash, source.to_hash)
     end
 

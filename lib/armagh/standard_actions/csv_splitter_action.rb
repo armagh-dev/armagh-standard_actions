@@ -24,10 +24,7 @@ module Armagh
     class CSVSplitterAction < Actions::Split
       include Armagh::Support::CSV::Splitter
 
-      define_output_docspec 'split_csv', 'documents containing individual records from the input CSV'
-
       def split(doc)
-  
         Armagh::Support::CSV.split_parts(doc, @config ) do |row, errors|
           if errors.empty?
             edit_doc_with_data_from_row(row)
@@ -42,7 +39,7 @@ module Armagh
       end
 
       private def edit_doc_with_data_from_row(row)
-        edit('split_csv') do |doc|
+        edit do |doc|
           doc.raw = row
         end
       end

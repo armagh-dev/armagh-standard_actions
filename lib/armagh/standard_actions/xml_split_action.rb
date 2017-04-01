@@ -24,13 +24,11 @@ module Armagh
 
       class DocumentDataTypeError < StandardError; end
 
-      define_output_docspec('split_xml', 'Doc Spec for Split XML')
-
       def split(doc)
         xml = doc.raw
         xmls = Armagh::Support::XML::Splitter.split(xml, @config)
         xmls.each do |chunk|
-          edit('split_xml') do |d|
+          edit do |d|
             d.content['xml'] = chunk
           end
         end

@@ -25,10 +25,7 @@ module Armagh
     class FTPCollect < Actions::Collect    
       include Armagh::Support::FTP
       
-      define_output_docspec 'collected_document', 'All documents as collected from this FTP source in raw form'
-
       def collect
-        
         log_debug "Starting collect with parameters: #{ @config.inspect }"
         
         documents_collected = 0
@@ -57,7 +54,7 @@ module Armagh
                   mtime:    attributes[ 'mtime' ]
                 )
 
-                create( collected: local_filename, metadata: metadata, docspec_name: 'collected_document', source: source )
+                create( collected: local_filename, metadata: metadata, source: source )
                 documents_collected += 1
             
               else

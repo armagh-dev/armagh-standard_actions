@@ -23,8 +23,6 @@ module Armagh
     class SFTPCollectAction < Actions::Collect
       include Armagh::Support::SFTP
 
-      define_output_docspec 'sftp_collected_document', 'Raw documents collected from this SFTP source'
-
       def collect
 
         host = @config.sftp.host
@@ -49,7 +47,7 @@ module Armagh
                 metadata = {
                     'collected_timestamp' => Time.now.utc,
                 }
-                create(collected: filename, metadata: metadata, docspec_name: 'sftp_collected_document', source: source)
+                create(collected: filename, metadata: metadata, source: source)
                 log_debug("Collected #{filename}")
                 num_collected += 1
               end

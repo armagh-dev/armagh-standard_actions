@@ -29,7 +29,7 @@ class TestSFTPCollectAction < Test::Unit::TestCase
   def setup
     @config_values = {
       'output' => {
-        'sftp_collected_document' => Armagh::Documents::DocSpec.new('OutputDocument', Armagh::Documents::DocState::READY)
+        'docspec' => Armagh::Documents::DocSpec.new('OutputDocument', Armagh::Documents::DocState::READY)
       },
       'collect' => {
         'schedule' => '0 * * * *',

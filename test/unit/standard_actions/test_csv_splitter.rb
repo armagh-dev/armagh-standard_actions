@@ -27,9 +27,8 @@ class TestCSVSplitterAction < Test::Unit::TestCase
   def setup
     @logger         = mock('logger')
     @caller         = mock('caller')
-    @output_docspec = {'split_csv' => {'default_type' => "", 'default_state' => ""}}
     @config = Armagh::StandardActions::CSVSplitterAction.create_configuration([], 'test', {
-      'output' => {'split_csv' => Armagh::Documents::DocSpec.new('OutputDocument', Armagh::Documents::DocState::READY)},
+      'output' => {'docspec' => Armagh::Documents::DocSpec.new('OutputDocument', Armagh::Documents::DocState::READY)},
       'input' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dans_in', Armagh::Documents::DocState::READY )},
     })
   end

@@ -53,7 +53,7 @@ class TestIntegrationTacballConsumeAction < Test::Unit::TestCase
     }
 
     @config_values = {
-      'input' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dans_in', Armagh::Documents::DocState::READY )},
+      'input' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dans_in', Armagh::Documents::DocState::PUBLISHED )},
       'sftp' => @sftp_config_values,
       'tacball' => {
         'feed' => 'carnitas',
@@ -66,7 +66,7 @@ class TestIntegrationTacballConsumeAction < Test::Unit::TestCase
     @config = Armagh::StandardActions::TacballConsumeAction.create_configuration([], 'test', @config_values)
     @tacball_consume_action = instantiate_action(Armagh::StandardActions::TacballConsumeAction, @config)
     @tacball_consume_action.stubs(:logger).once
-    docspec = Armagh::Documents::DocSpec.new('DocType', Armagh::Documents::DocState::READY)
+    docspec = Armagh::Documents::DocSpec.new('DocType', Armagh::Documents::DocState::PUBLISHED)
     @doc = Armagh::Documents::ActionDocument.new(
       document_id:        'dd123',
       title:              'Halloween Parade',
@@ -120,7 +120,6 @@ class TestIntegrationTacballConsumeAction < Test::Unit::TestCase
     Armagh::Actions::Loggable.expects(:logger).at_least(0)
     config = Armagh::Support::SFTP.create_configuration(@config_store, 'consume', {'sftp' => @sftp_config_values})
     FakeFS {
-      FileUtils.touch('/DocType.')
       @tacball_consume_action.consume(@doc)
     }
     

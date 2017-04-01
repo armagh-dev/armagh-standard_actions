@@ -54,9 +54,9 @@ module ActionsTestHelper
       assert_true(title.nil? || title.is_a?(String), 'title must be nil or a string')
       assert_true(copyright.nil? || copyright.is_a?(String), 'copyright must be nil or a string')
       assert_true(document_timestamp.nil? || document_timestamp.is_a?(Time), 'document_timestamp must be nil or a time')
+      assert_true(docspec_name.nil? || docspec_name.is_a?(String), 'docspec_name must be a string unless using the default')
       assert_kind_of(String, collected, 'collected must be a String')
       assert_kind_of(Hash, metadata, 'metadata must be a Hash')
-      assert_kind_of(String, docspec_name, 'docspec_name must be a String')
       assert_kind_of(Armagh::Documents::Source, source, 'source must be a Source')
  
       block.call document_id, title, copyright, document_timestamp, collected, metadata, docspec_name, source

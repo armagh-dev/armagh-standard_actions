@@ -26,8 +26,6 @@ module Armagh
 
       include Armagh::Support::RSS
 
-      define_output_docspec 'rss_collected_document', 'All documents collected from this RSS source'
-
       def collect
         log_debug "Collecting from '#{@config.http.url}'"
 
@@ -61,7 +59,6 @@ module Armagh
                   metadata['channel'] = channel
                   create(collected: content_str,
                          metadata: metadata,
-                         docspec_name:'rss_collected_document',
                          source: source)
                 else
                   item_doc_id = item['guid'] if item['guid'] && !item['guid'].empty?
@@ -78,7 +75,6 @@ module Armagh
                   create(document_id: id,
                          collected: content_str,
                          metadata: metadata,
-                         docspec_name:'rss_collected_document',
                          source: source,
                          document_timestamp: timestamp,
                          title: title)

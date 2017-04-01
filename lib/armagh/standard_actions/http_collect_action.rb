@@ -28,7 +28,6 @@ module Armagh
 
       define_parameter name: 'deduplicate_content', description: 'Prevent collection when the content of the URL has not changed since last collect.', type: 'boolean', required: true, default: false
 
-      define_output_docspec 'http_collected_document', 'All documents collected from this web source in raw form'
 
       def collect
         log_debug "Collecting from '#{@config.http.url}'"
@@ -57,7 +56,7 @@ module Armagh
               log_info "Content of #{@config.http.url} has not changed since last collection."
             else
               state.content[@config.http.url] = md5
-              create(collected: content, metadata: metadata, docspec_name: 'http_collected_document', source: source)
+              create(collected: content, metadata: metadata, source: source)
               log_info "Collected 1 document from '#{@config.http.url}'"
             end
           end

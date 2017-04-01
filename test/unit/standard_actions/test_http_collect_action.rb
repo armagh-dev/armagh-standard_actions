@@ -30,7 +30,7 @@ class TestHTTPCollectAction < Test::Unit::TestCase
   def setup
     @config_values = {
       'output' => {
-        'http_collected_document' => Armagh::Documents::DocSpec.new('OutputDocument', Armagh::Documents::DocState::READY)
+        'docspec' => Armagh::Documents::DocSpec.new('OutputDocument', Armagh::Documents::DocState::READY)
       },
       'collect' => {
         'schedule' => '0 * * * *',
@@ -67,7 +67,7 @@ class TestHTTPCollectAction < Test::Unit::TestCase
       assert_equal expected_body, body
       meta.delete('collected_timestamp')
       assert_equal expected_meta, meta
-      assert_not_nil @config.output.http_collected_document
+      assert_not_nil @config.output.docspec
       assert_equal expected_source, source
     end
     @http_collect_action.collect
@@ -89,7 +89,7 @@ class TestHTTPCollectAction < Test::Unit::TestCase
       assert_equal expected_body, body
       meta.delete('collected_timestamp')
       assert_equal expected_meta, meta
-      assert_not_nil @config.output.http_collected_document
+      assert_not_nil @config.output.docspec
       assert_equal expected_source, source
       true
     end
@@ -112,7 +112,7 @@ class TestHTTPCollectAction < Test::Unit::TestCase
       assert_equal expected_body, body
       meta.delete('collected_timestamp')
       assert_equal expected_meta, meta
-      assert_not_nil @config.output.http_collected_document
+      assert_not_nil @config.output.docspec
       assert_equal expected_source, source
       true
     end
