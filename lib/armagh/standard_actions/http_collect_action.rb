@@ -33,7 +33,7 @@ module Armagh
         log_debug "Collecting from '#{@config.http.url}'"
 
         begin
-          http = Armagh::Support::HTTP::Connection.new(@config)
+          http = Armagh::Support::HTTP::Connection.new(@config, logger: logger)
           response = http.fetch
 
           metadata = {

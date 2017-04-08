@@ -33,7 +33,7 @@ module Armagh
 
         begin
           with_locked_action_state do |state|
-            collect_rss(@config, state) do |channel, item, content_array, type, timestamp, exception|
+            collect_rss(@config, state, logger: logger) do |channel, item, content_array, type, timestamp, exception|
               if exception
                 if exception.is_a?(RSSError) || exception.is_a?(HTTPError)
                   notify_ops exception

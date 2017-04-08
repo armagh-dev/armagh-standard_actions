@@ -51,6 +51,7 @@ class TestHTTPCollectAction < Test::Unit::TestCase
   def test_collect
     @state.stubs(:content).returns({})
     @http_collect_action.expects(:with_locked_action_state).yields(@state)
+    @logger.expects(:debug)
 
     expected_body = 'response body'
     expected_meta = {
@@ -76,6 +77,7 @@ class TestHTTPCollectAction < Test::Unit::TestCase
   def test_collect_no_encoding
     @state.stubs(:content).returns({})
     @http_collect_action.expects(:with_locked_action_state).yields(@state)
+    @logger.expects(:debug)
 
     expected_body = 'response body'
     expected_meta = {
@@ -99,6 +101,7 @@ class TestHTTPCollectAction < Test::Unit::TestCase
   def test_collect_no_type
     @state.stubs(:content).returns({})
     @http_collect_action.expects(:with_locked_action_state).yields(@state)
+    @logger.expects(:debug)
 
     expected_body = 'response body'
     expected_meta = {
@@ -170,6 +173,7 @@ class TestHTTPCollectAction < Test::Unit::TestCase
     @state.stubs(:content).returns({@config.http.url => md5})
     @http_collect_action.expects(:with_locked_action_state).yields(@state)
     @http_collect_action.expects(:create).never
+    @logger.expects(:debug)
 
     stub_request(:get, @config.http.url).to_return(body: expected_body, headers: {'Content-Type' => 'text/html; charset=ISO-8859-1'})
 
@@ -186,6 +190,7 @@ class TestHTTPCollectAction < Test::Unit::TestCase
 
     @state.stubs(:content).returns({@config.http.url => md5})
     @http_collect_action.expects(:with_locked_action_state).yields(@state)
+    @logger.expects(:debug)
 
     stub_request(:get, @config.http.url).to_return(body: expected_body, headers: {'Content-Type' => 'text/html; charset=ISO-8859-1'})
 

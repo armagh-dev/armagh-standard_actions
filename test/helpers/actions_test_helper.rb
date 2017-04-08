@@ -23,7 +23,12 @@ require 'configh'
 
 module ActionsTestHelper
   def instantiate_action(action_class, config)
-    @caller ||= mock('caller')
+    unless @caller
+      @caller = mock('caller')
+      @logger ||= mock('logger')
+      @caller.stubs(:get_logger).returns(@logger)
+    end
+
     @collection ||= mock('collection')
     @caller.stubs(:log_debug)
     @caller.stubs(:log_info)
