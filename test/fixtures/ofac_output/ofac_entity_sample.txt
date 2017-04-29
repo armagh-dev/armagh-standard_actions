@@ -1,0 +1,47 @@
+IL.docid: 4025/DocType-dd123
+title: Halloween Parade
+feed: carnitas
+timestamp: 1451696523
+dateposted: 1451696523
+hastext: true
+source: chipotle
+inject_html: true
+
+Specially Designated National (SDN)
+
+  Entity Name: HAYDEE DE MUNOZ Y CIA. S. EN C.
+
+A.K.A. List
+
+  a.k.a. AH SAN ( Category: weak )
+  a.k.a. Sae Chang KUAI NUENG ( Category: strong )
+  a.k.a. SHI KWAN NEINK ( Category: weak )
+  a.k.a. SHIH KUO NENG ( Category: weak )
+
+Address List
+
+  Address: Avenida 6N No. 23DN-16, Cali Colombia
+  Address: Avenida 4N No. 5N-20, Cali Colombia
+
+Identification List
+
+  5502100007251 (Country: Thailand)
+  X638456 (Country: Thailand)
+
+Program List
+
+  Program: SDNT
+  Program: FBI
+  Program: CIA
+  Program: NSA
+
+Remarks
+
+  Linked to: Chipotle
+
+2016 - All Rights Reserved
+
+
+
+
+### lines below this point were added by TAC ###

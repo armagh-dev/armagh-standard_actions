@@ -1,0 +1,45 @@
+IL.docid: 4025/DocType-dd123
+title: Halloween Parade
+feed: carnitas
+timestamp: 1451696523
+dateposted: 1451696523
+hastext: true
+source: chipotle
+inject_html: true
+
+Specially Designated National (SDN)
+
+  Vessel: BROTHERS
+  Vessel Callsign: C4QK
+  Vessel Type: Bulk Carrier
+  Vessel Flag: Cyprus
+  Vessel Owner: Ciflare Shipping Co. Ltd.
+  Vessel Tonnage: 25573
+  Vessel Gross Registered Tonnage: 16605
+
+A.K.A. List
+
+  f.k.a. TULIP ISLANDS ( Category: strong )
+
+Address List
+
+  No Known Addresses
+
+Identification List
+
+  No Known Identifications
+
+Program List
+
+  Program: CUBA
+
+Remarks
+
+  None
+
+2016 - All Rights Reserved
+
+
+
+
+### lines below this point were added by TAC ###

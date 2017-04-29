@@ -1,0 +1,36 @@
+IL.docid: 4025/DocType-dd123
+title: Halloween Parade
+feed: carnitas
+timestamp: 1451696523
+dateposted: 1451696523
+hastext: true
+source: chipotle
+inject_html: true
+
+Specially Designated National (SDN)
+
+  Entity Name: EP-CFD
+
+Identification List
+
+  19 Feb 1993 (Country: )
+  11442 (Country: )
+  F.28-0100 (Country: )
+  IRAN AIR (Country: )
+
+Program List
+
+  Program: NPWMD
+
+Remarks
+
+  Linked To: IRAN AIR
+  Linked To: Something else
+  Linked To: Aliens
+
+2016 - All Rights Reserved
+
+
+
+
+### lines below this point were added by TAC ###

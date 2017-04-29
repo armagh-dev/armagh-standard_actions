@@ -1,0 +1,13 @@
+---
+sdnList:
+  attr_xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+  attr_xmlns: http://tempuri.org/sdnList.xsd
+  publshInformation:
+    Publish_Date: 05/30/2014
+    Record_Count: '5931'
+  sdnEntry:
+    uid: '4257'
+    firstName: Ramadan
+    lastName: ABDALLAH
+    title: Secretary General of the PALESTINIAN ISLAMIC JIHAD
+    sdnType: Individual

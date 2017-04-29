@@ -1,0 +1,57 @@
+---
+sdnList:
+  attr_xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+  attr_xmlns: http://tempuri.org/sdnList.xsd
+  publshInformation:
+    Publish_Date: 05/30/2014
+    Record_Count: '5931'
+  sdnEntry:
+    uid: '4346'
+    lastName: HAYDEE DE MUNOZ Y CIA. S. EN C.
+    sdnType: Entity
+    remarks: "(Linked to: Chipotle)"
+    programList:
+      program:
+      - SDNT
+      - FBI
+      - CIA
+      - NSA
+    addressList:
+      address:
+      - uid: '2414'
+        address1: Avenida 6N No. 23DN-16
+        city: Cali
+        country: Colombia
+      - uid: '2415'
+        address1: Avenida 4N No. 5N-20
+        city: Cali
+        country: Colombia
+    akaList:
+      aka:
+      - uid: '11796'
+        type: a.k.a.
+        category: weak
+        lastName: AH SAN
+      - uid: '11797'
+        type: a.k.a.
+        category: strong
+        lastName: KUAI NUENG
+        firstName: Sae Chang
+      - uid: '11798'
+        type: a.k.a.
+        category: weak
+        lastName: SHI KWAN NEINK
+      - uid: '11799'
+        type: a.k.a.
+        category: weak
+        lastName: SHIH KUO NENG
+    idList:
+      id:
+      - uid: '5739'
+        idType: National ID No.
+        idNumber: '5502100007251'
+        idCountry: Thailand
+      - uid: '5740'
+        idType: Passport
+        idNumber: X638456
+        idCountry: Thailand

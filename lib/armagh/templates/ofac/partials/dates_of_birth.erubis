@@ -1,0 +1,15 @@
+{{ if @dates }}
+  {{ if @dates.is_a?(Array) }}
+    {{ @dates.each do |date| }}
+      {{ if date['mainEntry'] == 'true' }}
+  Date of Birth: {{= date['dateOfBirth'] }}
+      {{ else }}
+  Other Date of Birth: {{= date['dateOfBirth'] }}
+      {{ end }}
+    {{ end }}
+  {{ elsif @dates.is_a?(Hash) }}
+  Date of Birth: {{= @dates['dateOfBirth'] }}
+    {{ end }}
+{{ else }}
+  Date of Birth: UNK
+{{ end }} 

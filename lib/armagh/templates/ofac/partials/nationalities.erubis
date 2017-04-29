@@ -1,0 +1,15 @@
+{{ if @nationalities }}
+  {{ if @nationalities.is_a?(Array) }}
+    {{ @nationalities.each do |nationality| }}
+      {{ if nationality['mainEntry'] == 'true' }}
+  Nationality: {{= nationality['country'] }}
+      {{ else }}
+  Other Nationality: {{= nationality['country'] }}
+      {{ end }}
+    {{ end }}
+  {{ elsif @nationalities.is_a?(Hash) }}
+  Nationality: {{= @nationalities['country'] }}
+    {{ end }}
+{{ else }}
+  Nationality: UNK
+{{ end }} 

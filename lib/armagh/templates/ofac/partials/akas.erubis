@@ -1,0 +1,11 @@
+{{ if @akas }}
+  {{ if @akas.is_a?(Array) }}
+    {{ @akas.each do |aka| }}
+  {{= aka['type'] }} {{= aka['firstName'] + " " if aka['firstName'] }}{{= aka['lastName'] }} ( Category: {{= aka['category'] }} )
+    {{ end }}
+  {{ elsif @akas.is_a?(Hash) }}
+  {{= @akas['type'] }} {{= @akas['firstName'] + " " if @akas['firstName'] }}{{= @akas['lastName'] }} ( Category: {{= @akas['category'] }} )
+    {{ end }}
+{{ else }}
+  No Known IDs
+{{ end }} 

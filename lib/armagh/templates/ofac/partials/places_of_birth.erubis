@@ -1,0 +1,15 @@
+{{ if @places }}
+  {{ if @places.is_a?(Array) }}
+    {{ @places.each do |place| }}
+      {{ if place['mainEntry'] == 'true' }}
+  Place of Birth: {{= place['placeOfBirth'] }}
+      {{ else }}
+  Other Place of Birth: {{= place['placeOfBirth'] }}
+      {{ end }}
+    {{ end }}
+  {{ elsif @places.is_a?(Hash) }}
+  Place of Birth: {{= @places['placeOfBirth'] }}
+    {{ end }}
+{{ else }}
+  Place of Birth: UNK
+{{ end }} 

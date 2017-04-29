@@ -1,0 +1,50 @@
+IL.docid: 4025/DocType-dd123
+title: Halloween Parade
+feed: carnitas
+timestamp: 1451696523
+dateposted: 1451696523
+hastext: true
+source: chipotle
+inject_html: true
+
+Specially Designated National (SDN)
+
+  Individual Name: Ramadan ABDALLAH
+  Title : Secretary General of the PALESTINIAN ISLAMIC JIHAD
+  Date of Birth: 01 Jan 1958
+  Other Date of Birth: 04 Jan 1959
+  Place of Birth: Gaza City, Gaza Strip
+  Other Place of Birth: Gaza Village, Nearby
+  Nationality: Palestinian
+  Citizenship: Egypt
+  Other Citizenship: Kenya
+
+A.K.A. List
+
+  a.k.a. Dr. Ramadan ABDULLAH ( Category: strong )
+  a.k.a. Dr. Ramadan Abdullah SHALLAH ( Category: strong )
+  a.k.a. Ramadan Abdalla Mohamed SHALLAH ( Category: strong )
+
+Address List
+
+  Address: Damascus Syria
+
+Identification List
+
+  265 216 (Country: Egypt)
+  589-17-6824 (Country: United States)
+
+Program List
+
+  Program: SDT
+
+Remarks
+
+  None
+
+2016 - All Rights Reserved
+
+
+
+
+### lines below this point were added by TAC ###

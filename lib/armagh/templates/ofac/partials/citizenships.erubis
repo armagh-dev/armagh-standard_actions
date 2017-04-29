@@ -1,0 +1,15 @@
+{{ if @citizenships }}
+  {{ if @citizenships.is_a?(Array) }}
+    {{ @citizenships.each do |citizenship| }}
+      {{ if citizenship['mainEntry'] == 'true' }}
+  Citizenship: {{= citizenship['country'] }}
+      {{ else }}
+  Other Citizenship: {{= citizenship['country'] }}
+      {{ end }}
+    {{ end }}
+  {{ elsif @citizenships.is_a?(Hash) }}
+  Citizenship: {{= @citizenships['country'] }}
+    {{ end }}
+{{ else }}
+  Citizenship: UNK
+{{ end }} 

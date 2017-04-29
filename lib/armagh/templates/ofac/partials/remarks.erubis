@@ -1,0 +1,10 @@
+{{ if @remarks }}
+  {{ result = '' }}
+  {{ @remarks.split(';').each do |remark| }}
+    {{ result << "\n " unless result.empty? }}
+    {{ result << remark.gsub(/[()]/,"") }}
+  {{ end }}
+  {{= result }}
+{{ else }}
+  None
+{{ end }} 

@@ -1,5 +1,5 @@
 # Copyright 2017 Noragh Analytics, Inc.
-# 
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -8,7 +8,7 @@
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either 
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
 # express or implied.
 #
 # See the License for the specific language governing permissions and
@@ -63,7 +63,7 @@ module ActionsTestHelper
       assert_kind_of(String, collected, 'collected must be a String')
       assert_kind_of(Hash, metadata, 'metadata must be a Hash')
       assert_kind_of(Armagh::Documents::Source, source, 'source must be a Source')
- 
+
       block.call document_id, title, copyright, document_timestamp, collected, metadata, docspec_name, source
       true
     end
@@ -89,5 +89,17 @@ module ActionsTestHelper
       block.call error
       true
     end
+  end
+
+  def tgz_to_hash(file)
+    h = {}
+    tar = Gem::Package::TarReader.new(Zlib::GzipReader.open(file))
+    tar.rewind
+    tar.each do |entry|
+      content = entry.file? ? entry.read : nil
+      h[entry.full_name] = content
+    end
+    tar.close
+    h
   end
 end

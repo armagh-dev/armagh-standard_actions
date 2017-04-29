@@ -1,0 +1,8 @@
+{{ if @vessel_info }}
+  Vessel Callsign: {{= @vessel_info['callSign'] }}
+  Vessel Type: {{= @vessel_info['vesselType'] }}
+  Vessel Flag: {{= @vessel_info['vesselFlag'] }}
+  Vessel Owner: {{= @vessel_info['vesselOwner'] }}
+  Vessel Tonnage: {{= @vessel_info['tonnage'] }}
+  Vessel Gross Registered Tonnage: {{= @vessel_info['grossRegisteredTonnage'] }}
+{{ end }}

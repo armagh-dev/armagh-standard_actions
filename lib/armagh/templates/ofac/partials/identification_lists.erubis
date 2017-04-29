@@ -1,0 +1,11 @@
+{{ if @identifications }}
+  {{ if @identifications.is_a?(Array) }}
+    {{ @identifications.each do |id| }}
+  {{= id['idNumber'] }} (Country: {{= id['idCountry'] + "" if id['idCountry']}})
+    {{ end }}
+  {{ elsif @identifications.is_a?(Hash) }}
+  {{= @identifications['@identificationsNumber'] }} (Country: {{= @identifications['@identificationsCountry'] + "" if @identifications['@identificationsCountry']}})
+    {{ end }}
+{{ else }}
+  No Known Identifications
+{{ end }} 

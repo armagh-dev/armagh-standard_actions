@@ -15,14 +15,32 @@
 # limitations under the License.
 #
 
-## THIS FILE WAS AUTOMATICALLY GENERATED AND SHOULD NOT BE MODIFIED
-
-
-require 'armagh/actions'
-
-Dir[File.join(__dir__, 'standard_actions', '**', '*.rb')].each { |file| require file }
+require 'armagh/actions/publish'
+require 'armagh/support/excel'
 
 module Armagh
   module StandardActions
+    class ExcelPublish < Actions::Publish
+      include Support::Excel
+
+      def publish(doc)
+        binary = doc.raw
+
+        text, display = excel_to_text_and_display(binary)
+
+        doc.title ||= doc.source.filename
+        doc.document_timestamp ||= doc.source.mtime if doc.source.mtime
+
+        doc.text = text
+        doc.display = display
+      rescue => e
+        if e.class <= ExcelError
+          notify_ops(e)
+        else
+          notify_dev(e)
+        end
+      end
+
+    end
   end
 end

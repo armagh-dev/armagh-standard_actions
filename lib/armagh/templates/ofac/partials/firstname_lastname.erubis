@@ -1,0 +1,1 @@
+{{= @entity['firstName'] + " " if @entity['firstName'] }}{{= @entity['lastName'] }}

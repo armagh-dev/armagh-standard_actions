@@ -1,0 +1,28 @@
+---
+sdnList:
+  attr_xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+  attr_xmlns: http://tempuri.org/sdnList.xsd
+  publshInformation:
+    Publish_Date: 05/30/2014
+    Record_Count: '5931'
+  sdnEntry:
+    uid: '15346'
+    lastName: EP-CFD
+    sdnType: Aircraft
+    remarks: "(Linked To: IRAN AIR; Linked To: Something else; Linked To: Aliens)"
+    programList:
+      program: NPWMD
+    idList:
+      id:
+      - uid: '111920'
+        idType: Aircraft Manufacture Date
+        idNumber: 19 Feb 1993
+      - uid: '111921'
+        idType: Aircraft Manufacturer's Serial Number (MSN)
+        idNumber: '11442'
+      - uid: '111922'
+        idType: Aircraft Model
+        idNumber: F.28-0100
+      - uid: '111923'
+        idType: Aircraft Operator
+        idNumber: IRAN AIR

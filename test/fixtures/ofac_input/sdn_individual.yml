@@ -1,0 +1,76 @@
+---
+sdnList:
+  attr_xmlns:xsi: http://www.w3.org/2001/XMLSchema-instance
+  attr_xmlns: http://tempuri.org/sdnList.xsd
+  publshInformation:
+    Publish_Date: 05/30/2014
+    Record_Count: '5931'
+  sdnEntry:
+    uid: '4257'
+    firstName: Ramadan
+    lastName: ABDALLAH
+    title: Secretary General of the PALESTINIAN ISLAMIC JIHAD
+    sdnType: Individual
+    programList:
+      program: SDT
+    idList:
+      id:
+      - uid: '1078'
+        idType: Passport
+        idNumber: 265 216
+        idCountry: Egypt
+      - uid: '1079'
+        idType: SSN
+        idNumber: 589-17-6824
+        idCountry: United States
+    akaList:
+      aka:
+      - uid: '3414'
+        type: a.k.a.
+        category: strong
+        lastName: ABDULLAH
+        firstName: Dr. Ramadan
+      - uid: '3415'
+        type: a.k.a.
+        category: strong
+        lastName: SHALLAH
+        firstName: Dr. Ramadan Abdullah
+      - uid: '3416'
+        type: a.k.a.
+        category: strong
+        lastName: SHALLAH
+        firstName: Ramadan Abdalla Mohamed
+    addressList:
+      address:
+        uid: '2256'
+        city: Damascus
+        country: Syria
+    nationalityList:
+      nationality:
+        uid: '5416'
+        country: Palestinian
+        mainEntry: 'true'
+    citizenshipList:
+      citizenship:
+      - uid: '1247'
+        country: Egypt
+        mainEntry: 'true'
+      - uid: '1248'
+        country: Kenya
+        mainEntry: 'false'
+    dateOfBirthList:
+      dateOfBirthItem:
+      - uid: '1061'
+        dateOfBirth: 01 Jan 1958
+        mainEntry: 'true'
+      - uid: '1062'
+        dateOfBirth: 04 Jan 1959
+        mainEntry: 'false'
+    placeOfBirthList:
+      placeOfBirthItem:
+      - uid: '1062'
+        placeOfBirth: Gaza City, Gaza Strip
+        mainEntry: 'true'
+      - uid: '1063'
+        placeOfBirth: Gaza Village, Nearby
+        mainEntry: 'false'

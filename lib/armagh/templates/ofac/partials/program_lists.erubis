@@ -1,0 +1,11 @@
+{{ if @programs }}
+  {{ if @programs.is_a?(Array) }}
+    {{ @programs.each do |program| }}
+  Program: {{= program }}
+    {{ end }}
+  {{ elsif @programs.is_a?(String) }}
+  Program: {{= @programs }}
+    {{ end }}
+{{ else }}
+  Program Not Provided
+{{ end }} 

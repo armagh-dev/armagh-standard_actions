@@ -1,0 +1,11 @@
+{{ if @addresses }}
+  {{ if @addresses.is_a?(Array) }}
+    {{ @addresses.each do |address| }}
+  Address: {{= address['address1'] + ", " if address['address1'] }}{{= address['city'] }} {{= address['country'] }}
+    {{ end }}
+  {{ elsif @addresses.is_a?(Hash) }}
+  Address: {{= @addresses['address1'] + ", " if @addresses['address1'] }}{{= @addresses['city'] }} {{= @addresses['country'] }}
+    {{ end }}
+{{ else }}
+  No Known Addresses
+{{ end }} 
