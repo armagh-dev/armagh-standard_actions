@@ -42,7 +42,7 @@ Gem::Specification.new do |spec|
   spec.summary       = "Armagh standard actions - #{Armagh::StandardActions::NAME}"
   spec.description   = ''
   spec.homepage      = ''
-  spec.license       = ''
+  spec.license       = 'Apache-2.0'
 
   spec.files         = Dir.glob('lib/**/*') + %w(README.md)
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})

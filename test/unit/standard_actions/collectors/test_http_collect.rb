@@ -181,7 +181,7 @@ class TestHTTPCollect < Test::Unit::TestCase
   end
 
   def test_collect_changed_collected
-    @config_values['http_collect_action'] = {'deduplicate_content' => true}
+    @config_values['http_collect'] = {'deduplicate_content' => true}
     @config = Armagh::StandardActions::HTTPCollect.create_configuration( [], 'test', @config_values )
     @http_collect_action = instantiate_action(Armagh::StandardActions::HTTPCollect, @config )
 
