@@ -21,15 +21,17 @@ require 'armagh/support/xml'
 module Armagh
   module StandardActions
     class XMLSplit < Armagh::Actions::Split
+      include Armagh::Support::XML::Splitter
 
       class DocumentDataTypeError < StandardError; end
 
       def split(doc)
         xml = doc.raw
-        xmls = Armagh::Support::XML::Splitter.split(xml, @config)
+        xmls = split_parts(xml, @config)
         xmls.each do |chunk|
           edit do |d|
-            d.content['xml'] = chunk
+            d.raw = chunk
+            d.metadata = doc.metadata
           end
         end
       rescue => e

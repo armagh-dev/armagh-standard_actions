@@ -35,9 +35,10 @@ class TestXmlPublish < Test::Unit::TestCase
       'input' => { 'docspec' => Armagh::Documents::DocSpec.new('dans_in', Armagh::Documents::DocState::READY) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new('dans_in', Armagh::Documents::DocState::PUBLISHED) },
       'xml' => {
-        'get_doc_id_from' => ['here', 'is', 'docid'],
-        'get_doc_title_from' => ['here', 'is', 'title'],
-        'get_doc_timestamp_from' => ['here', 'is', 'timestamp'],
+        "get_doc_id_from" => ['sdnList', 'sdnEntry', 'uid'],
+        "get_doc_title_from" => ['sdnList', 'sdnEntry', 'lastName'],
+        "get_doc_timestamp_from" => ['sdnList', 'publshInformation', 'Publish_Date'],
+        "timestamp_format" => "%m/%d/%Y",
         'get_doc_copyright_from' => ['here', 'is', 'copyright'],
         'html_nodes' => ['node1', 'node2']
       }
@@ -59,24 +60,22 @@ class TestXmlPublish < Test::Unit::TestCase
 
   def test_publish_sets_contents
     timestamp = '20161003T110900'
-    Armagh::Support::XML.stubs(:to_hash).with(is_a(String), is_a(Array)).once.returns({'some_key' => 'some_value'})
     Armagh::Support::XML.stubs(:get_doc_attr).with(is_a(Hash), is_a(Array)).returns('abc123', 'Breaking News', timestamp, 'Copyright Line')
     xml_file = 'test/fixtures/big_xml.xml'
     @doc.content['bson_binary'] = BSON::Binary.new(File.read(xml_file, mode:'rb'))
     @xml_publish_action.publish(@doc)
-    assert_equal ({'some_key' => 'some_value'}), @doc.content
+    assert_equal JSON.parse(File.read("test/fixtures/ofac_xml_hash.txt")), @doc.content
   end
 
   def test_publish_sets_document_attributes
-    timestamp = '20161003T110900'
-    Armagh::Support::XML.stubs(:to_hash).with(is_a(String), is_a(Array)).once.returns({'some_key' => 'some_value'})
+    timestamp = "2014-05-30 00:00:00"
     Armagh::Support::XML.stubs(:get_doc_attr).with(is_a(Hash), is_a(Array)).returns('abc123', 'Breaking News', timestamp, 'Copyright Line')
     xml_file = 'test/fixtures/big_xml.xml'
     @doc.content['bson_binary'] = BSON::Binary.new(File.read(xml_file, mode:'rb'))
     @xml_publish_action.publish(@doc)
-    assert_equal 'abc123', @doc.document_id
-    assert_equal 'Breaking News', @doc.title
+    assert_equal '10', @doc.document_id
+    assert_equal 'ABASTECEDORA NAVAL Y INDUSTRIAL, S.A.', @doc.title
     assert_equal Time.parse(timestamp), @doc.document_timestamp
-    assert_equal 'Copyright Line', @doc.copyright
+    assert_equal nil, @doc.copyright
   end
 end

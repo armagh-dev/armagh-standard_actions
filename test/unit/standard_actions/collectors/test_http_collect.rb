@@ -170,7 +170,7 @@ class TestHTTPCollect < Test::Unit::TestCase
     expected_body = 'response body'
     md5 = Armagh::Support::StringDigest.md5(expected_body)
 
-    @state.stubs(:content).returns({@config.http.url => md5})
+    @state.stubs(:content).returns({@config.http.url.gsub(".", "\u2024") => md5})
     @http_collect_action.expects(:with_locked_action_state).yields(@state)
     @http_collect_action.expects(:create).never
     @logger.expects(:debug)

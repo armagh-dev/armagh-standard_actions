@@ -31,17 +31,8 @@ module Armagh
       raise TACDocPrefixError, 'The environment variable ARMAGH_TAC_DOC_PREFIX is not set but is required.' unless ENV['ARMAGH_TAC_DOC_PREFIX']
 
       def consume(doc)
-        filename = Armagh::Support::Tacball.create_tacball_file(
-          @config,
-          docid: doc.document_id,
-          title: doc.title,
-          timestamp: doc.document_timestamp.to_i,
-          txt_content: doc.text,
-          copyright: doc.copyright,
-          html_content: doc.display,
-          type: doc.docspec.type,
-          logger: logger
-        )
+        filename = filename_from_doc(doc)
+
         Support::SFTP::Connection.open(@config) do |sftp|
           sftp.put_file(filename, @config.tacball.feed)
         end
@@ -58,6 +49,21 @@ module Armagh
         puts e.inspect
         notify_dev(e)
       end
+
+      def filename_from_doc(doc)
+        Armagh::Support::Tacball.create_tacball_file(
+          @config,
+          docid:        doc.document_id,
+          title:        doc.title,
+          timestamp:    doc.document_timestamp.to_i,
+          txt_content:  doc.text,
+          copyright:    doc.copyright,
+          html_content: doc.display,
+          type:         doc.docspec.type,
+          logger:       logger
+        )
+      end
+
 
     end
   end

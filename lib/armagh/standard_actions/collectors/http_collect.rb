@@ -26,7 +26,11 @@ module Armagh
 
       include Armagh::Support::HTTP
 
-      define_parameter name: 'deduplicate_content', description: 'Prevent collection when the content of the URL has not changed since last collect.', type: 'boolean', required: true, default: false
+      define_parameter name: 'deduplicate_content',
+                       description: 'Prevent collection when the content of the URL has not changed since last collect.',
+                       type: 'boolean',
+                       required: true,
+                       default: false
 
 
       def collect
@@ -51,11 +55,12 @@ module Armagh
 
           with_locked_action_state do |state|
             md5 = Armagh::Support::StringDigest.md5(content)
+            unicode_url = @config.http.url.gsub(".","\u2024")
 
-            if @config.http_collect.deduplicate_content && state.content[@config.http.url] == md5
+            if @config.http_collect.deduplicate_content && state.content[unicode_url] == md5
               log_info "Content of #{@config.http.url} has not changed since last collection."
             else
-              state.content[@config.http.url] = md5
+              state.content[unicode_url] = md5
               create(collected: content, metadata: metadata, source: source)
               log_info "Collected 1 document from '#{@config.http.url}'"
             end

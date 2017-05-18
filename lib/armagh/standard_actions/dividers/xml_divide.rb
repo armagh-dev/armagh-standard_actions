@@ -22,12 +22,12 @@ module Armagh
   module StandardActions
 
     class XMLDivide < Armagh::Actions::Divide
-      include Armagh::Support::XML
-      
+      include Armagh::Support::XML::Divider
+
       def divide(doc)
-        Armagh::Support::XML.divided_parts(doc, @config) do |part, errors|
+        divided_parts(doc, @config) do |part, errors|
           if errors.empty?
-            create(part, {})
+            create(part, doc.metadata)
           else
             notify_ops_of_errors(errors)
           end

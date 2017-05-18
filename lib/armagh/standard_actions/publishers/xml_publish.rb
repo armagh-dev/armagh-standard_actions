@@ -24,13 +24,51 @@ module Armagh
       include Armagh::Support::XML
 
       def publish(doc)
-        xml = doc.content['bson_binary'].data
-        xml_hash = Armagh::Support::XML.to_hash(xml, @config.xml.html_nodes)
+        xml = doc.raw
+        xml_hash = to_hash(xml, @config.xml.html_nodes)
         doc.content = xml_hash
-        doc.document_id = Armagh::Support::XML.get_doc_attr(xml_hash, @config.xml.get_doc_id_from) if @config.xml.get_doc_id_from.size != 0
-        doc.title = Armagh::Support::XML.get_doc_attr(xml_hash, @config.xml.get_doc_title_from) if @config.xml.get_doc_title_from.size != 0
-        doc.document_timestamp = Time.parse(Armagh::Support::XML.get_doc_attr(xml_hash, @config.xml.get_doc_timestamp_from)) if @config.xml.get_doc_timestamp_from.size != 0
-        doc.copyright = Armagh::Support::XML.get_doc_attr(xml_hash, @config.xml.get_doc_copyright_from) if @config.xml.get_doc_copyright_from.size != 0
+
+        doc.document_id        = document_id_from_hash(xml_hash) || doc.document_id
+        doc.title              = title_from_hash(xml_hash) || doc.title || doc.source.filename || "unknown"
+        doc.document_timestamp = timestamp_from_hash(xml_hash) || timestamp_from_doc(doc) || Time.now
+        doc.copyright          = copyright_from_hash(xml_hash)
+      end
+
+      def document_id_from_hash(xml_hash)
+        if @config.xml.get_doc_id_from && @config.xml.get_doc_id_from.size != 0
+          get_doc_attr(xml_hash, @config.xml.get_doc_id_from)
+        end
+      end
+
+      def title_from_hash(xml_hash)
+        if @config.xml.get_doc_title_from && @config.xml.get_doc_title_from.size != 0
+          get_doc_attr(xml_hash, @config.xml.get_doc_title_from)
+        end
+      end
+
+      def timestamp_from_hash(xml_hash)
+        if @config.xml.get_doc_timestamp_from && @config.xml.get_doc_timestamp_from.size != 0
+          timestamp = get_doc_attr(xml_hash, @config.xml.get_doc_timestamp_from)
+          timestamp_format = @config.xml.timestamp_format
+
+
+          if timestamp_format
+            Time.strptime(timestamp, timestamp_format)
+          else
+            Time.parse(timestamp)
+          end
+        end
+      end
+
+      def timestamp_from_doc(doc)
+        return nil unless doc.document_timestamp
+        Time.parse(doc.document_timestamp)
+      end
+
+      def copyright_from_hash(xml_hash)
+        if @config.xml.get_doc_copyright_from && @config.xml.get_doc_copyright_from.size != 0
+          get_doc_attr(xml_hash, @config.xml.get_doc_copyright_from)
+        end
       end
 
     end
