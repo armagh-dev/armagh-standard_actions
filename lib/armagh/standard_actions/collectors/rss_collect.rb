@@ -48,7 +48,7 @@ module Armagh
 
                 source = Armagh::Documents::Source.new(type: 'url', mtime: timestamp)
 
-                source.url = item[@config.rss.link_field] || @config.http.url
+                source.url = CGI.unescape_html(item[@config.rss.link_field] || @config.http.url)
                 source.encoding = type['encoding'] if type['encoding']
                 source.mime_type = type['type'] if type['type']
 

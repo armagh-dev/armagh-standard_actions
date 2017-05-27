@@ -78,6 +78,28 @@ class TestRSSCollect < Test::Unit::TestCase
     @rss_collect_action.collect
   end
 
+  def test_collect_with_html_escaped_links
+    @config_values['rss']['link_field'] = 'link'
+    @config = Armagh::StandardActions::RSSCollect.create_configuration([], 'test', @config_values)
+    @rss_collect_action = instantiate_action(Armagh::StandardActions::RSSCollect, @config)
+    html_escaped_link = 'http://www2c.cdc.gov/podcasts/download.asp?af=h&amp;f=8645217'
+    clean_link = "http://www2c.cdc.gov/podcasts/download.asp?af=h&f=8645217"
+    expected_title = 'Title'
+    expected_content = 'Expected content'
+    channel_details = {'title' => 'CHANNEL_TITLE'}
+    item_details = {'title' => expected_title, 'guid' => 'some_guid', 'link' => html_escaped_link}
+    type_details = {'type' => 'text/html', 'encoding' => 'utf-8'}
+    doc_time = Time.utc(100)
+    expected_source = Armagh::Documents::Source.new(encoding: type_details['encoding'], mime_type: type_details['type'], type: 'url', url: clean_link, mtime: doc_time)
+    state = mock
+    @rss_collect_action.expects(:with_locked_action_state).yields(state)
+    assert_create(@rss_collect_action) do |document_id, title, copyright, document_timestamp, collected, metadata, docspec_name, source|
+      assert_equal(expected_source.to_hash, source.to_hash)
+    end
+    @rss_collect_action.stubs(:collect_rss).yields(channel_details, item_details, [expected_content], type_details, doc_time, nil)
+    @rss_collect_action.collect
+  end
+
   def test_collect_without_guid_uses_id
     channel_details = {'title' => 'CHANNEL_TITLE'}
     item_details = {
