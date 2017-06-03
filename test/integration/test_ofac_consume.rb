@@ -16,7 +16,6 @@
 #
 
 require 'test/unit'
-require 'fakefs/safe'
 require 'mocha/test_unit'
 require 'bson'
 
@@ -80,7 +79,7 @@ class TestIntegrationOfacConsume < Test::Unit::TestCase
   end
 
   def teardown
-    FakeFS::FileSystem.clear
+    Dir.glob("DocType*tgz*") { |p| File.delete(p) }
   end
 
   def self.shutdown

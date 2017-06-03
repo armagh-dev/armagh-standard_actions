@@ -68,15 +68,15 @@ class TestXMLSplit < Test::Unit::TestCase
     assert new_docs[2].raw, 'chunk3'
   end
 
-  # def test_split_with_invalid_xml
-  #   doc = mock('document', metadata: {})
-  #   data = mock('bson binary')
-  #   doc.expects(:raw).returns(['not', 'xml'])
-  #   Armagh::StandardActions::XMLSplit.any_instance.expects(:edit_document).never
-  #   Armagh::StandardActions::XMLSplit.any_instance.expects(:notify_ops).at_least_once
-  #   Armagh::Support::XML::Splitter.stubs(:split).once.raises(Armagh::Support::XML::Splitter::XMLSplitError, "undefined method `split' for [\"not\", \"xml\"]:Array")
-  #   xml_splitter_action = instantiate_action(Armagh::StandardActions::XMLSplit, @config)
-  #   xml_splitter_action.split(doc)
-  # end
+  def test_split_with_invalid_xml
+    doc = mock
+    data = mock('bson binary')
+    doc.expects(:raw).returns(['not', 'xml'])
+    Armagh::StandardActions::XMLSplit.any_instance.expects(:edit_document).never
+    Armagh::StandardActions::XMLSplit.any_instance.expects(:notify_ops).at_least_once
+    Armagh::StandardActions::XMLSplit.any_instance.expects(:split_parts).once.raises(Armagh::Support::XML::Splitter::XMLTypeError) #, "XML must be a string")
+    xml_splitter_action = instantiate_action(Armagh::StandardActions::XMLSplit, @config)
+    xml_splitter_action.split(doc)
+  end
 
 end
