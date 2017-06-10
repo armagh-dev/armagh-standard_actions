@@ -28,9 +28,6 @@ class TestWordPublish < Test::Unit::TestCase
   def setup
     @word_publish_action = instantiate_action(Armagh::StandardActions::WordPublish, mock('config'))
 
-    content = {'bson_binary'=>mock('bson_binary')}
-    content['bson_binary'].stubs(:data).once
-
     source = mock('source')
     source.expects(:filename).at_least(0).returns('sample.docx')
     source.expects(:mtime).at_least(0).returns(Time.at(0))
@@ -39,12 +36,15 @@ class TestWordPublish < Test::Unit::TestCase
       document_id: 123,
       title:       nil,
       copyright:   nil,
-      content:     content,
+      content:     {},
+      raw:         nil,
       metadata:    {},
       docspec:     nil,
       source:      source,
       document_timestamp: nil
     )
+
+    @doc.stubs(:raw).once
   end
 
   def test_publish

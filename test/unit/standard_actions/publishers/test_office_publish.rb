@@ -30,13 +30,12 @@ class TestOfficePublish < Test::Unit::TestCase
     @office_publish_action.stubs(:notify_ops).never
     @office_publish_action.stubs(:notify_dev).never
 
-    content = {'bson_binary'=>mock('bson_binary')}
-    content['bson_binary'].stubs(:data).once
     @doc = {
       document_id: 0,
       title:       nil,
       copyright:   nil,
-      content:     content,
+      content:     {},
+      raw:         nil,
       metadata:    {},
       docspec:     nil,
       source:      nil,
@@ -58,6 +57,7 @@ class TestOfficePublish < Test::Unit::TestCase
     doc.merge!(document_id: 1,
                source: source)
     doc = Armagh::Documents::ActionDocument.new(doc)
+    doc.stubs(:raw).once
 
     @office_publish_action.publish(doc)
 
@@ -79,6 +79,7 @@ class TestOfficePublish < Test::Unit::TestCase
     doc.merge!(document_id: 2,
                source: source)
     doc = Armagh::Documents::ActionDocument.new(doc)
+    doc.stubs(:raw).once
 
     @office_publish_action.publish(doc)
 
@@ -100,6 +101,7 @@ class TestOfficePublish < Test::Unit::TestCase
     doc.merge!(document_id: 3,
                source: source)
     doc = Armagh::Documents::ActionDocument.new(doc)
+    doc.stubs(:raw).once
 
     @office_publish_action.publish(doc)
 
@@ -121,6 +123,7 @@ class TestOfficePublish < Test::Unit::TestCase
     doc.merge!(document_id: 4,
                source: source)
     doc = Armagh::Documents::ActionDocument.new(doc)
+    doc.stubs(:raw).once
 
     @office_publish_action.publish(doc)
 
@@ -142,6 +145,7 @@ class TestOfficePublish < Test::Unit::TestCase
     doc.merge!(document_id: 5,
                source: source)
     doc = Armagh::Documents::ActionDocument.new(doc)
+    doc.stubs(:raw).once
 
     @office_publish_action.publish(doc)
   end
@@ -159,6 +163,7 @@ class TestOfficePublish < Test::Unit::TestCase
     doc.merge!(document_id: 6,
                source: source)
     doc = Armagh::Documents::ActionDocument.new(doc)
+    doc.stubs(:raw).once
 
     @office_publish_action.publish(doc)
 
@@ -182,6 +187,7 @@ class TestOfficePublish < Test::Unit::TestCase
     doc.merge!(document_id: 7,
                source: source)
     doc = Armagh::Documents::ActionDocument.new(doc)
+    doc.stubs(:raw).once
 
     @office_publish_action.publish(doc)
 
@@ -203,6 +209,7 @@ class TestOfficePublish < Test::Unit::TestCase
     doc.merge!(document_id: 8,
                source: source)
     doc = Armagh::Documents::ActionDocument.new(doc)
+    doc.stubs(:raw).once
 
     @office_publish_action.publish(doc)
 
@@ -224,6 +231,7 @@ class TestOfficePublish < Test::Unit::TestCase
     doc.merge!(document_id: 9,
                source: source)
     doc = Armagh::Documents::ActionDocument.new(doc)
+    doc.stubs(:raw).once
 
     @office_publish_action.publish(doc)
 
@@ -245,6 +253,7 @@ class TestOfficePublish < Test::Unit::TestCase
     doc.merge!(document_id: 10,
                source: source)
     doc = Armagh::Documents::ActionDocument.new(doc)
+    doc.stubs(:raw).once
 
     @office_publish_action.publish(doc)
 
@@ -265,6 +274,7 @@ class TestOfficePublish < Test::Unit::TestCase
     doc.merge!(document_id: 11,
                source: source)
     doc = Armagh::Documents::ActionDocument.new(doc)
+    doc.stubs(:raw).once
 
     @office_publish_action.stubs(:notify_ops).once
     @office_publish_action.publish(doc)

@@ -18,7 +18,6 @@
 require 'test/unit'
 require 'fakefs/safe'
 require 'mocha/test_unit'
-require 'bson'
 
 PREFIX = ENV['ARMAGH_TAC_DOC_PREFIX']
 ENV['ARMAGH_TAC_DOC_PREFIX'] = '4025'
@@ -72,6 +71,7 @@ class TestIntegrationTacballConsume < Test::Unit::TestCase
       title:              'Halloween Parade',
       copyright:          '2016 - All Rights Reserved',
       content:            {'content' => true},
+      raw:                'raw content',
       metadata:           {'meta' => true},
       docspec:            docspec,
       source:             'chipotle',

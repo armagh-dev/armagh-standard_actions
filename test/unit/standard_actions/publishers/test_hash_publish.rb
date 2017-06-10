@@ -49,6 +49,7 @@ class TestHashPublish < Test::Unit::TestCase
       'copyright'      => "Copyright (c) 2016",
       'title'          => "Some Title"
     }
+    @raw = ''
     @metadata = {
       'copyright' => 'Some copyright notice'
     },
@@ -59,6 +60,7 @@ class TestHashPublish < Test::Unit::TestCase
     @doc = Armagh::Documents::ActionDocument.new(
       document_id:        @id,
       content:            @content,
+      raw:                @raw,
       metadata:           @metadata,
       docspec:            @draft_docspec,
       source:             @source,

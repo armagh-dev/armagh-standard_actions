@@ -17,7 +17,6 @@
 
 require 'test/unit'
 require 'mocha/test_unit'
-require 'bson'
 require 'tzinfo'
 
 require_relative '../../../../lib/armagh/standard_actions/publishers/newsml_publish'
@@ -38,7 +37,8 @@ class TestNewsmlPublish < Test::Unit::TestCase
       document_id: 'doc_id',
       title: 'title',
       copyright: 'copyright',
-      content: {'bson_binary' => BSON::Binary.new('hello world')},
+      content: {'content' => true},
+      raw: 'hello world',
       metadata: {'meta' => true},
       docspec: @config.output.docspec,
       source: 'news source',

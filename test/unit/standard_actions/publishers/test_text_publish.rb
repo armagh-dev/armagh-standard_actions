@@ -17,7 +17,6 @@
 
 require 'test/unit'
 require 'mocha/test_unit'
-require 'bson'
 
 require_relative '../../../../lib/armagh/standard_actions/publishers/text_publish'
 
@@ -36,8 +35,9 @@ class TestTextPublish < Test::Unit::TestCase
     @config = Armagh::StandardActions::TextPublish.create_configuration( [], 'text_test', @config_values )
     @text_publish_action = Armagh::StandardActions::TextPublish.new(@caller, @logger, @config, collection)
     @id = '123'
-    @content = {'bson_binary' => ''}
-    @metadata = {},
+    @content = {}
+    @raw = nil 
+    @metadata = {}
     @time = Time.now
     @source = stub('source', 'filename' => "some_file.txt",
                              'mtime'     => @time
@@ -48,6 +48,7 @@ class TestTextPublish < Test::Unit::TestCase
     @doc = Armagh::Documents::ActionDocument.new(
       document_id: @id,
       content:     @content,
+      raw:         @raw,
       metadata:    @metadata,
       docspec:     @config.output.docspec,
       source:      @source,
@@ -60,22 +61,22 @@ class TestTextPublish < Test::Unit::TestCase
   test "publish saves filename as document title" do
     expected_contents = 'hello world'
     @doc.title = nil
-    @doc.content['bson_binary'] = BSON::Binary.new(expected_contents)
+    @doc.raw = expected_contents
     @text_publish_action.publish(@doc)
     assert_equal @source.filename, @doc.title
   end
 
   test "publish saves mtime as document timestamp" do
-    expected_contents = @time
+    expected_contents = @time.to_s
     @doc.document_timestamp = nil
-    @doc.content['bson_binary'] = BSON::Binary.new(expected_contents)
+    @doc.raw = expected_contents
     @text_publish_action.publish(@doc)
     assert_equal @source.mtime, @doc.document_timestamp
   end
 
   test "publish copies draft_content to published_content" do
     expected_contents = 'hello world'
-    @doc.content['bson_binary'] = BSON::Binary.new(expected_contents)
+    @doc.raw = expected_contents
     @text_publish_action.publish(@doc)
     assert_equal expected_contents, @doc.content['text_content']
   end

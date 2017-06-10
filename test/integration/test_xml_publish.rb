@@ -20,7 +20,6 @@ require_relative '../helpers/actions_test_helper'
 
 require 'test/unit'
 require 'mocha/test_unit'
-require 'bson'
 
 require_relative '../../lib/armagh/standard_actions/publishers/xml_publish'
 
@@ -47,7 +46,8 @@ class TestIntegrationXmlPublish < Test::Unit::TestCase
       document_id: 'doc_id',
       title: 'title',
       copyright: 'copyright',
-      content: {'bson_binary' => BSON::Binary.new('hello world')},
+      content: {'content' => true},
+      raw: 'hello world',
       metadata: {'meta' => true},
       docspec: @docspec,
       source: 'news source',
@@ -57,7 +57,7 @@ class TestIntegrationXmlPublish < Test::Unit::TestCase
 
   def test_publish_sets_document_contents_and_attributes
     xml_file = 'test/fixtures/comtex_sample1.xml'
-    @doc.content['bson_binary'] = BSON::Binary.new(File.read(xml_file, mode:'rb'))
+    @doc.raw = File.read(xml_file, mode:'rb')
     expected_xml_hash = eval(File.read('test/fixtures/comtex_sample1_xml_hash.txt', mode:'rb'))
     @xml_publish_action.publish(@doc)
     assert_equal expected_xml_hash, @doc.content

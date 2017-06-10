@@ -17,7 +17,6 @@
 
 require 'test/unit'
 require 'mocha/test_unit'
-require 'bson'
 
 require_relative '../../lib/armagh/standard_actions/publishers/newsml_publish'
 
@@ -35,12 +34,14 @@ class TestIntegrationNewsmlPublish < Test::Unit::TestCase
     @config = Armagh::StandardActions::NewsmlPublish.create_configuration([], 'test', @config_values)
     @newsml_publish_action = Armagh::StandardActions::NewsmlPublish.new( @caller, @logger, @config, @collection )
     @id = '123'
-    @content = {'bson_binary' => ''}
+    @content = {'content' => true}
+    @raw = ''
     @metadata = {'meta' => true}
     @source = 'news source'
     @doc = Armagh::Documents::ActionDocument.new(
       document_id: @id,
       content: @content,
+      raw: @raw,
       metadata: @metadata,
       docspec: @config.output.docspec,
       source: @source,

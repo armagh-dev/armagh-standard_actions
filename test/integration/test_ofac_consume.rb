@@ -17,7 +17,6 @@
 
 require 'test/unit'
 require 'mocha/test_unit'
-require 'bson'
 
 PREFIX = ENV['ARMAGH_TAC_DOC_PREFIX']
 ENV['ARMAGH_TAC_DOC_PREFIX'] = '4025'
@@ -119,6 +118,7 @@ class TestIntegrationOfacConsume < Test::Unit::TestCase
       title:              'Halloween Parade',
       copyright:          '2016 - All Rights Reserved',
       content:            content,
+      raw:                nil,
       metadata:           {'meta' => true},
       docspec:            @docspec,
       source:             'chipotle',

@@ -20,7 +20,6 @@ require_relative '../../../helpers/actions_test_helper'
 
 require 'test/unit'
 require 'mocha/test_unit'
-require 'bson'
 require 'time'
 
 require_relative '../../../../lib/armagh/standard_actions/publishers/xml_publish'
@@ -50,7 +49,8 @@ class TestXmlPublish < Test::Unit::TestCase
       document_id: 'doc_id',
       title: 'title',
       copyright: 'copyright',
-      content: {'bson_binary' => BSON::Binary.new('hello world')},
+      content: {'content' => true},
+      raw: 'hello world',
       metadata: {'meta' => true},
       docspec: @docspec,
       source: 'news source',
@@ -62,7 +62,7 @@ class TestXmlPublish < Test::Unit::TestCase
     timestamp = '20161003T110900'
     Armagh::Support::XML.stubs(:get_doc_attr).with(is_a(Hash), is_a(Array)).returns('abc123', 'Breaking News', timestamp, 'Copyright Line')
     xml_file = 'test/fixtures/big_xml.xml'
-    @doc.content['bson_binary'] = BSON::Binary.new(File.read(xml_file, mode:'rb'))
+    @doc.raw = File.read(xml_file, mode:'rb')
     @xml_publish_action.publish(@doc)
     assert_equal JSON.parse(File.read("test/fixtures/ofac_xml_hash.txt")), @doc.content
   end
@@ -71,7 +71,7 @@ class TestXmlPublish < Test::Unit::TestCase
     timestamp = "2014-05-30 00:00:00"
     Armagh::Support::XML.stubs(:get_doc_attr).with(is_a(Hash), is_a(Array)).returns('abc123', 'Breaking News', timestamp, 'Copyright Line')
     xml_file = 'test/fixtures/big_xml.xml'
-    @doc.content['bson_binary'] = BSON::Binary.new(File.read(xml_file, mode:'rb'))
+    @doc.raw = File.read(xml_file, mode:'rb')
     @xml_publish_action.publish(@doc)
     assert_equal '10', @doc.document_id
     assert_equal 'ABASTECEDORA NAVAL Y INDUSTRIAL, S.A.', @doc.title

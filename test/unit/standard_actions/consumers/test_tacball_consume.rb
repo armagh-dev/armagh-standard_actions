@@ -55,6 +55,7 @@ class TestTacballConsume < Test::Unit::TestCase
       title:              'Halloween Parade',
       copyright:          '2016 - All Rights Reserved',
       content:            {'content' => true},
+      raw:                'raw content',
       metadata:           {'meta' => true},
       docspec:            docspec,
       source:             'chipotle',

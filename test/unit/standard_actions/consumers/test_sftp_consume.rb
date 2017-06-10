@@ -75,7 +75,6 @@ class TestSFTPConsume < Test::Unit::TestCase
     doc = mock_doc
 
     doc.stubs(document_id: 'document_id!/something')
-
     file_exists = false
     file_content = nil
     FakeFS do
@@ -102,6 +101,7 @@ class TestSFTPConsume < Test::Unit::TestCase
                                                 title: 'Title',
                                                 copyright: 'copyright',
                                                 content: {'content' => true},
+                                                raw: nil,
                                                 metadata: {'metadata' => false},
                                                 docspec: Armagh::Documents::DocSpec.new('DocType', Armagh::Documents::DocState::READY),
                                                 source: {},
