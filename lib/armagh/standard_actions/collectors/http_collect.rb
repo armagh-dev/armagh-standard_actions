@@ -69,6 +69,24 @@ module Armagh
           notify_ops e
         end
       end
+
+      def self.description
+        <<~DESCDOC
+          This action is a robust web retrieval tool, supporting basic- or certificate-authenticated GET/POST
+          operations, authenticated and unauthenticated proxy access, security features controlling whether redirects are
+          followed, whether https-to-http redirect is allowed, and a range of whitelist/blacklist options.
+
+          As a convenience feature, HTTPCollect can also detect teaser links to the next page of multipage articles
+          and collect them as part of one document.  You can limit the number of such pages you follow.
+
+          The deduplicate-content option under http_collect_action allows you to avoid reprocessing pages you
+          already collected, based on their raw content.
+
+          You're probably wondering how to isolate sections of content in the webpage that are of interest.  That's
+          not part of collect action, it's part of the HTMLPublish action.
+        DESCDOC
+      end
+
     end
   end
 end

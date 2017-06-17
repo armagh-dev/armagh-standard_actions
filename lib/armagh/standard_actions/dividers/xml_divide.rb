@@ -37,6 +37,20 @@ module Armagh
       private def notify_ops_of_errors(errors)
         errors.each { |e| notify_ops(e) }
       end
+
+      def self.description
+        <<~DESCDOC
+        This action will take a huge XML file and break it into smaller XML files, without mangling HTML nodes you 
+        specify. The breaking is useful when
+        you're working on XML documents that have a repeated element.
+
+        Suppose you have an XML document with an inventory.  Embedded in the inventory are many, many complex elements
+        named 'inventory_item'. Use this divider to extract the inventory_item elements from the document and write them
+        out into one or more files.  Each output file will contain as many inventory_items as can fit within the
+        maximum size_per_part byte limit you set.  Save metadata from outside the inventory_item element using the get*
+        configuration variables.
+        DESCDOC
+      end
     end
   end
 end

@@ -38,6 +38,14 @@ module Armagh
         notify_ops(e)
       end
 
+      def self.description
+        <<~DESCDOC
+        This action splits up an XML document with N repeated elements into N documents,
+        each containing an element.  You can specify the name (not XPATH!) of the repeated 
+        element.  You can also identify nodes within the repeated element that contain
+        HTML and should not be parsed.
+        DESCDOC
+      end
     end
   end
 end

@@ -75,6 +75,16 @@ module Armagh
           
         end #begin
       end
+
+      def self.description
+        <<~DESCDOC
+          This action supports authenticated or anonymous access to a remote FTP server using either the 
+          passive or active protocol. You can modify defaults for the number of documents collected at one time, and 
+          for protocol timeouts. You can make your collection more selective by specifying a directory subpath (relative 
+          to your FTP base path) or a filename pattern, e.g., *.pdf.  All successfully collected documents are 
+          deleted from the source.
+        DESCDOC
+      end
     end
   end
 end

@@ -41,6 +41,13 @@ module Armagh
         end
       end
 
+      def self.description
+        <<~DESCDOC
+        This action publishes the text from PDFs, including pre-version 1.6 (image-based) PDFs using
+        Google's tesseract library.  An HMTL
+        rendering of the PDF is also stored in the Armagh document, in the display element, as an added bonus.
+        DESCDOC
+      end
     end
   end
 end

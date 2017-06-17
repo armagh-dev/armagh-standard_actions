@@ -81,6 +81,13 @@ module Armagh
       private def sanitize_filename(filename)
         filename.gsub(/[^0-9A-z.\-]/, '_')
       end
+
+      def self.description
+        <<~DESCDOC
+        This action transfers copies of the JSON documents (content or full database image with metadata, etc) to
+        the sftp host of your choice.
+        DESCDOC
+      end
     end
   end
 end

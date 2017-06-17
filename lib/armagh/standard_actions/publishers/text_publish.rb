@@ -29,6 +29,13 @@ module Armagh
 
         doc.text = text
       end
+
+      def self.description
+        <<~DESCDOC
+        This action simply publishes the text already in the document, setting the document title and timestamp to the
+        original file's filename and mtime (if applicable).
+        DESCDOC
+      end
     end
   end
 end

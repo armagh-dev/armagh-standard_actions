@@ -41,6 +41,22 @@ module Armagh
         end
       end
 
+      def self.description
+        <<~DESCDOC
+        This action converts a Microsoft Excel&trade; (.xls, .xlsx, .xlsm, or .xlsb) file
+        to text and html equivalents.  If you have multiple types of Microsoft documents to publish,
+        consider the OfficePublish action instead.
+
+        The html version replicates spreadsheets as html tables.  Multiple sheets result in multiple tables 
+        in the document.  The text version presents the tables as padded text to maintain alignment.  The 
+        text version is stored as other published documents store text.  The html version is a bonus parallel 
+        element in the document, to make it easier to present and parse a tabular rendering of the sheet when required.
+
+        You might be wondering why tables aren't parsed into useful JSON hashes.  Take a look at 3 different excel
+        files written by 3 different people, and you'll understand the challenge in providing anything generic.  If you
+        need to maintain the semantics of an excel spreadsheet, you'll need to provide custom actions.
+        DESCDOC
+      end
     end
   end
 end

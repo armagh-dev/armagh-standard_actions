@@ -92,6 +92,15 @@ module Armagh
         end
       end
 
+      def self.description
+        <<~DESCDOC
+        This action is your utility player for files you've picked up off a shared drive
+        or a site with lots of file types.  It supports translation of Microsoft Excel&trade;
+        (.xls, .xlsx, .xlsm, or .xlsb) files, Microsoft Powerpoint&trade; (.ppt, .pptx, .pptm,
+        .ppsx, .ppsm, .sldx, or .sldm) files, Microsoft Word&trade; (.doc, .docx, or .docm) files,
+        and .pdf files.  It also supports webpages of the corresponding MIME types.</p>
+        DESCDOC
+      end
     end
   end
 end

@@ -17,11 +17,13 @@
 
 require 'armagh/actions/publish'
 require 'armagh/support/xml'
+require 'armagh/support/time_parser'
 
 module Armagh
   module StandardActions
     class XmlPublish < Armagh::Actions::Publish
       include Armagh::Support::XML
+      include Armagh::Support::TimeParser
 
       def publish(doc)
         xml = doc.raw
@@ -49,20 +51,13 @@ module Armagh
       def timestamp_from_hash(xml_hash)
         if @config.xml.get_doc_timestamp_from && @config.xml.get_doc_timestamp_from.size != 0
           timestamp = get_doc_attr(xml_hash, @config.xml.get_doc_timestamp_from)
-          timestamp_format = @config.xml.timestamp_format
-
-
-          if timestamp_format
-            Time.strptime(timestamp, timestamp_format)
-          else
-            Time.parse(timestamp)
-          end
+          parse_time(timestamp, @config)
         end
       end
 
       def timestamp_from_doc(doc)
         return nil unless doc.document_timestamp
-        Time.parse(doc.document_timestamp)
+        parse_time(doc.document_timestamp, @config)
       end
 
       def copyright_from_hash(xml_hash)
@@ -71,6 +66,11 @@ module Armagh
         end
       end
 
+      def self.description
+        <<~DESCDOC
+        This action converts XML into a parallel JSON format and stores it as the published content of the document.
+        DESCDOC
+      end
     end
   end
 end

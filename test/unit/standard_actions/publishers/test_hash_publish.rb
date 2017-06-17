@@ -30,7 +30,7 @@ class TestHashPublish < Test::Unit::TestCase
     @config_values = {
       'input'  => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::READY ) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::PUBLISHED) },
-      'hash_publish_action' => {
+      'hash_publish' => {
         'id_field'  => ["account_number"],
         'timestamp' => ["timestamp"],
         'copyright' => ["copyright"],
@@ -38,7 +38,7 @@ class TestHashPublish < Test::Unit::TestCase
       }
     }
     @config = Armagh::StandardActions::HashPublish.create_configuration( [], 'hash_test', @config_values )
-    @hash_publish_action = Armagh::StandardActions::HashPublish.new(@caller, @logger, @config, collection)
+    @hash_publish = Armagh::StandardActions::HashPublish.new(@caller, @logger, @config, collection)
     @time = Time.now
     @content = {
       'account_number' => '101',
@@ -71,11 +71,11 @@ class TestHashPublish < Test::Unit::TestCase
   end
 
   test "publish sets document attributes" do
-    id_field = @config.hash_publish_action.id_field.map(&:strip).join(",")
-    title = @config.hash_publish_action.title.map(&:strip).join(",")
-    copyright = @config.hash_publish_action.copyright.map(&:strip).join(",")
+    id_field = @config.hash_publish.id_field.map(&:strip).join(",")
+    title = @config.hash_publish.title.map(&:strip).join(",")
+    copyright = @config.hash_publish.copyright.map(&:strip).join(",")
 
-    @hash_publish_action.publish(@doc)
+    @hash_publish.publish(@doc)
 
     assert_equal @doc.content[id_field],  @doc.document_id
     assert_equal @doc.content[title],     @doc.title

@@ -38,6 +38,18 @@ module Armagh
       rescue => e
         notify_dev(e)
       end
+
+      def self.description
+        <<~DESCDOC
+         This action pulls text content out of a webpage, using the w3m utility.  Tags, 
+         images, scripts, and style sections are removed.  
+
+         You can limit the section of the page you want to keep through the exclude_before, exclude_after and 
+         exclude html options. Patterns are applied to content before it's passed to w3m, so your patterns can include HTML tags.
+
+         Note! CDATA tag content will always be included in the text output. The ignore_cdata option allows you to remove the CDATA directives from your output.
+        DESCDOC
+      end
     end
   end
 end

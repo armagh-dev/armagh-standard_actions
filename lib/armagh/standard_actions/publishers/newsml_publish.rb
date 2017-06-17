@@ -79,6 +79,15 @@ module Armagh
         doc.metadata['source'] = dig_first(data_content, 'body', 'body_head', 'distributor').strip
         doc.text = html_to_text(dig_first(data_content, 'body', 'body_content'), @config).strip
       end
+
+      def self.description
+        <<~DESCDOC
+         NewsML is an International Press Telecommunication Council (IPTC) open standard
+         used by a number of news publishers and aggregators to disseminate
+         articles.  This action handles such feeds for you, pulling title, publish date,
+         copyright and documentID from appropriate fields in the content.
+        DESCDOC
+      end
     end
   end
 end

@@ -90,6 +90,16 @@ module Armagh
 
         log_info "Collected #{docs_collected} documents from '#{@config.http.url}'"
       end
+
+      def self.description
+        <<~DESCDOC
+        This action extends the behavior of the HTTPCollect action to pull individual items from an RSS
+        feed as separate documents.  All the configurables available for HTTPCollect are available here.  
+
+        This action does its best to eliminate redundant collections from an RSS feed; you only want the new items.
+        That deduplication is based on the timestamp of the items; for other behavior, create a custom collector.
+        DESCDOC
+      end
     end
   end
 end

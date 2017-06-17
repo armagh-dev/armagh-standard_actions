@@ -43,6 +43,14 @@ module Armagh
           doc.raw = row
         end
       end
+
+      def self.description
+        <<~DESCDOC
+        This action takes a CSV file and creates a new document for each row.  The document is a hash, where
+        the keys are from the header and the values are from the row.  If there is no header row,
+        you can specify the separators if they're non-standard.
+        DESCDOC
+      end
     end
   end
 end

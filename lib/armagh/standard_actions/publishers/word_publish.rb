@@ -41,6 +41,13 @@ module Armagh
         end
       end
 
+      def self.description
+        <<~DESCDOC
+        This action extracts the text from Microsoft Word&trade; (.doc, .docx, and .docm) files,
+        preserving the original formatting as much as possible.  If you have multiple types of Microsoft documents to publish,
+        consider the OfficePublish action instead.
+        DESCDOC
+      end
     end
   end
 end

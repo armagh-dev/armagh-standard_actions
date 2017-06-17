@@ -49,6 +49,11 @@ module Armagh
         doc.content.dig("sdnList", "sdnEntry", "sdnType").downcase
       end
 
+      def self.description
+        <<~DESCDOC
+          This action generates tacballs from OFAC records pulled into Armagh.
+        DESCDOC
+      end
 
     end
   end

@@ -64,6 +64,12 @@ module Armagh
         )
       end
 
+      def self.description
+        <<~DESCDOC
+        This action generates tacballs from documents.  The publish action in the workflow is
+        responsible for correctly preparing the searchable and displayable text.
+        DESCDOC
+      end
 
     end
   end

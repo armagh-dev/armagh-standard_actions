@@ -58,6 +58,16 @@ module Armagh
           notify_ops e
         end
       end
+
+      def self.description
+        <<~DESCDOC
+        This action supports SSH-authenticated access to a remote SFTP server. You can modify defaults
+        for the number of documents collected at one time, and
+        for protocol timeouts. You can make your collection more selective by specifying a directory subpath (relative
+        to your SFTP base path) or a filename pattern, e.g., *.pdf.  All successfully collected documents are
+        deleted from the source.
+        DESCDOC
+      end
     end
   end
 end

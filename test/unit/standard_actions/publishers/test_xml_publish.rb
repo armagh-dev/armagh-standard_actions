@@ -37,9 +37,11 @@ class TestXmlPublish < Test::Unit::TestCase
         "get_doc_id_from" => ['sdnList', 'sdnEntry', 'uid'],
         "get_doc_title_from" => ['sdnList', 'sdnEntry', 'lastName'],
         "get_doc_timestamp_from" => ['sdnList', 'publshInformation', 'Publish_Date'],
-        "timestamp_format" => "%m/%d/%Y",
         'get_doc_copyright_from' => ['here', 'is', 'copyright'],
         'html_nodes' => ['node1', 'node2']
+      },
+      "time_parser" => {
+        "time_format" => "%m/%d/%Y",
       }
     }
     @config = Armagh::StandardActions::XmlPublish.create_configuration([], 'xml_test', @config_values)
@@ -75,7 +77,7 @@ class TestXmlPublish < Test::Unit::TestCase
     @xml_publish_action.publish(@doc)
     assert_equal '10', @doc.document_id
     assert_equal 'ABASTECEDORA NAVAL Y INDUSTRIAL, S.A.', @doc.title
-    assert_equal Time.parse(timestamp), @doc.document_timestamp
+    assert_equal Time.parse("#{timestamp} UTC"), @doc.document_timestamp
     assert_equal nil, @doc.copyright
   end
 end

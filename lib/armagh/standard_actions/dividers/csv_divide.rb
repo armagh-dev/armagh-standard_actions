@@ -29,6 +29,14 @@ module Armagh
           create(part, {})
         end
       end
+
+      def self.description
+        <<~DESCDOC
+        This action will take a huge CSV file and break it into smaller CSV files.  Headers are preserved
+        in each smaller file.  You can configure CSV format parameters, and specify the approximate maximum size of
+        a smaller file.  The action will find the closest record delimiter ("row_sep") to your maximum size and break the file there.
+        DESCDOC
+      end
     end
   end
 end

@@ -26,39 +26,39 @@ module Armagh
                        prompt:      'A field found by traversing the content hash, e.g. ["account_number"]',
                        type:        'string_array',
                        required:    false,
-                       group:       'hash_publish_action'
+                       group:       'hash_publish'
 
       define_parameter name:        'timestamp',
                        description: 'Field to use for document timestamp',
                        prompt:      'A field found by traversing the content hash, e.g. ["saved_at"]',
                        type:        'string_array',
                        required:    false,
-                       group:       'hash_publish_action'
+                       group:       'hash_publish'
 
       define_parameter name:        'copyright',
                        description: 'Field to use for document copyright',
                        prompt:      'A field found by traversing the content hash, e.g. ["copyright_notice"]',
                        type:        'string_array',
                        required:    false,
-                       group:       'hash_publish_action'
+                       group:       'hash_publish'
 
       define_parameter name:        'title',
                        description: 'Field to use for document title',
                        prompt:      'A field found by traversing the content hash, e.g. ["filename"]',
                        type:        'string_array',
                        required:    false,
-                       group:       'hash_publish_action'
+                       group:       'hash_publish'
 
       def publish(doc)
-        id_field        = format_field(@config.hash_publish_action.id_field)
-        timestamp_field = format_field(@config.hash_publish_action.timestamp)
-        copyright_field = format_field(@config.hash_publish_action.copyright)
-        title_field     = format_field(@config.hash_publish_action.title)
+        id_field        = format_field(@config.hash_publish.id_field)
+        timestamp_field = format_field(@config.hash_publish.timestamp)
+        copyright_field = format_field(@config.hash_publish.copyright)
+        title_field     = format_field(@config.hash_publish.title)
 
         if id_field
-          id =  doc.content.dig(id_field)
+          id = doc.content.dig(id_field)
         else
-          # KN: what's our fallback for id_field?
+          id = doc.document_id
         end
 
         if timestamp_field
@@ -90,7 +90,15 @@ module Armagh
         field.map(&:strip).join(",")
       end
 
+      def self.description
+        <<~DESCDOC
+        This action lets you define the elements that will provide the document ID, title, timestamp,
+        and copyright for the document being published.
 
+        If an element you're after is nested, you can specify the path to the element part by part. For example,
+        if the document ID should come from hash['account']['number'], specify account then number in the interface.
+        DESCDOC
+      end
     end
   end
 end

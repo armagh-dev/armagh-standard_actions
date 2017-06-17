@@ -41,6 +41,13 @@ module Armagh
         end
       end
 
+      def self.description
+        <<~DESCDOC
+        This action publishes the text from Microsoft Powerpoint&trade; (.ppt, .pptx, .pptm, .pptb,
+        .ppsm, .ppsx, .sldx, or .sldm) files.  If you have multiple types of Microsoft documents to publish,
+        consider the OfficePublish action instead.
+        DESCDOC
+      end
     end
   end
 end
