@@ -50,6 +50,8 @@ class TestTacballConsume < Test::Unit::TestCase
     @tacball_consume_action = instantiate_action(Armagh::StandardActions::TacballConsume, @tacball_config)
     @tacball_consume_action.stubs(:logger)
     docspec = Armagh::Documents::DocSpec.new('DocType', Armagh::Documents::DocState::READY)
+    docsource = Armagh::Documents::Source.new(type: 'file', filename: 'orig-source-file')
+
     @doc = Armagh::Documents::ActionDocument.new(
       document_id:        'dd123',
       title:              'Halloween Parade',
@@ -58,11 +60,12 @@ class TestTacballConsume < Test::Unit::TestCase
       raw:                'raw content',
       metadata:           {'meta' => true},
       docspec:            docspec,
-      source:             'chipotle',
+      source:             docsource,
       document_timestamp: 1451696523,
       display:            'The school parade was fun'
     )
     @doc.text = 'This is a text file'
+    @expected_tacball_filename = 'DocType-dd123.tgz.1451696523.160102'
   end
 
   def teardown
@@ -90,14 +93,14 @@ class TestTacballConsume < Test::Unit::TestCase
       'tacball_consume' => {
         'host' => 'test.url',
         'path' => 'test_dir',
-        'filename' => 'DocType-dd123.tgz.1451696523.160102'
+        'filename' => @expected_tacball_filename
       }
     }
     @sftp.expects(:put_file).at_least(0)
     file_exists = false
     FakeFS do
       @tacball_consume_action.consume(@doc)
-      file_exists = File.file?('DocType-dd123.tgz.1451696523.160102')
+      file_exists = File.file?(@expected_tacball_filename)
     end
     assert_true file_exists
     @doc.metadata['tacball_consume'].delete('timestamp')
@@ -105,6 +108,7 @@ class TestTacballConsume < Test::Unit::TestCase
   end
 
   def test_consume_with_type_specified
+    @expected_tacball_filename.sub!('DocType',  'DocumentType')
     @tacball_config_values['tacball']['type'] = 'DocumentType'
     config = Armagh::StandardActions::TacballConsume.create_configuration([], 'test', @tacball_config_values)
     tacball_consume_action = instantiate_action(Armagh::StandardActions::TacballConsume, config)
@@ -115,14 +119,14 @@ class TestTacballConsume < Test::Unit::TestCase
       'tacball_consume' => {
         'host' => 'test.url',
         'path' => 'test_dir',
-        'filename' => 'DocumentType-dd123.tgz.1451696523.160102'
+        'filename' => @expected_tacball_filename
       }
     }
     @sftp.expects(:put_file).at_least(0)
     file_exists = false
     FakeFS do
       tacball_consume_action.consume(@doc)
-      file_exists = File.file?('DocumentType-dd123.tgz.1451696523.160102')
+      file_exists = File.file?(@expected_tacball_filename)
     end
     assert_true file_exists
     @doc.metadata['tacball_consume'].delete('timestamp')
@@ -151,5 +155,58 @@ class TestTacballConsume < Test::Unit::TestCase
       FileUtils.touch('/DocType.')
       @tacball_consume_action.consume(@doc)
     }
+  end
+
+  def reset_for_attach
+    @tacball_config_values['tacball']['attach_orig_file'] = true
+    @tacball_config = Armagh::StandardActions::TacballConsume.create_configuration([], 'test', @tacball_config_values)
+    @tacball_consume_action = instantiate_action(Armagh::StandardActions::TacballConsume, @tacball_config)
+    @tacball_consume_action.stubs(:logger)
+    Armagh::Actions::Loggable.expects(:logger).at_least(0)
+    @sftp.expects(:put_file).at_least(0)
+  end
+
+  def test_consume_attach_orig
+    reset_for_attach
+    tacball_file_exists = false
+    orig_content = nil
+    FakeFS do
+      @tacball_consume_action.consume(@doc)
+      tacball_file_exists = File.file?(@expected_tacball_filename)
+      if tacball_file_exists
+        tgz_str = StringIO.new(File.read(@expected_tacball_filename))
+        tgz = Gem::Package::TarReader.new(Zlib::GzipReader.new(tgz_str))
+        tgz.rewind
+        tgz.seek(@doc.source.filename) { |entry| orig_content = entry.read }
+        tgz.close
+      end
+    end
+    assert_true tacball_file_exists
+    assert_equal @doc.raw, orig_content
+  end
+
+  def test_consume_attach_orig_no_filename
+    reset_for_attach
+    @doc.source.filename = nil
+    @doc.source.type = 'url'
+    tacball_file_exists = false
+    orig_content = nil
+    FakeFS do
+      @tacball_consume_action.consume(@doc)
+      tacball_file_exists = File.file?(@expected_tacball_filename)
+      if tacball_file_exists
+        tgz_str = StringIO.new(File.read(@expected_tacball_filename))
+        tgz = Gem::Package::TarReader.new(Zlib::GzipReader.new(tgz_str))
+        tgz.rewind
+        i = 0
+        tgz.each do |entry|
+          next if (i += 1) < 4  # fourth file is the original file
+          orig_content = entry.read
+        end
+        tgz.close
+      end
+    end
+    assert_true tacball_file_exists
+    assert_equal @doc.raw, orig_content
   end
 end

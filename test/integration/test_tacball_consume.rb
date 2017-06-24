@@ -66,6 +66,7 @@ class TestIntegrationTacballConsume < Test::Unit::TestCase
     @tacball_consume_action = instantiate_action(Armagh::StandardActions::TacballConsume, @config)
     @tacball_consume_action.stubs(:logger).once
     docspec = Armagh::Documents::DocSpec.new('DocType', Armagh::Documents::DocState::PUBLISHED)
+    docsource = Armagh::Documents::Source.new(type: 'file', filename: 'orig-source-file')
     @doc = Armagh::Documents::ActionDocument.new(
       document_id:        'dd123',
       title:              'Halloween Parade',
@@ -74,7 +75,7 @@ class TestIntegrationTacballConsume < Test::Unit::TestCase
       raw:                'raw content',
       metadata:           {'meta' => true},
       docspec:            docspec,
-      source:             'chipotle',
+      source:             docsource,
       document_timestamp: 1451696523,
       display:            'The school parade was fun'
     )

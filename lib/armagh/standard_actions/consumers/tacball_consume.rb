@@ -46,21 +46,29 @@ module Armagh
       rescue Support::SFTP::SFTPError => e
         notify_ops(e)
       rescue => e
-        puts e.inspect
         notify_dev(e)
       end
 
       def filename_from_doc(doc)
+        orig_file =
+          if @config.tacball.attach_orig_file
+            fname = doc.source.filename
+            fname = random_id if fname.nil? || fname.empty?
+            { fname => doc.raw }
+          else
+            nil
+          end
         Armagh::Support::Tacball.create_tacball_file(
           @config,
-          docid:        doc.document_id,
-          title:        doc.title,
-          timestamp:    doc.document_timestamp.to_i,
-          txt_content:  doc.text,
-          copyright:    doc.copyright,
-          html_content: doc.display,
-          type:         doc.docspec.type,
-          logger:       logger
+          docid:         doc.document_id,
+          title:         doc.title,
+          timestamp:     doc.document_timestamp.to_i,
+          txt_content:   doc.text,
+          copyright:     doc.copyright,
+          html_content:  doc.display,
+          type:          doc.docspec.type,
+          original_file: orig_file,
+          logger:        logger
         )
       end
 
