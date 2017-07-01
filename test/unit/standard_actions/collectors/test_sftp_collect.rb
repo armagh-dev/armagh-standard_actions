@@ -45,6 +45,7 @@ class TestSFTPCollect < Test::Unit::TestCase
 
     @sftp = mock('sftp')
     Armagh::Support::SFTP::Connection.stubs(:open).yields(@sftp)
+    Armagh::Support::SFTP.stubs(:test_connection)
     @config = Armagh::StandardActions::SFTPCollect.create_configuration( [], 'test', @config_values )
     @sftp_collect_action = instantiate_action(Armagh::StandardActions::SFTPCollect, @config )
   end

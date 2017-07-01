@@ -41,6 +41,7 @@ class TestFTPCollect < Test::Unit::TestCase
     @ftp = mock('ftp')
 #    @ftp.expects( 'write_and_delete_test_file' ).at_least_once 
     Armagh::Support::FTP::Connection.stubs(:open).yields(@ftp)
+    Armagh::Support::FTP.stubs(:ftp_validation)
     @config = Armagh::StandardActions::FTPCollect.create_configuration( [], 'test', @config_values )
     @ftp_collect_action = instantiate_action(Armagh::StandardActions::FTPCollect, @config )
   end

@@ -46,6 +46,7 @@ class TestTacballConsume < Test::Unit::TestCase
     }
     @sftp = mock('sftp')
     Armagh::Support::SFTP::Connection.stubs(:open).yields(@sftp)
+    Armagh::Support::SFTP.stubs(:test_connection)
     @tacball_config = Armagh::StandardActions::TacballConsume.create_configuration([], 'test', @tacball_config_values)
     @tacball_consume_action = instantiate_action(Armagh::StandardActions::TacballConsume, @tacball_config)
     @tacball_consume_action.stubs(:logger)
