@@ -15,13 +15,37 @@
 # limitations under the License.
 #
 
-require_relative './tacball_consume'
-require_relative '../templatable'
+require 'armagh/actions'
+require 'armagh/support/sftp'
+require 'armagh/support/tacball'
+require 'armagh/support/templating'
 
 module Armagh
   module StandardActions
-    class OfacConsume < TacballConsume
-      include Templatable
+    class OfacConsume < Actions::Consume
+      include Armagh::Support::SFTP
+      include Armagh::Support::Tacball
+      include Armagh::Support::Templating
+
+      def consume(doc)
+
+        filename = filename_from_doc(doc)
+
+        Support::SFTP::Connection.open(@config) do |sftp|
+          sftp.put_file(filename, @config.tacball.feed)
+        end
+        log_debug "Transferred #{filename}"
+        doc.metadata['tacball_consume'] = {
+          'timestamp' => Time.now.utc,
+          'host' => @config.sftp.host,
+          'path' => @config.sftp.directory_path,
+          'filename' => filename
+        }
+      rescue Support::SFTP::SFTPError => e
+        notify_ops(e)
+      rescue => e
+        notify_dev(e)
+      end
 
       def filename_from_doc(doc)
         Armagh::Support::Tacball.create_tacball_file(
@@ -36,7 +60,11 @@ module Armagh
         )
       end
 
-      def template_path(doc)
+      private def template_content(doc)
+        render_template(template_path(doc), :text, entity: doc.content)
+      end
+
+      private def template_path(doc)
         entity_type = node_type(doc)
         File.join(template_root, "#{entity_type}_template.erubis")
       end
@@ -54,7 +82,6 @@ module Armagh
           This action generates tacballs from OFAC records pulled into Armagh.
         DESCDOC
       end
-
     end
   end
 end

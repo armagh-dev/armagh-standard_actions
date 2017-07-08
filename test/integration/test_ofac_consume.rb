@@ -216,17 +216,4 @@ class TestIntegrationOfacConsume < Test::Unit::TestCase
     assert_equal text_content, expected_text_content
   end
 
-  test "#template_path when @node_type is set" do
-    doc = doc_with_content(@entity_content)
-    @ofac_consume.instance_variable_set(:@node_type, "vessel")
-    template_file_name = File.basename @ofac_consume.template_path(doc)
-    assert_equal template_file_name, "vessel_template.erubis"
-  end
-
-  test "#template_path when @node_type is not set" do
-    doc = doc_with_content(@entity_content)
-    template_file_name = File.basename @ofac_consume.template_path(doc)
-    assert_equal template_file_name, "entity_template.erubis"
-  end
-
 end
