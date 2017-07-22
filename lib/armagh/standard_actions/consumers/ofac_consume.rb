@@ -73,6 +73,15 @@ module Armagh
         @node_type ||= get_node_type_from_doc(doc)
       end
 
+      private def template_root
+        armagh_path = File.join(File.expand_path("../../..", __FILE__))
+        File.join(armagh_path, "templates", workflow_name)
+      end
+
+      def partials_root
+        File.join(template_root, "partials")
+      end
+
       private def get_node_type_from_doc(doc)
         doc.content.dig("sdnList", "sdnEntry", "sdnType").downcase
       end
