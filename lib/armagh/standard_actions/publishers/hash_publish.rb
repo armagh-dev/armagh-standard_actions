@@ -50,32 +50,32 @@ module Armagh
                        group:       'hash_publish'
 
       def publish(doc)
-        id_field        = format_field(@config.hash_publish.id_field)
-        timestamp_field = format_field(@config.hash_publish.timestamp)
-        copyright_field = format_field(@config.hash_publish.copyright)
-        title_field     = format_field(@config.hash_publish.title)
+        id_field        = @config.hash_publish.id_field
+        timestamp_field = @config.hash_publish.timestamp
+        copyright_field = @config.hash_publish.copyright
+        title_field     = @config.hash_publish.title
 
         if id_field
-          id = doc.content.dig(id_field)
+          id = doc.content.dig(*id_field)
         else
           id = doc.document_id
         end
 
         if timestamp_field
-          timestamp =  doc.content.dig(timestamp_field)
+          timestamp =  doc.content.dig(*timestamp_field)
         else
           timestamp = doc.source.mtime
         end
 
         if copyright_field
-          copyright =  doc.content.dig(copyright_field)
+          copyright =  doc.content.dig(*copyright_field)
         else
           doc_metadata = doc.metadata.first
           copyright = doc_metadata['copyright']
         end
 
         if title_field
-          title =  doc.content.dig(title_field)
+          title =  doc.content.dig(*title_field)
         else
           title = doc.source.filename
         end
@@ -84,10 +84,6 @@ module Armagh
         doc.title              = title
         doc.copyright          = copyright
         doc.document_timestamp = timestamp
-      end
-
-      private def format_field(field)
-        field.map(&:strip).join(",")
       end
 
       def self.description

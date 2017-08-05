@@ -33,11 +33,13 @@ class TestXmlPublish < Test::Unit::TestCase
     @config_values = {
       'input' => { 'docspec' => Armagh::Documents::DocSpec.new('dans_in', Armagh::Documents::DocState::READY) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new('dans_in', Armagh::Documents::DocState::PUBLISHED) },
-      'xml' => {
+      'xml_publish' => {
         "get_doc_id_from" => ['sdnList', 'sdnEntry', 'uid'],
         "get_doc_title_from" => ['sdnList', 'sdnEntry', 'lastName'],
         "get_doc_timestamp_from" => ['sdnList', 'publshInformation', 'Publish_Date'],
         'get_doc_copyright_from' => ['here', 'is', 'copyright'],
+      },
+      'xml' => {
         'html_nodes' => ['node1', 'node2']
       },
       "time_parser" => {
@@ -56,7 +58,7 @@ class TestXmlPublish < Test::Unit::TestCase
       metadata: {'meta' => true},
       docspec: @docspec,
       source: 'news source',
-      document_timestamp: Time.now
+      document_timestamp: Time.now.to_s
     )
   end
 

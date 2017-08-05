@@ -25,6 +25,36 @@ module Armagh
       include Armagh::Support::XML
       include Armagh::Support::TimeParser
 
+      define_parameter name: 'get_doc_id_from',
+                       description: 'XML field/s that contain document ID',
+                       type: 'string_array',
+                       required: false,
+                       group: 'xml_publish'
+
+      define_parameter name: 'get_doc_title_from',
+                       description: 'XML field/s that contain document title',
+                       type: 'string_array',
+                       required: false,
+                       group: 'xml_publish'
+
+      define_parameter name: 'get_doc_timestamp_from',
+                       description: 'XML field/s that contain document timestamp',
+                       type: 'string_array',
+                       required: false,
+                       group: 'xml_publish'
+
+      define_parameter name: 'timestamp_format',
+                       description: 'Format for XML field/s that contain document timestamp',
+                       type: 'string',
+                       required: false,
+                       group: 'xml_publish'
+
+      define_parameter name: 'get_doc_copyright_from',
+                       description: 'XML field/s that contain document copyrights',
+                       type: 'string_array',
+                       required: false,
+                       group: 'xml_publish'
+
       def publish(doc)
         xml = doc.raw
         xml_hash = to_hash(xml, @config.xml.html_nodes)
@@ -37,20 +67,20 @@ module Armagh
       end
 
       def document_id_from_hash(xml_hash)
-        if @config.xml.get_doc_id_from && @config.xml.get_doc_id_from.size != 0
-          get_doc_attr(xml_hash, @config.xml.get_doc_id_from)
+        if @config.xml_publish.get_doc_id_from && @config.xml_publish.get_doc_id_from.size != 0
+          get_doc_attr(xml_hash, @config.xml_publish.get_doc_id_from)
         end
       end
 
       def title_from_hash(xml_hash)
-        if @config.xml.get_doc_title_from && @config.xml.get_doc_title_from.size != 0
-          get_doc_attr(xml_hash, @config.xml.get_doc_title_from)
+        if @config.xml_publish.get_doc_title_from && @config.xml_publish.get_doc_title_from.size != 0
+          get_doc_attr(xml_hash, @config.xml_publish.get_doc_title_from)
         end
       end
 
       def timestamp_from_hash(xml_hash)
-        if @config.xml.get_doc_timestamp_from && @config.xml.get_doc_timestamp_from.size != 0
-          timestamp = get_doc_attr(xml_hash, @config.xml.get_doc_timestamp_from)
+        if @config.xml_publish.get_doc_timestamp_from && @config.xml_publish.get_doc_timestamp_from.size != 0
+          timestamp = get_doc_attr(xml_hash, @config.xml_publish.get_doc_timestamp_from)
           parse_time(timestamp, @config)
         end
       end
@@ -61,8 +91,8 @@ module Armagh
       end
 
       def copyright_from_hash(xml_hash)
-        if @config.xml.get_doc_copyright_from && @config.xml.get_doc_copyright_from.size != 0
-          get_doc_attr(xml_hash, @config.xml.get_doc_copyright_from)
+        if @config.xml_publish.get_doc_copyright_from && @config.xml_publish.get_doc_copyright_from.size != 0
+          get_doc_attr(xml_hash, @config.xml_publish.get_doc_copyright_from)
         end
       end
 

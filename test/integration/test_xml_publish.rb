@@ -31,11 +31,13 @@ class TestIntegrationXmlPublish < Test::Unit::TestCase
     @config_values = {
       'input' => { 'docspec' => Armagh::Documents::DocSpec.new('dans_in', Armagh::Documents::DocState::READY) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new('dans_in', Armagh::Documents::DocState::PUBLISHED) },
-      'xml' => {
+      'xml_publish' => {
         'get_doc_id_from' => ['NewsML', 'NewsItem', 'Identification', 'NewsIdentifier', 'NewsItemId'],
         'get_doc_title_from' => ['NewsML', 'NewsItem', 'NewsComponent', 'NewsLines', 'HeadLine'],
         'get_doc_timestamp_from' => ['NewsML', 'NewsItem', 'NewsManagement', 'FirstCreated'],
         'get_doc_copyright_from' => ['NewsML', 'NewsItem', 'NewsComponent', 'NewsLines', 'CopyrightLine'],
+      },
+      'xml' => {
         'html_nodes' => ['body.content']
       }
     }
@@ -51,7 +53,7 @@ class TestIntegrationXmlPublish < Test::Unit::TestCase
       metadata: {'meta' => true},
       docspec: @docspec,
       source: 'news source',
-      document_timestamp: Time.now
+      document_timestamp: Time.now.to_s
     )
   end
 

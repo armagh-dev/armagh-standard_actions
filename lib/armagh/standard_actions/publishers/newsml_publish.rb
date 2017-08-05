@@ -39,13 +39,13 @@ module Armagh
       def publish(doc)
         xml = doc.raw
         xml_hash = to_hash(xml, @config.xml.html_nodes)
-        news_item = dig_first(xml_hash, 'NewsML', 'NewsItem')
-        doc.document_id = dig_first(news_item, 'Identification', 'NewsIdentifier', 'NewsItemId').strip
+        news_item = get_doc_attr(xml_hash, ['NewsML', 'NewsItem'])
+        doc.document_id = get_doc_attr(news_item, ['Identification', 'NewsIdentifier', 'NewsItemId']).strip
 
         # Comtex does not follow the NewsML standard for timestamp encoding (ISO-8601, which gives zone offset)
         # Instead they use YYYYMMDDTHHMMSS, local to New York.
         begin
-          ts_str = dig_first( news_item, 'NewsManagement', 'ThisRevisionCreated' ) || dig_first( news_item, 'NewsManagement', 'FirstCreated' )
+          ts_str = get_doc_attr( news_item, ['NewsManagement', 'ThisRevisionCreated'] ) || get_doc_attr( news_item, ['NewsManagement', 'FirstCreated'] )
           if ts_str
             ny_tz = TZInfo::Timezone.get('America/New_York').period_for_local( Time.parse(ts_str)).zone_identifier
             ny_tz_offset = (ny_tz == :EST) ? '-0500' : '-0400'
@@ -58,14 +58,14 @@ module Armagh
           notify_ops('Timestamp empty or not valid')
         end
 
-        raw_title = dig_first(news_item, 'NewsComponent', 'NewsLines', 'HeadLine').strip
+        raw_title = get_doc_attr(news_item, ['NewsComponent', 'NewsLines', 'HeadLine']).strip
         doc.title = raw_title.empty? ? "Unknown Title: #{doc.document_id}" : html_to_text(raw_title, @config)
 
-        raw_copyright = dig_first(news_item, 'NewsComponent', 'NewsLines', 'CopyrightLine').strip
+        raw_copyright = get_doc_attr(news_item, ['NewsComponent', 'NewsLines', 'CopyrightLine']).strip
         doc.copyright = raw_copyright.empty? ? raw_copyright : html_to_text(raw_copyright, @config)
 
-        admin_metadata = dig_first(news_item, 'NewsComponent', 'AdministrativeMetadata')
-        admin_metadata_property = dig_first(admin_metadata, 'Property')
+        admin_metadata = get_doc_attr(news_item, ['NewsComponent', 'AdministrativeMetadata'])
+        admin_metadata_property = get_doc_attr(admin_metadata, ['Property'])
         property_array = admin_metadata_property.is_a?(Array) ? admin_metadata_property : [admin_metadata_property]
         property_array.each do |elem|
           if elem['attr_FormalName'] == 'SourceCode'
@@ -73,11 +73,11 @@ module Armagh
             break
           end
         end
-        desc_metadata = dig_first(news_item, 'NewsComponent', 'DescriptiveMetadata')
-        doc.metadata['language'] = dig_first(desc_metadata, 'Language', 'attr_FormalName')
-        data_content = dig_first(news_item, 'NewsComponent', 'ContentItem', 'DataContent')
-        doc.metadata['source'] = dig_first(data_content, 'body', 'body_head', 'distributor').strip
-        doc.text = html_to_text(dig_first(data_content, 'body', 'body_content'), @config).strip
+        desc_metadata = get_doc_attr(news_item, ['NewsComponent', 'DescriptiveMetadata'])
+        doc.metadata['language'] = get_doc_attr(desc_metadata, ['Language', 'attr_FormalName'])
+        data_content = get_doc_attr(news_item, ['NewsComponent', 'ContentItem', 'DataContent'])
+        doc.metadata['source'] = get_doc_attr(data_content, ['body', 'body_head', 'distributor']).strip
+        doc.text = html_to_text(get_doc_attr(data_content, ['body', 'body_content']), @config).strip
       end
 
       def self.description
