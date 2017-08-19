@@ -28,8 +28,6 @@ module Armagh
       class TacballConsumeError < StandardError; end
       class TACDocPrefixError < TacballConsumeError; end
 
-      raise TACDocPrefixError, 'The environment variable ARMAGH_TAC_DOC_PREFIX is not set but is required.' unless ENV['ARMAGH_TAC_DOC_PREFIX']
-
       def consume(doc)
         filename = filename_from_doc(doc)
 

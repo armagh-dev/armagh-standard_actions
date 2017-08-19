@@ -19,9 +19,6 @@ require 'test/unit'
 require 'fakefs/safe'
 require 'mocha/test_unit'
 
-PREFIX = ENV['ARMAGH_TAC_DOC_PREFIX']
-ENV['ARMAGH_TAC_DOC_PREFIX'] = '4025'
-
 require_relative '../helpers/actions_test_helper'
 require_relative '../../lib/armagh/standard_actions/consumers/tacball_consume'
 
@@ -84,10 +81,6 @@ class TestIntegrationTacballConsume < Test::Unit::TestCase
 
   def teardown
     FakeFS::FileSystem.clear
-  end
-
-  def self.shutdown
-    ENV['ARMAGH_TAC_DOC_PREFIX'] = PREFIX
   end
 
   def load_local_integration_test_config

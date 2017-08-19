@@ -38,7 +38,7 @@ class TestXMLDivide < Test::Unit::TestCase
     @config_values = {
       'input' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dan_indoc', Armagh::Documents::DocState::READY )},
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dans_output', Armagh::Documents::DocState::READY )},
-      'xml' => {'size_per_part' => 1000, 'xml_element' => 'sdnEntry'}
+      'xml_divide' => {'size_per_part' => 1000, 'xml_element' => 'sdnEntry'}
     }
     @config = Armagh::StandardActions::XMLDivide.create_configuration( [], 'test', @config_values )
   end

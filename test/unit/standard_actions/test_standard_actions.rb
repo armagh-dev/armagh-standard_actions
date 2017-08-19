@@ -22,9 +22,6 @@ require 'mocha/test_unit'
 
 # DO NOT MODIFY THIS FILE
 
-PREFIX = ENV['ARMAGH_TAC_DOC_PREFIX']
-ENV['ARMAGH_TAC_DOC_PREFIX'] = 'test_prefix'
-
 require_relative '../../../lib/armagh/standard_actions'
 
 class TestStandardActions < Test::Unit::TestCase
@@ -32,10 +29,6 @@ class TestStandardActions < Test::Unit::TestCase
   end
 
   def teardown
-  end
-
-  def self.shutdown
-    ENV['ARMAGH_TAC_DOC_PREFIX'] = PREFIX
   end
 
   def test_name

@@ -135,6 +135,28 @@ class TestOfficePublish < Test::Unit::TestCase
     assert_equal 'Word', doc.metadata['type']
   end
 
+  def test_publish_text
+    source = mock('source')
+    source.stubs(filename: 'text.txt',
+                 mime_type: nil,
+                 mtime: Time.at(0))
+    doc = @doc.dup
+    doc.merge!(document_id: 11,
+               source: source,
+               raw: "some content in my text file")
+
+    doc = Armagh::Documents::ActionDocument.new(doc)
+
+    @office_publish_action.publish(doc)
+
+    assert_equal 11, doc.document_id
+    assert_equal source.filename, doc.title
+    assert_equal source.mtime, doc.document_timestamp
+    assert_equal 'some content in my text file', doc.text
+    assert_equal nil, doc.display
+    assert_equal 'Text', doc.metadata['type']
+  end
+
   def test_publish_unsupported_document
     @office_publish_action.stubs(:notify_ops).once
     source = mock('source')
@@ -263,6 +285,28 @@ class TestOfficePublish < Test::Unit::TestCase
     assert_equal 'text', doc.text
     assert_equal 'display', doc.display
     assert_equal 'Word', doc.metadata['type']
+  end
+
+  def test_publish_mime_text
+    source = mock('source')
+    source.stubs(filename: nil,
+                 mime_type: 'text/plain',
+                 mtime: Time.at(0))
+    doc = @doc.dup
+    doc.merge!(document_id: 12,
+               source: source,
+               raw: "some content in my text file")
+
+    doc = Armagh::Documents::ActionDocument.new(doc)
+
+    @office_publish_action.publish(doc)
+
+    assert_equal 12, doc.document_id
+    assert_equal source.filename, doc.title
+    assert_equal source.mtime, doc.document_timestamp
+    assert_equal 'some content in my text file', doc.text
+    assert_equal nil, doc.display
+    assert_equal 'Text', doc.metadata['type']
   end
 
   def test_publish_mime_unsupported_document

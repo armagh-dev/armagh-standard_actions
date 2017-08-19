@@ -15,9 +15,6 @@
 # limitations under the License.
 #
 
-PREFIX = ENV['ARMAGH_TAC_DOC_PREFIX']
-ENV['ARMAGH_TAC_DOC_PREFIX'] = 'test_prefix'
-
 require_relative '../../../helpers/coverage_helper'
 require_relative '../../../helpers/actions_test_helper'
 
@@ -71,20 +68,6 @@ class TestTacballConsume < Test::Unit::TestCase
 
   def teardown
     FakeFS::FileSystem.clear
-  end
-
-  def self.shutdown
-    ENV['ARMAGH_TAC_DOC_PREFIX'] = PREFIX
-  end
-
-  def test_invalid_tac_doc_prefix_raises_error
-    @tacball_consume_action.unstub(:logger)
-    ENV['ARMAGH_TAC_DOC_PREFIX'] = nil
-    error = assert_raise(Armagh::StandardActions::TacballConsume::TACDocPrefixError) {
-      #KN: why are we hard-coding a file path here as part of a test?
-      load "#{__dir__}/../../../../lib/armagh/standard_actions/consumers/tacball_consume.rb"
-    }
-    assert_equal 'The environment variable ARMAGH_TAC_DOC_PREFIX is not set but is required.', error.message
   end
 
   def test_consume

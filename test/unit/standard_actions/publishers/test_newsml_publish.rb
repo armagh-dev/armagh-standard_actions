@@ -74,7 +74,7 @@ class TestNewsmlPublish < Test::Unit::TestCase
             'ContentItem' => {
               'DataContent' => {
                 'body' => {
-                  'body_head' => {
+                  'body.head' => {
                     'distributor' => 'Al Bawaba Business'
                   }
                 }

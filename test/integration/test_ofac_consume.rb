@@ -18,9 +18,6 @@
 require 'test/unit'
 require 'mocha/test_unit'
 
-PREFIX = ENV['ARMAGH_TAC_DOC_PREFIX']
-ENV['ARMAGH_TAC_DOC_PREFIX'] = '4025'
-
 require_relative '../helpers/actions_test_helper'
 require_relative '../../lib/armagh/standard_actions/consumers/ofac_consume'
 
@@ -52,7 +49,8 @@ class TestIntegrationOfacConsume < Test::Unit::TestCase
       'sftp' => @sftp_config_values,
       'tacball' => {
         'feed' => 'carnitas',
-        'source' => 'chipotle'
+        'source' => 'chipotle',
+        'docid_prefix' => '4026'
       }
     }
 
@@ -79,10 +77,6 @@ class TestIntegrationOfacConsume < Test::Unit::TestCase
 
   def teardown
     Dir.glob("DocType*tgz*") { |p| File.delete(p) }
-  end
-
-  def self.shutdown
-    ENV['ARMAGH_TAC_DOC_PREFIX'] = PREFIX
   end
 
   def load_local_integration_test_config

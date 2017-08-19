@@ -76,8 +76,8 @@ module Armagh
         desc_metadata = get_doc_attr(news_item, ['NewsComponent', 'DescriptiveMetadata'])
         doc.metadata['language'] = get_doc_attr(desc_metadata, ['Language', 'attr_FormalName'])
         data_content = get_doc_attr(news_item, ['NewsComponent', 'ContentItem', 'DataContent'])
-        doc.metadata['source'] = get_doc_attr(data_content, ['body', 'body_head', 'distributor']).strip
-        doc.text = html_to_text(get_doc_attr(data_content, ['body', 'body_content']), @config).strip
+        doc.metadata['source'] = get_doc_attr(data_content, ['body', 'body.head', 'distributor']).strip
+        doc.text = html_to_text(get_doc_attr(data_content, ['body', 'body.content']), @config).strip
       end
 
       def self.description

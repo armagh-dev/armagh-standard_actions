@@ -15,9 +15,6 @@
 # limitations under the License.
 #
 
-PREFIX = ENV['ARMAGH_TAC_DOC_PREFIX']
-ENV['ARMAGH_TAC_DOC_PREFIX'] = 'test_prefix'
-
 require_relative '../../../helpers/coverage_helper'
 require_relative '../../../helpers/actions_test_helper'
 
@@ -76,10 +73,6 @@ class TestOfacConsume < Test::Unit::TestCase
 
   def teardown
     FakeFS::FileSystem.clear
-  end
-
-  def self.shutdown
-    ENV['ARMAGH_TAC_DOC_PREFIX'] = PREFIX
   end
 
   def test_consume

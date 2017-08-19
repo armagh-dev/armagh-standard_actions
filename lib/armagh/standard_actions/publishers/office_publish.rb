@@ -50,7 +50,10 @@ module Armagh
         word: [
           '.doc',  'application/msword',
           '.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-          '.docm', 'application/vnd.ms-word.document.macroenabled.12']
+          '.docm', 'application/vnd.ms-word.document.macroenabled.12'],
+        text: [
+          '.txt',  'text/plain',
+          ]
       }
 
       def publish(doc)
@@ -71,6 +74,9 @@ module Armagh
           elsif DOC_TYPES[:word].include?(doc_type)
             doc.metadata['type'] = 'Word'
             word_to_text_and_display(binary)
+          elsif DOC_TYPES[:text].include?(doc_type)
+            doc.metadata['type'] = 'Text'
+            [binary.to_s]
           else
             raise UnsupportedDocumentError, "Unsupported document #{doc.source.filename}"
           end
