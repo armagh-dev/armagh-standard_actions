@@ -18,6 +18,7 @@
 require 'armagh/actions/publish'
 require 'armagh/support/xml'
 require 'armagh/support/html'
+require 'armagh/support/doc_attr'
 
 require 'time'
 require 'tzinfo'
@@ -28,6 +29,7 @@ module Armagh
 
     include Armagh::Support::XML
     include Armagh::Support::HTML
+    include Armagh::Support::DocAttr
 
       define_parameter name: 'html_nodes',
                        description: 'HTML nodes that need to be kept as-is and not converted into a hash',
@@ -77,7 +79,13 @@ module Armagh
         doc.metadata['language'] = get_doc_attr(desc_metadata, ['Language', 'attr_FormalName'])
         data_content = get_doc_attr(news_item, ['NewsComponent', 'ContentItem', 'DataContent'])
         doc.metadata['source'] = get_doc_attr(data_content, ['body', 'body.head', 'distributor']).strip
-        doc.text = html_to_text(get_doc_attr(data_content, ['body', 'body.content']), @config).strip
+
+        body_content = get_doc_attr(data_content, ['body', 'body.content'])
+        doc.text = if body_content.nil? || body_content.empty?
+                     ""
+                   else
+                     html_to_text(body_content, @config).strip
+                   end
       end
 
       def self.description

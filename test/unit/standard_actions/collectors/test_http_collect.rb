@@ -138,7 +138,7 @@ class TestHTTPCollect < Test::Unit::TestCase
     e = assert_raise( Configh::ConfigInitError ) do
       @config = Armagh::StandardActions::HTTPCollect.create_configuration( [], 'test2', @config_values )
     end
-    assert_equal "Unable to create configuration Armagh::StandardActions::HTTPCollect test2: 'bad url' is not a valid HTTP or HTTPS URL.", e.message
+    assert_equal "Unable to create configuration for 'Armagh::StandardActions::HTTPCollect' named 'test2' because: \n    'bad url' is not a valid HTTP or HTTPS URL.", e.message
   end
 
   def test_collect_unknown_error

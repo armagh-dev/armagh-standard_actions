@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE NewsML PUBLIC "urn:newsml:iptc.org:20001006:NewsMLv1.0:1" "http://www.comtexnews.net/newsmlresources/NewsMLv1.0.dtd" [
+<!ENTITY % nitf SYSTEM "http://www.comtexnews.net/newsmlresources/nitf-2-5.dtd">
+%nitf;
+]>
+  <NewsML><Catalog><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:ComtexStatus
+</Urn><DefaultVocabularyFor Context="Status" /></Resource><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:Delivery:1
+</Urn><DefaultVocabularyFor Context="SentFrom" /></Resource><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:NewsService:1
+</Urn><DefaultVocabularyFor Context="NewsService" /></Resource><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:NewsProduct:1
+</Urn><DefaultVocabularyFor Context="NewsProduct" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcRoleTypes
+</Urn><DefaultVocabularyFor Context="Role" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcNewsItemTypes
+</Urn><DefaultVocabularyFor Context="NewsItemType" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcMimeTypes
+</Urn><DefaultVocabularyFor Context="MimeType" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcMediaTypes
+</Urn><DefaultVocabularyFor Context="MediaType" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcPriority
+</Urn><DefaultVocabularyFor Context="Priority" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:IptcUrgency
+</Urn><DefaultVocabularyFor Context="Urgency" /></Resource><Resource><Urn>
+urn:newsml:iptc.org:20001006:Languages
+</Urn><DefaultVocabularyFor Context="Language" /></Resource></Catalog><NewsEnvelope><TransmissionId>271116555</TransmissionId><SentFrom><Party FormalName="Comtex" /></SentFrom><DateAndTime>20170217T065556</DateAndTime><NewsService FormalName="Comtex" /><NewsProduct FormalName="!csta+stories&#xA;" /><NewsProduct FormalName="!fly&#xA;" /><Priority FormalName="5" /></NewsEnvelope><NewsItem><Identification><NewsIdentifier><ProviderId>comtexnews.net
+</ProviderId><DateId>20170217</DateId><NewsItemId>048n7642</NewsItemId><RevisionId PreviousRevision="0" Update="N">
+1
+</RevisionId><PublicIdentifier>urn:newsml:comtexnews.net:20170217:048n7642:1</PublicIdentifier></NewsIdentifier></Identification><NewsManagement><NewsItemType FormalName="News" /><FirstCreated>20170217T065556</FirstCreated><ThisRevisionCreated>20170217T065556</ThisRevisionCreated><Status Vocabulary="urn:newsml:comtexnews.net:20010101:ComtexStatus:1" Scheme="ComtexStatus" FormalName="Usable" /><Urgency FormalName="5" /></NewsManagement><NewsComponent Essential="yes" EquivalentsList="no"><Role FormalName="Main" /><NewsLines><HeadLine>06:55 EDT VF Corp. reports Q4 adjusted EPS 97c, consensus 97c - Reports Q4 revenue $3.3B, consensus $3.44B.</HeadLine><DateLine>Feb 17, 2017 (TheFlyOnTheWall.com via COMTEX News Network) --
+</DateLine><CopyrightLine>Copyright TheFlyOnTheWall.com
+</CopyrightLine><KeywordLine xml:lang="en">eps
+<Origin AssignedBy="Comtex" /></KeywordLine><KeywordLine xml:lang="en">revenue
+<Origin AssignedBy="Comtex" /></KeywordLine></NewsLines><AdministrativeMetadata><Catalog><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:Providers:1
+</Urn><DefaultVocabularyFor Context="Provider/Party" /></Resource><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:Source:1
+</Urn><DefaultVocabularyFor Context="Source/Party" /></Resource><Resource><Urn>
+urn:newsml:comtexnews.net:20010201:SourceProperties:1
+</Urn><DefaultVocabularyFor Context="Property" /></Resource></Catalog><FileName>271116555.xml</FileName><Provider><Party FormalName="Comtex" /></Provider><Source><Party FormalName="The Fly On The Wall" /></Source><Property FormalName="SourceCode" Value="FLY" /></AdministrativeMetadata><RightsMetadata><Copyright><CopyrightHolder>Copyright TheFlyOnTheWall.com
+</CopyrightHolder><CopyrightDate>2017</CopyrightDate></Copyright></RightsMetadata><DescriptiveMetadata><Language FormalName="en" /><Property FormalName="PublicCompany" Vocabulary="urn:newsml:comtexnews.net:20010201:DomesticPublicCompanies:1"><Property FormalName="CompanyName" Value="VF Corp." /><Property FormalName="StockSymbol" Value="VFC" /><Property FormalName="StockExchange" Value="New York" /><Property FormalName="SICCode" Value="2325" /><Property FormalName="CUSIP" Value="918204108" /><Property FormalName="SEDOL" Value="N.S." /><Property FormalName="ISINNumber" Value="US9182041080" /><Property FormalName="MarketStatus" Value="ACTV" /><Property FormalName="SecurityType" Value="Common Stock" /><Property FormalName="Country" Value="UNITED STATES" /><Property FormalName="IndustryGroup" Value="Apparel" /><Property FormalName="IndustrySubGroup" Value="Apparel Manufacturers" /><Property FormalName="IndustrySector" Value="Consumer, Cyclical" /></Property></DescriptiveMetadata><ContentItem><Comment>
+Main
+</Comment><MediaType FormalName="Text" /><MimeType FormalName="text/vnd.IPTC.NITF" /><DataContent><head><meta name="FLY:SubjectCode" content="Earnings&#xA;" /></head><body><body.head><distributor>The Fly On The Wall</distributor></body.head><body.content></body.content></body></DataContent></ContentItem></NewsComponent></NewsItem></NewsML>

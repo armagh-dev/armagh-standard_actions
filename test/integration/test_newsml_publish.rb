@@ -98,4 +98,23 @@ class TestIntegrationNewsmlPublish < Test::Unit::TestCase
     @newsml_publish_action.publish(@doc)
     assert_equal 'Skydance Media Forms Exclusive Overall Agreement for Television with Award-Winning Writer-Producer Laeta Kalogridis', @doc.title
   end
+
+  # ARM-494 bug fix
+  def test_properly_publishes_comtex_doc_with_empty_body_content
+    ts_string = "20130712T154259"
+    ny_tz = TZInfo::Timezone.get('America/New_York').period_for_utc(Time.parse(ts_string)).zone_identifier.to_s
+    ny_tz_offset = (ny_tz == :EST) ? '-0500' : '-0400'
+    expected_timestamp = Time.parse("2017-02-17 06:55:56 -0500")
+    xml_file = 'test/fixtures/comtex_empty_body_content.xml'
+    @doc.raw = File.read(xml_file, mode:'rb')
+    @newsml_publish_action.publish(@doc)
+    assert_equal '048n7642', @doc.document_id
+    assert_equal expected_timestamp, @doc.document_timestamp
+    assert_equal '06:55 EDT VF Corp. reports Q4 adjusted EPS 97c, consensus 97c - Reports Q4 revenue $3.3B, consensus $3.44B.', @doc.title
+    assert_equal 'Copyright TheFlyOnTheWall.com', @doc.copyright
+    assert_equal 'FLY', @doc.metadata['source_code']
+    assert_equal 'en', @doc.metadata['language']
+    assert_equal 'The Fly On The Wall', @doc.metadata['source']
+    assert_equal '', @doc.content['text_content']
+  end
 end

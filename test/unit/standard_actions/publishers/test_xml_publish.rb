@@ -33,7 +33,7 @@ class TestXmlPublish < Test::Unit::TestCase
     @config_values = {
       'input' => { 'docspec' => Armagh::Documents::DocSpec.new('dans_in', Armagh::Documents::DocState::READY) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new('dans_in', Armagh::Documents::DocState::PUBLISHED) },
-      'xml_publish' => {
+      'field_map' => {
         "get_doc_id_from" => ['sdnList', 'sdnEntry', 'uid'],
         "get_doc_title_from" => ['sdnList', 'sdnEntry', 'lastName'],
         "get_doc_timestamp_from" => ['sdnList', 'publshInformation', 'Publish_Date'],
@@ -52,7 +52,7 @@ class TestXmlPublish < Test::Unit::TestCase
     @doc = Armagh::Documents::ActionDocument.new(
       document_id: 'doc_id',
       title: 'title',
-      copyright: 'copyright',
+      copyright: 'Copyright (c) 2016',
       content: {'content' => true},
       raw: 'hello world',
       metadata: {'meta' => true},
@@ -80,6 +80,10 @@ class TestXmlPublish < Test::Unit::TestCase
     assert_equal '10', @doc.document_id
     assert_equal 'ABASTECEDORA NAVAL Y INDUSTRIAL, S.A.', @doc.title
     assert_equal Time.parse("#{timestamp} UTC"), @doc.document_timestamp
-    assert_equal nil, @doc.copyright
+    assert_equal 'Copyright (c) 2016', @doc.copyright
+  end
+
+  test "description has field_map" do
+    assert_match /field_map/, Armagh::StandardActions::XmlPublish.description, 'XmlPublish.description should mention "field_map"'
   end
 end

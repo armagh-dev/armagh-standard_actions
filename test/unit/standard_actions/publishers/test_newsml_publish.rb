@@ -108,7 +108,7 @@ class TestNewsmlPublish < Test::Unit::TestCase
   end
 
   def test_publish_sets_contents
-    expected_contents = 'hello world'
+    expected_contents = ''
     @newsml_publish_action.stubs(:html_to_text).returns(expected_contents)
     @newsml_publish_action.publish(@doc)
     assert_equal expected_contents, @doc.content['text_content']

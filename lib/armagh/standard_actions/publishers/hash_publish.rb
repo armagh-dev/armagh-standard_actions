@@ -16,83 +16,22 @@
 #
 
 require 'armagh/actions/publish'
+require 'armagh/support/field_map'
 
 module Armagh
   module StandardActions
     class HashPublish < Armagh::Actions::Publish
-
-      define_parameter name:        'id_field',
-                       description: 'Field to use for document ID',
-                       prompt:      'A field found by traversing the content hash, e.g. ["account_number"]',
-                       type:        'string_array',
-                       required:    false,
-                       group:       'hash_publish'
-
-      define_parameter name:        'timestamp',
-                       description: 'Field to use for document timestamp',
-                       prompt:      'A field found by traversing the content hash, e.g. ["saved_at"]',
-                       type:        'string_array',
-                       required:    false,
-                       group:       'hash_publish'
-
-      define_parameter name:        'copyright',
-                       description: 'Field to use for document copyright',
-                       prompt:      'A field found by traversing the content hash, e.g. ["copyright_notice"]',
-                       type:        'string_array',
-                       required:    false,
-                       group:       'hash_publish'
-
-      define_parameter name:        'title',
-                       description: 'Field to use for document title',
-                       prompt:      'A field found by traversing the content hash, e.g. ["filename"]',
-                       type:        'string_array',
-                       required:    false,
-                       group:       'hash_publish'
+      include Armagh::Support::FieldMap
 
       def publish(doc)
-        id_field        = @config.hash_publish.id_field
-        timestamp_field = @config.hash_publish.timestamp
-        copyright_field = @config.hash_publish.copyright
-        title_field     = @config.hash_publish.title
-
-        if id_field
-          id = doc.content.dig(*id_field)
-        else
-          id = doc.document_id
-        end
-
-        if timestamp_field
-          timestamp =  doc.content.dig(*timestamp_field)
-        else
-          timestamp = doc.source.mtime
-        end
-
-        if copyright_field
-          copyright =  doc.content.dig(*copyright_field)
-        else
-          doc_metadata = doc.metadata.first
-          copyright = doc_metadata['copyright']
-        end
-
-        if title_field
-          title =  doc.content.dig(*title_field)
-        else
-          title = doc.source.filename
-        end
-
-        doc.document_id        = id
-        doc.title              = title
-        doc.copyright          = copyright
-        doc.document_timestamp = timestamp
+        set_field_map_attrs(doc, @config)
       end
 
       def self.description
         <<~DESCDOC
-        This action lets you define the elements that will provide the document ID, title, timestamp,
-        and copyright for the document being published.
+        This action publishes a document that already has content in proper Hash format.
 
-        If an element you're after is nested, you can specify the path to the element part by part. For example,
-        if the document ID should come from hash['account']['number'], specify account then number in the interface.
+        #{Armagh::Support::FieldMap.field_map_description}
         DESCDOC
       end
     end
