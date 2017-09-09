@@ -58,7 +58,7 @@ class TestTextPublish < Test::Unit::TestCase
     )
   end
 
-  test "publish saves filename as document title" do
+  def test_publish_saves_filename_as_document_title
     expected_contents = 'hello world'
     @doc.title = nil
     @doc.raw = expected_contents
@@ -66,7 +66,7 @@ class TestTextPublish < Test::Unit::TestCase
     assert_equal @source.filename, @doc.title
   end
 
-  test "publish saves mtime as document timestamp" do
+  def test_publish_saves_mtime_as_document_timestamp
     expected_contents = @time.to_s
     @doc.document_timestamp = nil
     @doc.raw = expected_contents
@@ -74,7 +74,7 @@ class TestTextPublish < Test::Unit::TestCase
     assert_equal @source.mtime, @doc.document_timestamp
   end
 
-  test "publish copies draft_content to published_content" do
+  def test_publish_copies_draft_content_to_published_content
     expected_contents = 'hello world'
     @doc.raw = expected_contents
     @text_publish_action.publish(@doc)

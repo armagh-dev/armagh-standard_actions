@@ -83,7 +83,7 @@ class TestXmlPublish < Test::Unit::TestCase
     assert_equal 'Copyright (c) 2016', @doc.copyright
   end
 
-  test "description has field_map" do
+  def test_description_has_field_map
     assert_match /field_map/, Armagh::StandardActions::XmlPublish.description, 'XmlPublish.description should mention "field_map"'
   end
 end

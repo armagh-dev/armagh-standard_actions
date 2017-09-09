@@ -52,7 +52,7 @@ class TestHashPublish < Test::Unit::TestCase
     )
   end
 
-  test "when content is nested, publish sets document attributes" do
+  def test_when_content_is_nested_publish_sets_document_attributes
     config_values = {
       'input'  => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::READY ) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::PUBLISHED) },
@@ -95,7 +95,7 @@ class TestHashPublish < Test::Unit::TestCase
     assert_equal @yesterday,           doc.document_timestamp
   end
 
-  test "when content isn't nested, publish sets document attributes" do
+  def test_when_content_is_not_nested_publish_sets_document_attributes
     config_values = {
       'input'  => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::READY ) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::PUBLISHED) },
@@ -136,7 +136,7 @@ class TestHashPublish < Test::Unit::TestCase
     assert_equal @yesterday,           doc.document_timestamp
   end
 
-  test "when content doesn't include params and doc attributes exist, publish keeps the doc attributes" do
+  def test_when_content_does_not_include_params_and_doc_attributes_exist_publish_keeps_the_doc_attributes
     config_values = {
       'input'  => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::READY ) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::PUBLISHED) },
@@ -172,7 +172,7 @@ class TestHashPublish < Test::Unit::TestCase
     assert_equal @doc.document_timestamp, doc.document_timestamp
   end
 
-  test "when content doesn't include params and doc attributes don't exist, publish sets document attributes from source or metadata" do
+  def test_when_content_does_not_include_params_and_doc_attributes_do_not_exist_publish_sets_document_attributes_from_source_or_metadata
     config_values = {
       'input'  => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::READY ) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::PUBLISHED) },
@@ -216,7 +216,7 @@ class TestHashPublish < Test::Unit::TestCase
     assert_equal @source.mtime,                doc.document_timestamp
   end
 
-  test "description has field_map" do
+  def test_description_has_field_map
     assert_match /field_map/, Armagh::StandardActions::HashPublish.description, 'HashPublish.description should mention "field_map"'
   end
 end
