@@ -44,6 +44,7 @@ class TestFTPConsume < Test::Unit::TestCase
     @ftp.expects( 'write_and_delete_test_file' ).at_least_once
     Armagh::Support::FTP::Connection.stubs(:open).yields(@ftp)
     @config = Armagh::StandardActions::FTPConsume.create_configuration( [], 'test', @config_values )
+    @config.test_and_return_errors
     @ftp_consume_action = instantiate_action(Armagh::StandardActions::FTPConsume, @config )
   end
 
