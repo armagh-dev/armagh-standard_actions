@@ -19,9 +19,9 @@ require 'test/unit'
 require 'mocha/test_unit'
 
 require_relative '../helpers/actions_test_helper'
-require_relative '../../lib/armagh/standard_actions/consumers/ofac_consume'
+require_relative '../../lib/armagh/standard_actions/consumers/tacball_consume'
 
-class TestIntegrationOfacConsume < Test::Unit::TestCase
+class TestIntegrationTacballConsumeForOfac < Test::Unit::TestCase
 
   include ActionsTestHelper
 
@@ -50,7 +50,10 @@ class TestIntegrationOfacConsume < Test::Unit::TestCase
       'tacball' => {
         'feed' => 'carnitas',
         'source' => 'chipotle',
-        'docid_prefix' => '4026'
+        'docid_prefix' => '4026',
+      },
+      'tacball_consume' => {
+        'template' => 'ofac/ofac.erubis (StandardActions)'
       }
     }
 
@@ -58,8 +61,8 @@ class TestIntegrationOfacConsume < Test::Unit::TestCase
     @ofac_input_path = File.join(@fixtures_path, "ofac_input")
     @ofac_output_path = File.join(@fixtures_path, "ofac_output")
 
-    @config = Armagh::StandardActions::OfacConsume.create_configuration([], 'test', @config_values)
-    @ofac_consume = instantiate_action(Armagh::StandardActions::OfacConsume, @config)
+    @config = Armagh::StandardActions::TacballConsume.create_configuration([], 'test', @config_values)
+    @ofac_consume = instantiate_action(Armagh::StandardActions::TacballConsume, @config)
     @docspec = Armagh::Documents::DocSpec.new('DocType', Armagh::Documents::DocState::READY)
 
     @entity_content                = YAML.load(File.read(File.join(@ofac_input_path, 'sdn_entity.yml')))
@@ -130,7 +133,7 @@ class TestIntegrationOfacConsume < Test::Unit::TestCase
     text_content = hash.values.last
     expected_text_content = File.read(File.join(@ofac_output_path, 'ofac_entity_sample.txt'))
 
-    assert_equal text_content, expected_text_content
+    assert_equal expected_text_content, text_content
   end
 
   test "#consume where entity content doesn't have known values for each heading" do
@@ -141,7 +144,7 @@ class TestIntegrationOfacConsume < Test::Unit::TestCase
     text_content = hash.values.last #pulling the .txt file from the tacball
     expected_text_content = File.read(File.join(@ofac_output_path, 'ofac_entity_no_knowns_sample.txt'))
 
-    assert_equal text_content, expected_text_content
+    assert_equal expected_text_content, text_content
   end
 
   test "#consume where aircraft content has known values for each heading" do
@@ -152,7 +155,7 @@ class TestIntegrationOfacConsume < Test::Unit::TestCase
     text_content = hash.values.last
     expected_text_content = File.read(File.join(@ofac_output_path, 'ofac_aircraft_sample.txt'))
 
-    assert_equal text_content, expected_text_content
+    assert_equal expected_text_content, text_content
   end
 
   test "#consume where aircraft content doesn't have known values for each heading" do
@@ -163,7 +166,7 @@ class TestIntegrationOfacConsume < Test::Unit::TestCase
     text_content = hash.values.last #pulling the .txt file from the tacball
     expected_text_content = File.read(File.join(@ofac_output_path, 'ofac_aircraft_no_knowns_sample.txt'))
 
-    assert_equal text_content, expected_text_content
+    assert_equal expected_text_content, text_content
   end
 
   test "#consume where individual content has known values for each heading" do
@@ -174,7 +177,7 @@ class TestIntegrationOfacConsume < Test::Unit::TestCase
     text_content = hash.values.last
     expected_text_content = File.read(File.join(@ofac_output_path, 'ofac_individual_sample.txt'))
 
-    assert_equal text_content, expected_text_content
+    assert_equal expected_text_content, text_content
   end
 
   test "#consume where individual content doesn't have known values for each heading" do
@@ -185,7 +188,7 @@ class TestIntegrationOfacConsume < Test::Unit::TestCase
     text_content = hash.values.last #pulling the .txt file from the tacball
     expected_text_content = File.read(File.join(@ofac_output_path, 'ofac_individual_no_knowns_sample.txt'))
 
-    assert_equal text_content, expected_text_content
+    assert_equal expected_text_content, text_content
   end
 
   test "#consume where vessel content has known values for each heading" do
@@ -196,7 +199,7 @@ class TestIntegrationOfacConsume < Test::Unit::TestCase
     text_content = hash.values.last
     expected_text_content = File.read(File.join(@ofac_output_path, 'ofac_vessel_sample.txt'))
 
-    assert_equal text_content, expected_text_content
+    assert_equal expected_text_content, text_content
   end
 
   test "#consume where vessel content doesn't have known values for each heading" do
@@ -207,7 +210,7 @@ class TestIntegrationOfacConsume < Test::Unit::TestCase
     text_content = hash.values.last #pulling the .txt file from the tacball
     expected_text_content = File.read(File.join(@ofac_output_path, 'ofac_vessel_no_knowns_sample.txt'))
 
-    assert_equal text_content, expected_text_content
+    assert_equal expected_text_content, text_content
   end
 
 end

@@ -1,0 +1,6 @@
+{{=
+  partials_root = File.join(@template_root, 'partials')
+  entity_type   = @content.dig("sdnList", "sdnEntry", "sdnType").downcase
+
+  render_partial File.join(partials_root, "#{entity_type}_template.erubis"), entity: @content, partials_root: partials_root
+}}

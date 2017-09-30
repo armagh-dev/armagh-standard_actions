@@ -18,15 +18,27 @@
 require 'armagh/actions'
 require 'armagh/support/sftp'
 require 'armagh/support/tacball'
+require 'armagh/support/templating'
+require 'armagh/support/html'
 
 module Armagh
   module StandardActions
     class TacballConsume < Actions::Consume
       include Armagh::Support::SFTP
       include Armagh::Support::Tacball
+      include Armagh::Support::Templating
+      include Armagh::Support::HTML
 
       class TacballConsumeError < StandardError; end
       class TACDocPrefixError < TacballConsumeError; end
+
+      define_parameter name: 'template',
+                       description: "The template to use for generating both text and html.  If set to #{OPTION_NONE}, will use the text content of the document (if it exists).",
+                       type: 'populated_string',
+                       required: false,
+                       group: 'tacball_consume',
+                       default: OPTION_NONE,
+                       options: [OPTION_NONE] + Actions.available_templates
 
       def consume(doc)
         filename = filename_from_doc(doc)
@@ -56,27 +68,44 @@ module Armagh
           else
             nil
           end
+
+        template_name = @config.tacball_consume.template == OPTION_NONE ? nil : @config.tacball_consume.template
+        template_path = Actions.get_template_path(template_name)
+
+        txt_content, html_content = template_content(doc, template_path)
+
+        html_content ||= doc.display || ''
+        txt_content  ||= doc.text    ||
+                           (html_to_text(html_content, @config) unless html_content.to_s.strip.empty?) ||
+                           ''
+
         Armagh::Support::Tacball.create_tacball_file(
           @config,
           docid:         doc.document_id,
           title:         doc.title,
           timestamp:     doc.document_timestamp.to_i,
-          txt_content:   doc.text,
+          txt_content:   txt_content,
           copyright:     doc.copyright,
-          html_content:  doc.display,
+          html_content:  html_content,
           type:          doc.docspec.type,
           original_file: orig_file,
           logger:        logger
         )
       end
 
-      def self.description
-        <<~DESCDOC
-        This action generates tacballs from documents.  The publish action in the workflow is
-        responsible for correctly preparing the searchable and displayable text.
-        DESCDOC
+      private def template_content(doc, template_path)
+        return nil  unless template_path
+
+        template_root = File.dirname(template_path)
+
+        render_template(template_path, :text, :html, content: doc.content, template_root: template_root)
       end
 
+      def self.description
+        <<~DESCDOC
+        This action generates tacballs from documents.
+        DESCDOC
+      end
     end
   end
 end

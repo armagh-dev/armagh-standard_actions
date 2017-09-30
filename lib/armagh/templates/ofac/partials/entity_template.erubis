@@ -1,0 +1,23 @@
+{{=header 'Specially Designated National (SDN)'}}
+
+  Entity Name: {{= render_partial File.join(@partials_root, "firstname_lastname.erubis"), entity: @entity.dig("sdnList", "sdnEntry") }}
+
+{{=header 'A.K.A. List'}}
+
+  {{= render_partial File.join(@partials_root, "akas.erubis"), akas: @entity.dig("sdnList", "sdnEntry", "akaList", "aka") }}
+
+{{=header 'Address List'}}
+
+  {{= render_partial File.join(@partials_root, "addresses.erubis"), addresses: @entity.dig("sdnList", "sdnEntry", "addressList", "address") }}
+
+{{=header 'Identification List'}}
+
+  {{= render_partial File.join(@partials_root, "identification_lists.erubis"), identifications: @entity.dig("sdnList", "sdnEntry", "idList", "id") }}
+
+{{=header 'Program List'}}
+
+  {{= render_partial File.join(@partials_root, "program_lists.erubis"), programs: @entity.dig("sdnList", "sdnEntry", "programList", "program") }}
+
+{{=header 'Remarks'}}
+
+  {{= render_partial File.join(@partials_root, "remarks.erubis"), remarks: @entity.dig("sdnList", "sdnEntry", "remarks") }}

@@ -39,7 +39,8 @@ class TestTacballConsume < Test::Unit::TestCase
       'tacball' => {
         'feed' => 'carnitas',
         'source' => 'chipotle'
-      }
+      },
+      'tacball_consume' => {}
     }
     @sftp = mock('sftp')
     Armagh::Support::SFTP::Connection.stubs(:open).yields(@sftp)
@@ -47,6 +48,13 @@ class TestTacballConsume < Test::Unit::TestCase
     @tacball_config = Armagh::StandardActions::TacballConsume.create_configuration([], 'test', @tacball_config_values)
     @tacball_consume_action = instantiate_action(Armagh::StandardActions::TacballConsume, @tacball_config)
     @tacball_consume_action.stubs(:logger)
+
+    @expected_html_template_content = 'expected html_template_content'
+    @expected_text_template_content = 'expected text_template_content'
+    @expected_doc_display_content   = 'expected doc.display'
+    @expected_doc_text_content      = 'expected doc.text'
+    @expected_html_to_text_content  = 'expected html_to_text'
+
     docspec = Armagh::Documents::DocSpec.new('DocType', Armagh::Documents::DocState::READY)
     docsource = Armagh::Documents::Source.new(type: 'file', filename: 'orig-source-file')
 
@@ -54,15 +62,14 @@ class TestTacballConsume < Test::Unit::TestCase
       document_id:        'dd123',
       title:              'Halloween Parade',
       copyright:          '2016 - All Rights Reserved',
-      content:            {'content' => true},
+      content:            {'some_key' => 'some content'},
       raw:                'raw content',
       metadata:           {'meta' => true},
       docspec:            docspec,
       source:             docsource,
       document_timestamp: 1451696523,
-      display:            'The school parade was fun'
+      display:            @expected_doc_display_content
     )
-    @doc.text = 'This is a text file'
     @expected_tacball_filename = 'DocType-dd123.tgz.1451696523.160102'
   end
 
@@ -192,5 +199,193 @@ class TestTacballConsume < Test::Unit::TestCase
     end
     assert_true tacball_file_exists
     assert_equal @doc.raw, orig_content
+  end
+
+  def test_consume_html_content_precedence_template_above_all_others
+    tacball_consume_action_with_template = setup_tacball_consume_action_with_template
+
+    Armagh::Actions::Loggable.expects(:logger).at_least(0)
+    @sftp.expects(:put_file).at_least(0)
+    Dir.mktmpdir do |dir|
+      Dir.chdir dir do
+        tacball_consume_action_with_template.consume(@doc)
+        assert_true File.file?(@expected_tacball_filename)
+
+        html_file_content = get_html_file_content(@expected_tacball_filename)
+
+        expected = @expected_html_template_content
+        assert_false    expected.to_s.strip.empty?  ## verify I didn't make typo
+        assert_match /#{expected}/, html_file_content
+      end
+    end
+  end
+
+  def test_consume_html_content_precedence_no_template_then_display
+    Armagh::Actions::Loggable.expects(:logger).at_least(0)
+    @sftp.expects(:put_file).at_least(0)
+    Dir.mktmpdir do |dir|
+      Dir.chdir dir do
+        @tacball_consume_action.consume(@doc)
+        assert_true File.file?(@expected_tacball_filename)
+
+        html_file_content = get_html_file_content(@expected_tacball_filename)
+
+        expected = @expected_doc_display_content
+        assert_false    expected.to_s.strip.empty?  ## verify I didn't make typo
+        assert_match /#{expected}/, html_file_content
+      end
+    end
+  end
+
+  def test_consume_html_content_precedence_no_display
+    Armagh::Actions::Loggable.expects(:logger).at_least(0)
+    @sftp.expects(:put_file).at_least(0)
+    Dir.mktmpdir do |dir|
+      Dir.chdir dir do
+        ## doc.text ==> html will have doc.text
+        doc = @doc.dup
+        doc.text    = @expected_doc_text_content
+        doc.display = nil
+
+        @tacball_consume_action.consume(doc)
+        assert_true File.file?(@expected_tacball_filename)
+
+        html_file_content = get_html_file_content(@expected_tacball_filename)
+
+        expected = @expected_doc_text_content
+        assert_false    expected.to_s.strip.empty?  ## verify I didn't make typo
+        assert_match /#{expected}/, html_file_content
+
+        ## no anything ==> html will not have any expected content
+        doc = @doc.dup
+        doc.text    = ''
+        doc.display = nil
+
+        @tacball_consume_action.consume(doc)
+        assert_true File.file?(@expected_tacball_filename)
+
+        html_file_content = get_html_file_content(@expected_tacball_filename)
+
+        assert_not_match /#{@expected_html_template_content}/, html_file_content
+        assert_not_match /#{@expected_text_template_content}/, html_file_content
+        assert_not_match /#{@expected_doc_display_content  }/, html_file_content
+        assert_not_match /#{@expected_doc_text_content     }/, html_file_content
+        assert_not_match /#{@expected_html_to_text_content }/, html_file_content
+      end
+    end
+  end
+
+  def test_consume_txt_content_precedence_above_all_others
+    tacball_consume_action_with_template = setup_tacball_consume_action_with_template
+
+    Armagh::Actions::Loggable.expects(:logger).at_least(0)
+    @sftp.expects(:put_file).at_least(0)
+    Dir.mktmpdir do |dir|
+      Dir.chdir dir do
+        doc = @doc.dup
+        doc.text = @expected_doc_text_content
+
+        tacball_consume_action_with_template.consume(doc)
+        assert_true File.file?(@expected_tacball_filename)
+
+        txt_file_content = get_txt_file_content(@expected_tacball_filename)
+
+        expected = @expected_text_template_content
+        assert_false    expected.to_s.strip.empty?  ## verify I didn't make typo
+        assert_match /#{expected}/, txt_file_content
+      end
+    end
+  end
+
+  def test_consume_txt_content_precedence_then_text
+    Armagh::Actions::Loggable.expects(:logger).at_least(0)
+    @sftp.expects(:put_file).at_least(0)
+    Dir.mktmpdir do |dir|
+      Dir.chdir dir do
+        doc = @doc.dup
+        doc.text = @expected_doc_text_content
+
+        @tacball_consume_action.consume(doc)
+        assert_true File.file?(@expected_tacball_filename)
+
+        txt_file_content = get_txt_file_content(@expected_tacball_filename)
+
+        expected = @expected_doc_text_content
+        assert_false    expected.to_s.strip.empty?  ## verify I didn't make typo
+        assert_match /#{expected}/, txt_file_content
+      end
+    end
+  end
+
+  def test_consume_txt_content_precedence_no_text
+    Armagh::Actions::Loggable.expects(:logger).at_least(0)
+    @sftp.expects(:put_file).at_least(0)
+    Dir.mktmpdir do |dir|
+      Dir.chdir dir do
+        ## no txt, but have html
+        @tacball_consume_action.consume(@doc)
+        assert_true File.file?(@expected_tacball_filename)
+
+        txt_file_content = get_txt_file_content(@expected_tacball_filename)
+
+        expected = @expected_doc_display_content
+        assert_false    expected.to_s.strip.empty?  ## verify I didn't make typo
+        assert_match /#{expected}/, txt_file_content
+
+        ## no txt and no html
+        doc = @doc.dup
+        doc.content = {}
+        doc.display = nil
+
+        @tacball_consume_action.consume(doc)
+        assert_true File.file?(@expected_tacball_filename)
+
+        txt_file_content = get_txt_file_content(@expected_tacball_filename)
+
+        assert_not_match /#{@expected_html_template_content}/, txt_file_content
+        assert_not_match /#{@expected_text_template_content}/, txt_file_content
+        assert_not_match /#{@expected_doc_display_content  }/, txt_file_content
+        assert_not_match /#{@expected_doc_text_content     }/, txt_file_content
+        assert_not_match /#{@expected_html_to_text_content }/, txt_file_content
+      end
+    end
+  end
+
+
+  def get_html_file_content(tacball_file)
+    html_file_content = nil
+
+    tgz_hash = tgz_to_hash(tacball_file)
+    tgz_hash.each do |fname, contents|
+      html_file_content = contents  if fname =~ /\.html$/
+    end
+
+    return html_file_content
+  end
+
+  def get_txt_file_content(tacball_file)
+    txt_file_content = nil
+
+    tgz_hash = tgz_to_hash(tacball_file)
+    tgz_hash.each do |fname, contents|
+      txt_file_content = contents  if fname =~ /\.txt$/
+    end
+
+    return txt_file_content
+  end
+
+  def setup_tacball_consume_action_with_template
+    Armagh::Actions.stubs(:available_templates).returns(['test/test_template.erubis (StandardActions'])
+    Armagh::Actions.stubs(:get_template_path).with('test/test_template.erubis (StandardActions').returns('/some/full/path/test/test_template.erubis')
+    load File.join(__dir__, '..', '..', '..', '..', 'lib', 'armagh', 'standard_actions', 'consumers', 'tacball_consume.rb')
+    tacball_config_values = @tacball_config_values.dup
+    tacball_config_values['tacball_consume']['template'] = 'test/test_template.erubis (StandardActions'
+    tacball_config = Armagh::StandardActions::TacballConsume.create_configuration([], 'test', tacball_config_values)
+    tacball_consume_action_with_template = instantiate_action(Armagh::StandardActions::TacballConsume, tacball_config)
+    tacball_consume_action_with_template.stubs(:logger)
+
+    tacball_consume_action_with_template.stubs(:render_template).at_least(1).returns([@expected_text_template_content, @expected_html_template_content])
+
+    return tacball_consume_action_with_template
   end
 end

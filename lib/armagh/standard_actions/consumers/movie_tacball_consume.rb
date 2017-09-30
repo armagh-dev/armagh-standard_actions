@@ -76,7 +76,7 @@ module Armagh
 
       def self.description
         <<~DESCDOC
-        This action generates tacballs from Movie JSON documents, which must contain 'txt_content' and 'html_content'.
+        This action generates tacballs from Movie JSON documents, which must contain 'html_content' and may contain 'txt_content'.
         DESCDOC
       end
 
