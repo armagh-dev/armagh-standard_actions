@@ -39,8 +39,7 @@ class TestTacballConsume < Test::Unit::TestCase
       'tacball' => {
         'feed' => 'carnitas',
         'source' => 'chipotle'
-      },
-      'tacball_consume' => {}
+      }
     }
     @sftp = mock('sftp')
     Armagh::Support::SFTP::Connection.stubs(:open).yields(@sftp)
@@ -53,7 +52,6 @@ class TestTacballConsume < Test::Unit::TestCase
     @expected_text_template_content = 'expected text_template_content'
     @expected_doc_display_content   = 'expected doc.display'
     @expected_doc_text_content      = 'expected doc.text'
-    @expected_html_to_text_content  = 'expected html_to_text'
 
     docspec = Armagh::Documents::DocSpec.new('DocType', Armagh::Documents::DocState::READY)
     docsource = Armagh::Documents::Source.new(type: 'file', filename: 'orig-source-file')
@@ -270,7 +268,6 @@ class TestTacballConsume < Test::Unit::TestCase
         assert_not_match /#{@expected_text_template_content}/, html_file_content
         assert_not_match /#{@expected_doc_display_content  }/, html_file_content
         assert_not_match /#{@expected_doc_text_content     }/, html_file_content
-        assert_not_match /#{@expected_html_to_text_content }/, html_file_content
       end
     end
   end
@@ -322,17 +319,6 @@ class TestTacballConsume < Test::Unit::TestCase
     @sftp.expects(:put_file).at_least(0)
     Dir.mktmpdir do |dir|
       Dir.chdir dir do
-        ## no txt, but have html
-        @tacball_consume_action.consume(@doc)
-        assert_true File.file?(@expected_tacball_filename)
-
-        txt_file_content = get_txt_file_content(@expected_tacball_filename)
-
-        expected = @expected_doc_display_content
-        assert_false    expected.to_s.strip.empty?  ## verify I didn't make typo
-        assert_match /#{expected}/, txt_file_content
-
-        ## no txt and no html
         doc = @doc.dup
         doc.content = {}
         doc.display = nil
@@ -346,7 +332,6 @@ class TestTacballConsume < Test::Unit::TestCase
         assert_not_match /#{@expected_text_template_content}/, txt_file_content
         assert_not_match /#{@expected_doc_display_content  }/, txt_file_content
         assert_not_match /#{@expected_doc_text_content     }/, txt_file_content
-        assert_not_match /#{@expected_html_to_text_content }/, txt_file_content
       end
     end
   end
@@ -379,7 +364,7 @@ class TestTacballConsume < Test::Unit::TestCase
     Armagh::Actions.stubs(:get_template_path).with('test/test_template.erubis (StandardActions').returns('/some/full/path/test/test_template.erubis')
     load File.join(__dir__, '..', '..', '..', '..', 'lib', 'armagh', 'standard_actions', 'consumers', 'tacball_consume.rb')
     tacball_config_values = @tacball_config_values.dup
-    tacball_config_values['tacball_consume']['template'] = 'test/test_template.erubis (StandardActions'
+    tacball_config_values['tacball']['template'] = 'test/test_template.erubis (StandardActions'
     tacball_config = Armagh::StandardActions::TacballConsume.create_configuration([], 'test', tacball_config_values)
     tacball_consume_action_with_template = instantiate_action(Armagh::StandardActions::TacballConsume, tacball_config)
     tacball_consume_action_with_template.stubs(:logger)

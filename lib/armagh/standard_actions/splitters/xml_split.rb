@@ -26,11 +26,12 @@ module Armagh
       class DocumentDataTypeError < StandardError; end
 
       def split(doc)
-        xml = doc.raw
-        xmls = split_parts(xml, @config)
-        xmls.each do |chunk|
+        xml       = doc.raw
+        xml_parts = split_parts(xml, @config)
+
+        xml_parts.each do |part|
           edit do |d|
-            d.raw = chunk
+            d.raw = part
             d.metadata = doc.metadata
           end
         end
@@ -41,7 +42,7 @@ module Armagh
       def self.description
         <<~DESCDOC
         This action splits up an XML document with N repeated elements into N documents,
-        each containing an element.  You can specify the name (not XPATH!) of the repeated 
+        each containing an element.  You can specify the name (not XPATH!) of the repeated
         element.  You can also identify nodes within the repeated element that contain
         HTML and should not be parsed.
         DESCDOC

@@ -25,7 +25,7 @@ module Armagh
       include Armagh::Support::CSV::Splitter
 
       def split(doc)
-        Armagh::Support::CSV.split_parts(doc, @config ) do |row, errors|
+        split_parts(doc, @config ) do |row, errors|
           if errors.empty?
             edit_doc_with_data_from_row(row)
           else

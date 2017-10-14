@@ -25,22 +25,16 @@ module Armagh
       include Armagh::Support::XML::Divider
 
       def divide(doc)
-        divided_parts(doc, @config) do |part, errors|
-          if errors.empty?
-            create(part, doc.metadata)
-          else
-            notify_ops_of_errors(errors)
-          end
+        divided_parts(doc, @config) do |part|
+          create(part, doc.metadata)
         end
-      end
-
-      private def notify_ops_of_errors(errors)
-        errors.each { |e| notify_ops(e) }
+      rescue => e
+        notify_ops(e)
       end
 
       def self.description
         <<~DESCDOC
-        This action will take a huge XML file and break it into smaller XML files, without mangling HTML nodes you 
+        This action will take a huge XML file and break it into smaller XML files, without mangling HTML nodes you
         specify. The breaking is useful when
         you're working on XML documents that have a repeated element.
 

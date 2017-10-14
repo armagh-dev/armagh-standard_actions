@@ -33,7 +33,7 @@ class TestCSVSplit < Test::Unit::TestCase
     })
   end
 
-  test "it creates documents with draft_content from each row from source file" do
+  def test_it_creates_documents_with_draft_content_from_each_row_from_source_file
     csv_path   = "./test/fixtures/test.csv"
     doc        = mock('document', {raw: File.read(csv_path)})
 
@@ -43,7 +43,7 @@ class TestCSVSplit < Test::Unit::TestCase
     splitter_action.split(doc)
   end
 
-  test "calls notify_ops when csv content has row with missing value" do
+  def test_calls_notify_ops_when_csv_content_has_row_with_missing_value
     csv_row_with_missing_value_path = "./test/fixtures/row_with_missing_value.csv"
     doc = mock('missing_value_document', raw: File.read(csv_row_with_missing_value_path))
 
@@ -53,7 +53,7 @@ class TestCSVSplit < Test::Unit::TestCase
     splitter_action.split(doc)
   end
 
-  test "calls notify_ops when csv content has row with extra values" do
+  def test_calls_notify_ops_when_csv_content_has_row_with_extra_values
     csv_row_with_extra_values_path = "./test/fixtures/row_with_extra_values.csv"
     doc = mock('extra_value_document', raw: File.read(csv_row_with_extra_values_path))
 

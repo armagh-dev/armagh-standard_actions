@@ -51,8 +51,6 @@ class TestIntegrationTacballConsumeForOfac < Test::Unit::TestCase
         'feed' => 'carnitas',
         'source' => 'chipotle',
         'docid_prefix' => '4026',
-      },
-      'tacball_consume' => {
         'template' => 'ofac/ofac.erubis (StandardActions)'
       }
     }
@@ -124,8 +122,7 @@ class TestIntegrationTacballConsumeForOfac < Test::Unit::TestCase
     )
   end
 
-
-  test "#consume where entity content has known values for each heading" do
+  def test_consume_where_entity_content_has_known_values_for_each_heading
     doc = doc_with_content(@entity_content)
     @ofac_consume.stubs(:logger).once
     filename = @ofac_consume.filename_from_doc(doc)
@@ -136,7 +133,7 @@ class TestIntegrationTacballConsumeForOfac < Test::Unit::TestCase
     assert_equal expected_text_content, text_content
   end
 
-  test "#consume where entity content doesn't have known values for each heading" do
+  def test_consume_where_entity_content_doesnt_have_known_values_for_each_heading
     doc = doc_with_content(@entity_content_with_no_knowns)
     @ofac_consume.stubs(:logger).once
     filename = @ofac_consume.filename_from_doc(doc)
@@ -147,7 +144,7 @@ class TestIntegrationTacballConsumeForOfac < Test::Unit::TestCase
     assert_equal expected_text_content, text_content
   end
 
-  test "#consume where aircraft content has known values for each heading" do
+  def test_consume_where_aircraft_content_has_known_values_for_each_heading
     doc = doc_with_content(@aircraft_content)
     @ofac_consume.stubs(:logger).once
     filename = @ofac_consume.filename_from_doc(doc)
@@ -158,7 +155,7 @@ class TestIntegrationTacballConsumeForOfac < Test::Unit::TestCase
     assert_equal expected_text_content, text_content
   end
 
-  test "#consume where aircraft content doesn't have known values for each heading" do
+  def test_consume_where_aircraft_content_doesnt_have_known_values_for_each_heading
     doc = doc_with_content(@aircraft_content_with_no_knowns)
     @ofac_consume.stubs(:logger).once
     filename = @ofac_consume.filename_from_doc(doc)
@@ -169,7 +166,7 @@ class TestIntegrationTacballConsumeForOfac < Test::Unit::TestCase
     assert_equal expected_text_content, text_content
   end
 
-  test "#consume where individual content has known values for each heading" do
+  def test_consume_where_individual_content_has_known_values_for_each_heading
     doc = doc_with_content(@individual_content)
     @ofac_consume.stubs(:logger).once
     filename = @ofac_consume.filename_from_doc(doc)
@@ -180,7 +177,7 @@ class TestIntegrationTacballConsumeForOfac < Test::Unit::TestCase
     assert_equal expected_text_content, text_content
   end
 
-  test "#consume where individual content doesn't have known values for each heading" do
+  def test_consume_where_individual_content_doesnt_have_known_values_for_each_heading
     doc = doc_with_content(@individual_content_with_no_knowns)
     @ofac_consume.stubs(:logger).once
     filename = @ofac_consume.filename_from_doc(doc)
@@ -191,7 +188,7 @@ class TestIntegrationTacballConsumeForOfac < Test::Unit::TestCase
     assert_equal expected_text_content, text_content
   end
 
-  test "#consume where vessel content has known values for each heading" do
+  def test_consume_where_vessel_content_has_known_values_for_each_heading
     doc = doc_with_content(@vessel_content)
     @ofac_consume.stubs(:logger).once
     filename = @ofac_consume.filename_from_doc(doc)
@@ -202,7 +199,7 @@ class TestIntegrationTacballConsumeForOfac < Test::Unit::TestCase
     assert_equal expected_text_content, text_content
   end
 
-  test "#consume where vessel content doesn't have known values for each heading" do
+  def test_consume_where_vessel_content_doesnt_have_known_values_for_each_heading
     doc = doc_with_content(@vessel_content_with_no_knowns)
     @ofac_consume.stubs(:logger).once
     filename = @ofac_consume.filename_from_doc(doc)

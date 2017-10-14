@@ -15,28 +15,33 @@
 # limitations under the License.
 #
 
-require 'armagh/actions/divide'
-require 'armagh/support/csv'
+require 'armagh/actions/split'
+require 'armagh/support/json'
 
 module Armagh
   module StandardActions
+    class JSONSplit < Armagh::Actions::Split
+      include Armagh::Support::JSON::Splitter
 
-    class CSVDivide < Armagh::Actions::Divide
-      include Armagh::Support::CSV::Divider
+      def split(doc)
+        json_string  = doc.raw
+        json_parts   = split_parts(json_string, @config)
 
-      def divide(doc)
-        divided_parts(doc, @config) do |part|
-          create(part, doc.metadata)
+        json_parts.each do |part|
+          edit do |new_doc|
+            new_doc.raw = part
+            new_doc.metadata = doc.metadata
+          end
         end
       rescue => e
-        notify_dev(e)
+        notify_ops(e)
       end
 
       def self.description
         <<~DESCDOC
-        This action will take a huge CSV file and break it into smaller CSV files.  Headers are preserved
-        in each smaller file.  You can configure CSV format parameters, and specify the approximate maximum size of
-        a smaller file.  The action will find the closest record delimiter ("row_sep") to your maximum size and break the file there.
+        This action splits up an JSON document with N elements in a given array into N documents,
+        where each document contains one element from that array plus the other data from the other nodes
+        in the JSON file. You can specify the JSON key of the array with the elements to be split out.
         DESCDOC
       end
     end

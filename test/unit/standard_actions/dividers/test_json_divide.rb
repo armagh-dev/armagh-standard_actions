@@ -47,7 +47,7 @@ class TestJSONDivide < Test::Unit::TestCase
     @default_config = Armagh::StandardActions::JSONDivide.create_configuration([], 'test_json_div', @default_config_values )
   end
 
-  test "it creates documents with draft_content from divided parts of larger source JSON file" do
+  def test_it_creates_documents_with_draft_content_from_divided_parts_of_larger_source_JSON_file
     @caller.expects(:create_document).at_least_once
     @caller.expects(:notify_ops).never
     @collected_doc.expects(:metadata).at_least_once.returns({})
@@ -58,7 +58,7 @@ class TestJSONDivide < Test::Unit::TestCase
     @divider_action.divide(@collected_doc)
   end
 
-  test "calls notify when json library errors when dividing source json file" do
+  def test_calls_notify_when_json_library_errors_when_dividing_source_json_file
     @caller.expects(:create_document).never
     @caller.expects(:notify_dev).at_least_once
     @divider_action = Armagh::StandardActions::JSONDivide.new( @caller, 'logger_name', @default_config, @collection )

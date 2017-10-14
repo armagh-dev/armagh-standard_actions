@@ -19,7 +19,6 @@ require 'armagh/actions'
 require 'armagh/support/sftp'
 require 'armagh/support/tacball'
 require 'armagh/support/templating'
-require 'armagh/support/html'
 
 module Armagh
   module StandardActions
@@ -27,7 +26,6 @@ module Armagh
       include Armagh::Support::SFTP
       include Armagh::Support::Tacball
       include Armagh::Support::Templating
-      include Armagh::Support::HTML
 
       class TacballConsumeError < StandardError; end
       class TACDocPrefixError < TacballConsumeError; end
@@ -36,7 +34,7 @@ module Armagh
                        description: "The template to use for generating both text and html.  If set to #{OPTION_NONE}, will use the text content of the document (if it exists).",
                        type: 'populated_string',
                        required: false,
-                       group: 'tacball_consume',
+                       group: 'tacball',
                        default: OPTION_NONE,
                        options: [OPTION_NONE] + Actions.available_templates
 
@@ -69,15 +67,13 @@ module Armagh
             nil
           end
 
-        template_name = @config.tacball_consume.template == OPTION_NONE ? nil : @config.tacball_consume.template
+        template_name = @config.tacball.template == OPTION_NONE ? nil : @config.tacball.template
         template_path = Actions.get_template_path(template_name)
 
         txt_content, html_content = template_content(doc, template_path)
 
         html_content ||= doc.display || ''
-        txt_content  ||= doc.text    ||
-                           (html_to_text(html_content, @config) unless html_content.to_s.strip.empty?) ||
-                           ''
+        txt_content  ||= doc.text    || ''
 
         Armagh::Support::Tacball.create_tacball_file(
           @config,

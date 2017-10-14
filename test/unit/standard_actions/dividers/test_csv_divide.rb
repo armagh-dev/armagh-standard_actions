@@ -29,9 +29,13 @@ class TestCSVDivide < Test::Unit::TestCase
   def setup
     fixtures_path = File.join(__dir__, '..', '..', '..', 'fixtures')
     @csv_path     = File.join fixtures_path, 'test.csv'
-  end
 
-  test "it creates documents with draft_content from divided parts of larger source file" do
+    @logger         = mock
+    @caller         = mock
+    @output_docspec = mock
+    @collection     = mock
+    @collected_doc  = mock('collected_document')
+
     @config_values = {
       'input' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dans_doctype', Armagh::Documents::DocState::READY ) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new( 'divided_doctype', Armagh::Documents::DocState::READY ) },
@@ -40,12 +44,23 @@ class TestCSVDivide < Test::Unit::TestCase
       }
     }
     @config = Armagh::StandardActions::CSVDivide.create_configuration([], 'testdiv', @config_values )
-
     @divider_action = instantiate_action(Armagh::StandardActions::CSVDivide, @config)
+  end
 
+  def test_it_creates_documents_with_draft_content_from_divided_parts_of_larger_source_file
     @caller.expects(:create_document).at_least_once
-
+    @collected_doc.expects(:metadata).at_least_once.returns({})
     @divider_action.doc_details = {}
-    @divider_action.divide(@csv_path)
+    @collected_doc.expects(:collected_file).at_least_once.returns(@csv_path)
+
+    @divider_action.divide(@collected_doc)
+  end
+
+  def test_calls_notify_when_csv_library_errors_when_dividing_source_csv_file
+    @caller.expects(:create_document).never
+    @caller.expects(:notify_dev).at_least_once
+    @divider_action.stubs(:divided_parts).raises(CSVDivider::RowMissingValueError)
+
+    @divider_action.divide(@collected_doc)
   end
 end
