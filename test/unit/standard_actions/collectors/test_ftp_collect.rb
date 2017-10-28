@@ -23,14 +23,14 @@ require_relative '../../../../lib/armagh/standard_actions/collectors/ftp_collect
 
 class TestFTPCollect < Test::Unit::TestCase
   include ActionsTestHelper
-  
-  def setup  
-    
+
+  def setup
+
     @config_values = {
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dans_out', Armagh::Documents::DocState::READY )},
-      
+
       'collect' => { 'schedule' => '0 * * * *', 'archive' => false},
-      
+
       'ftp' => {
         'host' => 'test_host',
         'username' => 'test_user',
@@ -39,13 +39,13 @@ class TestFTPCollect < Test::Unit::TestCase
       }
     }
     @ftp = mock('ftp')
-#    @ftp.expects( 'write_and_delete_test_file' ).at_least_once 
+#    @ftp.expects( 'write_and_delete_test_file' ).at_least_once
     Armagh::Support::FTP::Connection.stubs(:open).yields(@ftp)
     Armagh::Support::FTP.stubs(:ftp_validation)
     @config = Armagh::StandardActions::FTPCollect.create_configuration( [], 'test', @config_values )
     @ftp_collect_action = instantiate_action(Armagh::StandardActions::FTPCollect, @config )
   end
-  
+
 
   def test_collect
     expected_content = 'test_filename'
@@ -58,8 +58,9 @@ class TestFTPCollect < Test::Unit::TestCase
         mtime: nil
     )
 
+    expected_response = {'attempted' => 1, 'collected' => 1, 'failed' => 0}
 
-    @ftp.expects(:get_files).yields('test_filename', {}, nil)
+    @ftp.expects(:get_files).yields('test_filename', {}, nil).returns(expected_response)
 
     assert_create(@ftp_collect_action) do |document_id, title, copyright, document_timestamp, content, meta, docspec_name, source|
       assert_equal expected_content, content
@@ -67,7 +68,7 @@ class TestFTPCollect < Test::Unit::TestCase
       assert_equal expected_meta, meta
       assert_equal expected_source, source
     end
-    
+
     @ftp_collect_action.expects(:log_info).with( "Collected 1; Failed collecting 0")
 
     @ftp_collect_action.collect
@@ -84,8 +85,9 @@ class TestFTPCollect < Test::Unit::TestCase
         mtime: nil
     )
 
+    expected_response = {'attempted' => 1, 'collected' => 0, 'failed' => 1}
 
-    @ftp.expects(:get_files).yields(nil, nil, 'oops')
+    @ftp.expects(:get_files).yields(nil, nil, 'oops').returns(expected_response)
     assert_notify_ops(@ftp_collect_action) do |e|
       assert_equal 'oops', e
     end
