@@ -44,7 +44,6 @@ class TestIntegrationTacballConsume < Test::Unit::TestCase
       'password' => @password,
       'directory_path' => @directory_path,
       'duplicate_put_directory_paths' => @duplicate_put_directory_paths,
-      'create_directory_path' => true,
       'port' => @port
     }
 

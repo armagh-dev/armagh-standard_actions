@@ -40,7 +40,6 @@ class TestIntegrationTacballConsumeForOfac < Test::Unit::TestCase
       'username' => @username,
       'password' => @password,
       'directory_path' => @directory_path,
-      'create_directory_path' => true,
       'port' => @port
     }
 
