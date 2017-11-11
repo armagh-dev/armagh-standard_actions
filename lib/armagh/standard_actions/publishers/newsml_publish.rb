@@ -60,11 +60,9 @@ module Armagh
           notify_ops('Timestamp empty or not valid')
         end
 
-        raw_title = get_doc_attr(news_item, ['NewsComponent', 'NewsLines', 'HeadLine']).strip
-        doc.title = raw_title.empty? ? "Unknown Title: #{doc.document_id}" : html_to_text(raw_title, @config)
+        raw_title = get_doc_attr(news_item, ['NewsComponent', 'NewsLines', 'HeadLine']).to_s
 
-        raw_copyright = get_doc_attr(news_item, ['NewsComponent', 'NewsLines', 'CopyrightLine']).strip
-        doc.copyright = raw_copyright.empty? ? raw_copyright : html_to_text(raw_copyright, @config)
+        raw_copyright = get_doc_attr(news_item, ['NewsComponent', 'NewsLines', 'CopyrightLine']).to_s
 
         admin_metadata = get_doc_attr(news_item, ['NewsComponent', 'AdministrativeMetadata'])
         admin_metadata_property = get_doc_attr(admin_metadata, ['Property'])
@@ -80,12 +78,18 @@ module Armagh
         data_content = get_doc_attr(news_item, ['NewsComponent', 'ContentItem', 'DataContent'])
         doc.metadata['source'] = get_doc_attr(data_content, ['body', 'body.head', 'distributor']).strip
 
-        body_content = get_doc_attr(data_content, ['body', 'body.content'])
-        doc.text = if body_content.nil? || body_content.empty?
-                     ""
-                   else
-                     html_to_text(body_content, @config).strip
-                   end
+        body_content = get_doc_attr(data_content, ['body', 'body.content']).to_s
+
+        title, copyright, text = html_to_text(raw_title, raw_copyright, body_content, @config)
+
+        title.strip!
+        title.gsub!(/\s+/, ' ')
+        copyright.strip!
+        text.strip!
+
+        doc.title = title
+        doc.copyright = copyright
+        doc.text = text
       end
 
       def self.description

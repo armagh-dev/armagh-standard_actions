@@ -94,9 +94,7 @@ class TestNewsmlPublish < Test::Unit::TestCase
     ny_tz = TZInfo::Timezone.get('America/New_York').period_for_utc(Time.parse(expected_ts)).zone_identifier.to_s
     ny_tz_offset = (ny_tz == :EST) ? '-0500' : '-0400'
 
-    @newsml_publish_action.stubs(:html_to_text).returns('hello')
-    @newsml_publish_action.stubs(:html_to_text).with('breaking news', @config).returns('breaking news')
-    @newsml_publish_action.stubs(:html_to_text).with('copyright line', @config).returns('copyright line')
+    @newsml_publish_action.stubs(:html_to_text).returns(['breaking news', 'copyright line', 'body'])
     @newsml_publish_action.publish(@doc)
     assert_equal '193e7679', @doc.document_id
     assert_equal Time.parse( "#{expected_ts}#{ ny_tz_offset }" ), @doc.document_timestamp
@@ -109,27 +107,29 @@ class TestNewsmlPublish < Test::Unit::TestCase
 
   def test_publish_sets_contents
     expected_contents = ''
-    @newsml_publish_action.stubs(:html_to_text).returns(expected_contents)
+    @newsml_publish_action.stubs(:html_to_text).returns(['title', 'copyright', ''])
     @newsml_publish_action.publish(@doc)
     assert_equal expected_contents, @doc.content['text_content']
   end
 
   def test_publish_bad_timestamp
-    @newsml_publish_action.stubs(:html_to_text).returns('hello')
+    @newsml_publish_action.stubs(:html_to_text).returns(%w(title copyright body))
     @contents_hash['NewsML']['NewsItem']['NewsManagement']['ThisRevisionCreated'] = 'invalid'
     @newsml_publish_action.expects(:notify_ops).with('Timestamp empty or not valid')
     @newsml_publish_action.publish(@doc)
   end
 
   def test_empty_title
-    @newsml_publish_action.stubs(:html_to_text).returns('hello')
+    @doc.title = nil
+    @newsml_publish_action.stubs(:html_to_text).returns(['', 'copyright', 'body'])
     @contents_hash['NewsML']['NewsItem']['NewsComponent']['NewsLines']['HeadLine'] = ''
     @newsml_publish_action.publish(@doc)
-    assert_equal "Unknown Title: #{@doc.document_id}", @doc.title
+    assert_empty @doc.title
   end
 
   def test_empty_copyright
-    @newsml_publish_action.stubs(:html_to_text).returns('hello')
+    @doc.copyright = nil
+    @newsml_publish_action.stubs(:html_to_text).returns(['title', '', 'body'])
     @contents_hash['NewsML']['NewsItem']['NewsComponent']['NewsLines']['CopyrightLine'] = ''
     @newsml_publish_action.publish(@doc)
     assert_empty @doc.copyright

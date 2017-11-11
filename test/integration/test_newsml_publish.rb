@@ -117,4 +117,11 @@ class TestIntegrationNewsmlPublish < Test::Unit::TestCase
     assert_equal 'The Fly On The Wall', @doc.metadata['source']
     assert_equal '', @doc.content['text_content']
   end
+
+  # ARM-624
+  def test_multiline_title
+    @doc.raw = File.read('test/fixtures/comtex_multiline_title.xml', mode: 'rb')
+    @newsml_publish_action.publish(@doc)
+    assert_equal 'Skydance Media Forms Exclusive Overall Agreement for Television with Award-Winning Writer-Producer Laeta Kalogridis', @doc.title
+  end
 end

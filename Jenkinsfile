@@ -15,6 +15,14 @@ def sendToSlack() {
 
 }
 
+def isNewBuild(name) {
+  def current_version = sh(script: 'rake version', returnStdout: true).trim()
+  def result = sh(script: "gem search ^${name}\$", returnStdout: true).trim()
+  def latest_version = (result =~ /\((.+)\)/)[0][1]
+  return current_version != latest_version
+}
+
+
 
 try {
 
@@ -85,6 +93,19 @@ currentBuild.result = "SUCCESS"
          reportFiles: 'index.html',
          reportName: "YARD Documentation"
        ])
+     }
+
+     stage('Prerelease') {
+       if ((env.BRANCH_NAME == "default") && (currentBuild.result == 'SUCCESS') && isNewBuild('armagh-standard_actions')) {
+
+         sh """#!/bin/bash -l
+           echo -e "*********************************************\n** Prereleasing:" `hg identify -i` "\n*********************************************"
+           set -e
+           bundle exec rake prerelease
+         """
+
+         build job: '/armagh/default', wait: false
+       }
      }
   }
 }
