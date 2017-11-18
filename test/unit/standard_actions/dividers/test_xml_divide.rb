@@ -37,6 +37,7 @@ class TestXMLDivide < Test::Unit::TestCase
     @collected_doc  = mock('collected_document')
 
     @config_values = {
+        'action' => { 'workflow' => 'wf'},
       'input' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dan_indoc', Armagh::Documents::DocState::READY )},
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dans_output', Armagh::Documents::DocState::READY )},
       'xml_divide' => {'size_per_part' => 1000, 'xml_element' => 'sdnEntry'}

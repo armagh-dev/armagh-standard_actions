@@ -31,6 +31,7 @@ class TestJsonPublish < Test::Unit::TestCase
     @last_week = @now.ago(1, :week)
 
     config_values = {
+        'action' => { 'workflow' => 'wf'},
       'input'  => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::READY ) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::PUBLISHED) },
       'field_map' => {
@@ -67,6 +68,7 @@ class TestJsonPublish < Test::Unit::TestCase
 
   def test_when_json_is_nested_publish_sets_document_attributes
     config_values_nested = {
+        'action' => { 'workflow' => 'wf'},
       'input'  => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::READY ) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::PUBLISHED) },
       'field_map' => {

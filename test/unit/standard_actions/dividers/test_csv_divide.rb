@@ -37,6 +37,7 @@ class TestCSVDivide < Test::Unit::TestCase
     @collected_doc  = mock('collected_document')
 
     @config_values = {
+      'action' => { 'workflow' => 'wf'},
       'input' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dans_doctype', Armagh::Documents::DocState::READY ) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new( 'divided_doctype', Armagh::Documents::DocState::READY ) },
       'csv_divider' => {

@@ -39,6 +39,7 @@ class TestXMLSplit < Test::Unit::TestCase
   def setup
     # @config = mock('config')
     @config_values = {
+        'action' => { 'workflow' => 'wf'},
       'input' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dan_indoc', Armagh::Documents::DocState::READY )},
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dans_output', Armagh::Documents::DocState::READY )},
       'xml_splitter' => {'repeated_element_name' => 'sdnEntry'}

@@ -54,6 +54,7 @@ class TestHashPublish < Test::Unit::TestCase
 
   def test_when_content_is_nested_publish_sets_document_attributes
     config_values = {
+        'action' => { 'workflow' => 'wf'},
       'input'  => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::READY ) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::PUBLISHED) },
       'field_map' => {
@@ -77,7 +78,7 @@ class TestHashPublish < Test::Unit::TestCase
     }
 
     config       = Armagh::StandardActions::HashPublish.create_configuration( [], 'hash_test', config_values )
-    hash_publish = Armagh::StandardActions::HashPublish.new(@caller, @logger, config, @collection)
+    hash_publish = Armagh::StandardActions::HashPublish.new(@caller, @logger, config)
 
     doc = @doc.dup
     doc.content = content
@@ -97,6 +98,7 @@ class TestHashPublish < Test::Unit::TestCase
 
   def test_when_content_is_not_nested_publish_sets_document_attributes
     config_values = {
+        'action' => { 'workflow' => 'wf'},
       'input'  => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::READY ) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::PUBLISHED) },
       'field_map' => {
@@ -118,7 +120,7 @@ class TestHashPublish < Test::Unit::TestCase
     }
 
     config = Armagh::StandardActions::HashPublish.create_configuration( [], 'hash_test', config_values )
-    hash_publish = Armagh::StandardActions::HashPublish.new(@caller, @logger, config, @collection)
+    hash_publish = Armagh::StandardActions::HashPublish.new(@caller, @logger, config)
 
     doc = @doc.dup
     doc.content = content
@@ -138,7 +140,8 @@ class TestHashPublish < Test::Unit::TestCase
 
   def test_when_content_does_not_include_params_and_doc_attributes_exist_publish_keeps_the_doc_attributes
     config_values = {
-      'input'  => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::READY ) },
+        'action' => { 'workflow' => 'wf'},
+        'input'  => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::READY ) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::PUBLISHED) },
       'field_map' => {
         'get_doc_id_from'        => '["account_number"]',
@@ -159,7 +162,7 @@ class TestHashPublish < Test::Unit::TestCase
     }
 
     config = Armagh::StandardActions::HashPublish.create_configuration( [], 'hash_test', config_values )
-    hash_publish = Armagh::StandardActions::HashPublish.new(@caller, @logger, config, @collection)
+    hash_publish = Armagh::StandardActions::HashPublish.new(@caller, @logger, config)
 
     doc = @doc.dup
     doc.content = content
@@ -174,6 +177,7 @@ class TestHashPublish < Test::Unit::TestCase
 
   def test_when_content_does_not_include_params_and_doc_attributes_do_not_exist_publish_sets_document_attributes_from_source_or_metadata
     config_values = {
+        'action' => { 'workflow' => 'wf'},
       'input'  => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::READY ) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::PUBLISHED) },
       'field_map' => {
@@ -195,7 +199,7 @@ class TestHashPublish < Test::Unit::TestCase
     }
 
     config = Armagh::StandardActions::HashPublish.create_configuration( [], 'hash_test', config_values )
-    hash_publish = Armagh::StandardActions::HashPublish.new(@caller, @logger, config, @collection)
+    hash_publish = Armagh::StandardActions::HashPublish.new(@caller, @logger, config)
 
     doc = @doc.dup
     doc.content = content

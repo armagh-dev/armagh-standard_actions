@@ -29,7 +29,6 @@ module ActionsTestHelper
       @caller.stubs(:get_logger).returns(@logger)
     end
 
-    @collection ||= mock('collection')
     @caller.stubs(:log_debug)
     @caller.stubs(:log_info)
 
@@ -39,7 +38,7 @@ module ActionsTestHelper
       config.stubs(:action).returns(action)
     end
 
-    action_class.new( @caller, 'logger_name', config, @collection )
+    action_class.new( @caller, 'logger_name', config )
   end
 
   def assert_create(test_item, &block)

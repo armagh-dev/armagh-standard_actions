@@ -27,7 +27,9 @@ class TestFTPCollect < Test::Unit::TestCase
   def setup
 
     @config_values = {
-      'output' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dans_out', Armagh::Documents::DocState::READY )},
+        'action' => { 'workflow' => 'wf'},
+
+        'output' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dans_out', Armagh::Documents::DocState::READY )},
 
       'collect' => { 'schedule' => '0 * * * *', 'archive' => false},
 

@@ -31,7 +31,8 @@ class TestFTPConsume < Test::Unit::TestCase
 
   def setup
     @config_values = {
-      'input' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dans_in', Armagh::Documents::DocState::PUBLISHED )},
+        'action' => { 'workflow' => 'wf'},
+        'input' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dans_in', Armagh::Documents::DocState::PUBLISHED )},
       'ftp' => {
         'host' => 'test.url',
         'directory_path' => 'test_dir',

@@ -28,6 +28,7 @@ class TestCSVSplit < Test::Unit::TestCase
     @logger         = mock('logger')
     @caller         = mock('caller')
     @config = Armagh::StandardActions::CSVSplit.create_configuration([], 'test', {
+        'action' => { 'workflow' => 'wf'},
       'output' => {'docspec' => Armagh::Documents::DocSpec.new('OutputDocument', Armagh::Documents::DocState::READY)},
       'input' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dans_in', Armagh::Documents::DocState::READY )},
     })

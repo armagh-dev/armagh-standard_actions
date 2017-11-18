@@ -28,12 +28,12 @@ class TestTextPublish < Test::Unit::TestCase
     collection = mock
 
     @config_values = {
-      'action' => { 'name' => 'text_test' },
+      'action' => { 'name' => 'text_test', 'workflow' => 'wf' },
       'input'  => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::READY ) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::PUBLISHED) }
     }
     @config = Armagh::StandardActions::TextPublish.create_configuration( [], 'text_test', @config_values )
-    @text_publish_action = Armagh::StandardActions::TextPublish.new(@caller, @logger, @config, collection)
+    @text_publish_action = Armagh::StandardActions::TextPublish.new(@caller, @logger, @config)
     @id = '123'
     @content = {}
     @raw = nil 

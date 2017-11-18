@@ -32,7 +32,8 @@ class TestRSSCollect < Test::Unit::TestCase
     @config_values = {
       'action' => {
         'name' => 'collect_me',
-        'active' => true
+        'active' => true,
+        'workflow' => 'wf'
       },
       'output' => {
         @docspec_name => Armagh::Documents::DocSpec.new('OutputDocument', Armagh::Documents::DocState::READY)

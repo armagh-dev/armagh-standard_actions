@@ -32,7 +32,7 @@ module Armagh
 
       define_parameter name: 'template',
                        description: "The template to use for generating both text and html.  If set to #{OPTION_NONE}, will use the text content of the document (if it exists).",
-                       type: 'populated_string',
+                       type: 'string',
                        required: false,
                        group: 'tacball',
                        default: OPTION_NONE,

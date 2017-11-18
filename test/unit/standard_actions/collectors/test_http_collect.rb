@@ -29,7 +29,9 @@ class TestHTTPCollect < Test::Unit::TestCase
 
   def setup
     @config_values = {
-      'output' => {
+        'action' => { 'workflow' => 'wf'},
+
+        'output' => {
         'docspec' => Armagh::Documents::DocSpec.new('OutputDocument', Armagh::Documents::DocState::READY)
       },
       'collect' => {
@@ -49,7 +51,7 @@ class TestHTTPCollect < Test::Unit::TestCase
   end
 
   def test_collect
-    @state.stubs(:content).returns({})
+    @state = {}
     @http_collect_action.expects(:with_locked_action_state).yields(@state)
     @logger.expects(:debug)
 
@@ -75,7 +77,7 @@ class TestHTTPCollect < Test::Unit::TestCase
   end
 
   def test_collect_no_encoding
-    @state.stubs(:content).returns({})
+    @state= {}
     @http_collect_action.expects(:with_locked_action_state).yields(@state)
     @logger.expects(:debug)
 
@@ -99,7 +101,7 @@ class TestHTTPCollect < Test::Unit::TestCase
   end
 
   def test_collect_no_type
-    @state.stubs(:content).returns({})
+    @state={}
     @http_collect_action.expects(:with_locked_action_state).yields(@state)
     @logger.expects(:debug)
 
@@ -148,7 +150,7 @@ class TestHTTPCollect < Test::Unit::TestCase
   end
 
   def test_collect_multiple_pages
-    @state.stubs(:content).returns({})
+    @state={}
     @http_collect_action.expects(:with_locked_action_state).yields(@state)
 
     Armagh::Support::HTTP::Connection.any_instance.expects(:fetch).returns([{'head' => '', 'body' => 'BODY ONE'},
@@ -170,7 +172,7 @@ class TestHTTPCollect < Test::Unit::TestCase
     expected_body = 'response body'
     md5 = Armagh::Support::StringDigest.md5(expected_body)
 
-    @state.stubs(:content).returns({@config.http.url.gsub(".", "\u2024") => md5})
+    @state = {@config.http.url.gsub(".", "\u2024") => md5}
     @http_collect_action.expects(:with_locked_action_state).yields(@state)
     @http_collect_action.expects(:create).never
     @logger.expects(:debug)
@@ -188,7 +190,7 @@ class TestHTTPCollect < Test::Unit::TestCase
     expected_body = 'response body'
     md5 = Armagh::Support::StringDigest.md5('Old Content')
 
-    @state.stubs(:content).returns({@config.http.url => md5})
+    @state = {@config.http.url => md5}
     @http_collect_action.expects(:with_locked_action_state).yields(@state)
     @logger.expects(:debug)
 

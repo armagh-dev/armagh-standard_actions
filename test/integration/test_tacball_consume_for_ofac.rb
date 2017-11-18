@@ -44,6 +44,7 @@ class TestIntegrationTacballConsumeForOfac < Test::Unit::TestCase
     }
 
     @config_values = {
+        'action' => { 'workflow' => 'wf'},
       'input' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dan_indoc', Armagh::Documents::DocState::PUBLISHED )},
       'sftp' => @sftp_config_values,
       'tacball' => {

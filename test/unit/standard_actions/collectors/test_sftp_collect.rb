@@ -28,6 +28,7 @@ class TestSFTPCollect < Test::Unit::TestCase
 
   def setup
     @config_values = {
+        'action' => { 'workflow' => 'wf'},
       'output' => {
         'docspec' => Armagh::Documents::DocSpec.new('OutputDocument', Armagh::Documents::DocState::READY)
       },

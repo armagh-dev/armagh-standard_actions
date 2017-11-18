@@ -28,11 +28,12 @@ class TestNewsmlPublish < Test::Unit::TestCase
     @caller = mock('caller')
     @collection = mock('collection')
     @config_values = {
+        'action' => { 'workflow' => 'wf'},
       'input' => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::READY ) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::PUBLISHED) },
     }
     @config = Armagh::StandardActions::NewsmlPublish.create_configuration( [], 'test', @config_values )
-    @newsml_publish_action = Armagh::StandardActions::NewsmlPublish.new( @caller, @logger, @config, @collection )
+    @newsml_publish_action = Armagh::StandardActions::NewsmlPublish.new( @caller, @logger, @config )
     @doc = Armagh::Documents::ActionDocument.new(
       document_id: 'doc_id',
       title: 'title',
@@ -137,6 +138,7 @@ class TestNewsmlPublish < Test::Unit::TestCase
 
   def test_create_configuration_with_html_nodes
     @config_values = {
+        'action' => { 'workflow' => 'wf'},
       'input' => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::READY ) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::PUBLISHED) },
       'xml' => {

@@ -39,6 +39,7 @@ class TestJSONSplit < Test::Unit::TestCase
   def setup
     @caller        = mock('caller')
     @config_values = {
+        'action' => { 'workflow' => 'wf'},
       'input' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dan_indoc', Armagh::Documents::DocState::READY )},
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dans_output', Armagh::Documents::DocState::READY )},
       'json_splitter' => {'split_target' => 'employees'}

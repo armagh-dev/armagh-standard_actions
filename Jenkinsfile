@@ -25,7 +25,6 @@ def isNewBuild(name) {
 
 
 try {
-
 currentBuild.result = "SUCCESS"
 
 
@@ -34,7 +33,7 @@ currentBuild.result = "SUCCESS"
      stage('Prep') {
 
        deleteDir()
-     
+
        checkout scm
 
        sh """#!/bin/bash -l
@@ -46,18 +45,18 @@ currentBuild.result = "SUCCESS"
          mongod --version
        """
      }
-  
+
      stage('Unit Test') {
-     
+
        sh """#!/bin/bash -l
          echo -e "*********************************************\n** Unit testing:" `hg identify -i` "\n*********************************************"
          set -e
          bundle exec rake test
        """
      }
-  
+
      stage('Integration Test') {
-     
+       properties([disableConcurrentBuilds()])
        sh """#!/bin/bash -l
          echo -e "*********************************************\n** Integration testing:" `hg identify -i` "\n*********************************************"
          set -e
@@ -66,7 +65,7 @@ currentBuild.result = "SUCCESS"
      }
 
      stage('Rcov') {
-     
+
        publishHTML (target: [
          allowMissing: false,
          alwaysLinkToLastBuild: false,
@@ -84,7 +83,7 @@ currentBuild.result = "SUCCESS"
          set -e
          bundle exec rake yard
        """
-     
+
        publishHTML (target: [
          allowMissing: false,
          alwaysLinkToLastBuild: false,
@@ -96,17 +95,17 @@ currentBuild.result = "SUCCESS"
      }
 
      stage('Prerelease') {
-       if ((env.BRANCH_NAME == "default") && (currentBuild.result == 'SUCCESS') && isNewBuild('armagh-standard_actions')) {
-
-         sh """#!/bin/bash -l
-           echo -e "*********************************************\n** Prereleasing:" `hg identify -i` "\n*********************************************"
-           set -e
-           bundle exec rake prerelease
-         """
-
-         build job: '/armagh/default', wait: false
-       }
-     }
+       if ((env.BRANCH_NAME == "default") && (currentBuild.result == 'SUCCESS')) {
+         if (isNewBuild('armagh-standard_actions')) {
+           sh """#!/bin/bash -l
+             echo -e "*********************************************\n** Prereleasing:" `hg identify -i` "\n*********************************************"
+             set -e
+             bundle exec rake prerelease
+           """
+         }
+        build job: '/armagh/default', wait: false
+      }
+    }
   }
 }
 

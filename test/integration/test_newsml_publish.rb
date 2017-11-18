@@ -27,12 +27,12 @@ class TestIntegrationNewsmlPublish < Test::Unit::TestCase
     @caller = mock
     @collection = mock
     @config_values = {
-      'action' => { 'name' => 'test' },
+      'action' => { 'name' => 'test', 'workflow' => 'wf' },
       'input' => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::READY ) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::PUBLISHED) }
     }
     @config = Armagh::StandardActions::NewsmlPublish.create_configuration([], 'test', @config_values)
-    @newsml_publish_action = Armagh::StandardActions::NewsmlPublish.new( @caller, @logger, @config, @collection )
+    @newsml_publish_action = Armagh::StandardActions::NewsmlPublish.new( @caller, @logger, @config )
     @id = '123'
     @content = {'content' => true}
     @raw = ''

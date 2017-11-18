@@ -37,6 +37,7 @@ class TestJSONDivide < Test::Unit::TestCase
     @collected_doc  = mock('collected_document')
 
     @default_config_values = {
+        'action' => { 'workflow' => 'wf'},
       'input' => { 'docspec' => Armagh::Documents::DocSpec.new( 'dans_doctype', Armagh::Documents::DocState::READY ) },
       'output' => { 'docspec' => Armagh::Documents::DocSpec.new( 'divided_doctype', Armagh::Documents::DocState::READY ) },
       'json_divider' => {
@@ -53,7 +54,7 @@ class TestJSONDivide < Test::Unit::TestCase
     @collected_doc.expects(:metadata).at_least_once.returns({})
     @collected_doc.expects(:collected_file).at_least_once.returns(@json_path)
 
-    @divider_action = Armagh::StandardActions::JSONDivide.new( @caller, 'logger_name', @default_config, @collection )
+    @divider_action = Armagh::StandardActions::JSONDivide.new( @caller, 'logger_name', @default_config )
     @divider_action.doc_details = {}
     @divider_action.divide(@collected_doc)
   end
@@ -61,7 +62,7 @@ class TestJSONDivide < Test::Unit::TestCase
   def test_calls_notify_when_json_library_errors_when_dividing_source_json_file
     @caller.expects(:create_document).never
     @caller.expects(:notify_dev).at_least_once
-    @divider_action = Armagh::StandardActions::JSONDivide.new( @caller, 'logger_name', @default_config, @collection )
+    @divider_action = Armagh::StandardActions::JSONDivide.new( @caller, 'logger_name', @default_config )
     @divider_action.stubs(:divided_parts).raises(JSONDivider::SizeError)
     @divider_action.divide(@collected_doc)
   end
