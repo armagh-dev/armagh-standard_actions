@@ -69,8 +69,7 @@ class TestHTMLPublish < Test::Unit::TestCase
 
     @html_publish_action.publish(@doc)
 
-
-    assert_equal 'Unknown', @doc.title
+    assert_nil @doc.title
     assert_equal 'text', @doc.text
   end
 

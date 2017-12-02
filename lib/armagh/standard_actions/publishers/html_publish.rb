@@ -30,7 +30,7 @@ module Armagh
         text_array = []
         html_pages.each {|html| text_array << html_to_text(html, @config)}
 
-        doc.title ||= doc.source.filename || doc.source.url || 'Unknown'
+        doc.title ||= doc.source.filename || doc.source.url
         doc.text = Support::HTML.merge_multiple_pages(text_array)
         doc.text << "\n\nOriginal Content: #{doc.source.url}" if doc.source.url
       rescue HTMLError => e

@@ -27,16 +27,19 @@ module Armagh
   module StandardActions
     class NewsmlPublish < Armagh::Actions::Publish
 
-    include Armagh::Support::XML
-    include Armagh::Support::HTML
-    include Armagh::Support::DocAttr
+      include Armagh::Support::XML
+      include Armagh::Support::HTML
+      include Armagh::Support::DocAttr
 
-      define_parameter name: 'html_nodes',
-                       description: 'HTML nodes that need to be kept as-is and not converted into a hash',
-                       type: 'string_array',
-                       required: false,
-                       group: 'xml',
-                       default: %w(body.content HeadLine SubHeadLine CopyrightLine)
+      define_constant name: 'html_nodes', group: 'xml', value: %w(body.content HeadLine SubHeadLine CopyrightLine)
+
+      define_constant name: 'extract_after', group: 'html', value: nil
+      define_constant name: 'extract_until', group: 'html', value: nil
+      define_constant name: 'exclude', group: 'html', value: nil
+      define_constant name: 'ignore_cdata', group: 'html', value: true
+      define_constant name: 'force_breaks', group: 'html', value: false
+      define_constant name: 'unescape_html', group: 'html', value: true
+      define_constant name: 'preserve_hyperlinks', group: 'html', value: true
 
       def publish(doc)
         xml = doc.raw
@@ -47,11 +50,11 @@ module Armagh
         # Comtex does not follow the NewsML standard for timestamp encoding (ISO-8601, which gives zone offset)
         # Instead they use YYYYMMDDTHHMMSS, local to New York.
         begin
-          ts_str = get_doc_attr( news_item, ['NewsManagement', 'ThisRevisionCreated'] ) || get_doc_attr( news_item, ['NewsManagement', 'FirstCreated'] )
+          ts_str = get_doc_attr(news_item, ['NewsManagement', 'ThisRevisionCreated']) || get_doc_attr(news_item, ['NewsManagement', 'FirstCreated'])
           if ts_str
-            ny_tz = TZInfo::Timezone.get('America/New_York').period_for_local( Time.parse(ts_str)).zone_identifier
+            ny_tz = TZInfo::Timezone.get('America/New_York').period_for_local(Time.parse(ts_str)).zone_identifier
             ny_tz_offset = (ny_tz == :EST) ? '-0500' : '-0400'
-            doc.document_timestamp = Time.parse( "#{ts_str}#{ny_tz_offset}" )
+            doc.document_timestamp = Time.parse("#{ts_str}#{ny_tz_offset}")
           else
             raise
           end
@@ -94,10 +97,10 @@ module Armagh
 
       def self.description
         <<~DESCDOC
-         NewsML is an International Press Telecommunication Council (IPTC) open standard
-         used by a number of news publishers and aggregators to disseminate
-         articles.  This action handles such feeds for you, pulling title, publish date,
-         copyright and documentID from appropriate fields in the content.
+          NewsML is an International Press Telecommunication Council (IPTC) open standard
+          used by a number of news publishers and aggregators to disseminate
+          articles.  This action handles such feeds for you, pulling title, publish date,
+          copyright and documentID from appropriate fields in the content.
         DESCDOC
       end
     end

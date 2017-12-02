@@ -135,17 +135,4 @@ class TestNewsmlPublish < Test::Unit::TestCase
     @newsml_publish_action.publish(@doc)
     assert_empty @doc.copyright
   end
-
-  def test_create_configuration_with_html_nodes
-    @config_values = {
-        'action' => { 'workflow' => 'wf'},
-      'input' => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::READY ) },
-      'output' => { 'docspec' => Armagh::Documents::DocSpec.new('PublishDocument', Armagh::Documents::DocState::PUBLISHED) },
-      'xml' => {
-        'html_nodes' => ['body.content']
-      }
-    }
-    @config = Armagh::StandardActions::NewsmlPublish.create_configuration( [], 'test', @config_values )
-    assert_equal ['body.content'], @config.xml.html_nodes
-  end
 end
