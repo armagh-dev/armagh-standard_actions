@@ -27,13 +27,6 @@ module Armagh
 
       INVALID_FILENAME_CHARACTERS = /[^0-9A-z.\-]/
 
-      define_parameter name:        'transfer_doc_json',
-                       description: 'Transfer whole document as JSON instead of just the content',
-                       type:        'boolean',
-                       default:     false,
-                       required:    true,
-                       group:       'ftp'
-
       def consume(doc)
         host = @config.ftp.host
         port = @config.ftp.port
@@ -41,7 +34,7 @@ module Armagh
         log_debug "Transferring file to #{host}:#{port}/#{path}"
 
         filename = filename_from_doc(doc)
-        content  = content_from_doc(doc)
+        content  = doc.to_json
 
         File.write(filename, content)
 
@@ -82,11 +75,6 @@ module Armagh
         filename = doc.metadata['filename'] || "#{doc.docspec.type}-#{doc.document_id}"
         sanitize_filename(filename)
       end
-
-      private def content_from_doc(doc)
-        @config.ftp.transfer_doc_json ? doc.to_json : doc.content.to_json
-      end
-
     end
   end
 end

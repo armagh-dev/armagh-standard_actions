@@ -25,13 +25,6 @@ module Armagh
     class SFTPConsume < Actions::Consume
       include Armagh::Support::SFTP
       
-      define_parameter name: 'transfer_doc_json',
-                       description: 'Transfer whole document as JSON instead of just the content',
-                       type: 'boolean',
-                       default: false,
-                       required: true,
-                       group: 'sftp'
-
       def consume(doc)
         host = @config.sftp.host
         port = @config.sftp.port
@@ -46,11 +39,7 @@ module Armagh
             filename = "#{doc.docspec.type}-#{doc.document_id}"
           end
           filename = sanitize_filename filename
-          if @config.sftp.transfer_doc_json
-            content = doc.to_json
-          else
-            content = doc.content.to_json
-          end
+          content = doc.to_json
           File.write(filename, content)
 
           Support::SFTP::Connection.open(@config) do |sftp|

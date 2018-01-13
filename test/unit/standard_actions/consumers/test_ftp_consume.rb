@@ -53,63 +53,22 @@ class TestFTPConsume < Test::Unit::TestCase
     FakeFS::FileSystem.clear
   end
 
-  def mock_doc
-    doc = mock('doc')
-    doc.stubs(document_id: 'document_id')
-    doc.stubs(content: {'document_content' => 'details'})
-    doc.stubs(metadata: {'meta' => true})
-    docspec = Armagh::Documents::DocSpec.new('DocType', Armagh::Documents::DocState::READY)
-    doc.stubs(docspec: docspec)
-    doc
+  def create_doc
+    Armagh::Documents::ActionDocument.new(document_id: 'document_id',
+                                          title: 'Title',
+                                          copyright: 'copyright',
+                                          content: {'content' => true},
+                                          raw: nil,
+                                          metadata: {'metadata' => false},
+                                          docspec: Armagh::Documents::DocSpec.new('DocType', Armagh::Documents::DocState::READY),
+                                          source: {},
+                                          document_timestamp: Time.new(2000,1,1,0,0,0,0).utc)
   end
 
   def test_consume
-    expected_content = {'document_content' => 'details'}
-    expected_meta = {
-        'meta' => true,
-        'ftp_consume' => {
-            'host' => 'test.url',
-            'path' => 'test_dir',
-            'filename' => 'document_id'
-        }
-    }
     @ftp.expects(:put_files).yields('document_id', nil)
 
-    doc = mock_doc
-
-    doc.stubs(document_id: 'document_id!/something')
-
-    file_exists = false
-    file_content = nil
-    FakeFS do
-      @ftp_consume_action.consume(doc)
-      file_exists = File.file?('DocType-document_id__something')
-      file_content = File.read('DocType-document_id__something') if file_exists
-    end
-
-    doc.metadata['ftp_consume'].delete('timestamp')
-    assert_equal(doc.metadata, expected_meta)
-
-    assert_true file_exists
-    assert_equal(expected_content.to_json, file_content)
-  end
-
-  def test_consume_whole_document
-    @config_values['ftp']['transfer_doc_json'] = true
-    @config = Armagh::StandardActions::FTPConsume.create_configuration( [], 'test1', @config_values )
-    @ftp_consume_action = instantiate_action(Armagh::StandardActions::FTPConsume, @config)
-
-    @ftp.expects(:put_files).yields('document_id', nil)
-
-    doc = Armagh::Documents::ActionDocument.new(document_id: 'document_id',
-                                                title: 'Title',
-                                                copyright: 'copyright',
-                                                content: {'content' => true},
-                                                raw: nil,
-                                                metadata: {'metadata' => false},
-                                                docspec: Armagh::Documents::DocSpec.new('DocType', Armagh::Documents::DocState::READY),
-                                                source: {},
-                                                document_timestamp: Time.new(2000,1,1,0,0,0,0).utc)
+    doc = create_doc
 
     file_exists = false
     file_content = nil
@@ -126,20 +85,9 @@ class TestFTPConsume < Test::Unit::TestCase
   end
 
   def test_consume_defined_filename
-    expected_content = {'document_content' => 'details'}
-    expected_meta = {
-        'meta' => true,
-        'filename' => 'File/name',
-        'ftp_consume' => {
-            'host' => 'test.url',
-            'path' => 'test_dir',
-            'filename' => 'document_id'
-        }
-    }
-
     @ftp.expects(:put_files).yields('document_id', nil)
 
-    doc = mock_doc
+    doc = create_doc
 
     doc.stubs(document_id: 'document_id!/something')
     doc.metadata['filename'] = 'File/name'
@@ -152,15 +100,13 @@ class TestFTPConsume < Test::Unit::TestCase
       file_content = File.read('File_name') if file_exists
     end
 
-    doc.metadata['ftp_consume'].delete('timestamp')
-    assert_equal(doc.metadata, expected_meta)
-
     assert_true file_exists
-    assert_equal(expected_content.to_json, file_content)
+    doc.metadata.delete('ftp_consume')
+    assert_equal(doc.to_json, file_content)
   end
 
   def test_consume_file_unknown_error
-    doc = mock_doc
+    doc = create_doc
 
     exception = RuntimeError.new('error')
     @ftp.expects(:put_files).yields('document_id', exception)
@@ -172,7 +118,7 @@ class TestFTPConsume < Test::Unit::TestCase
   end
 
   def test_consume_connection_type_error
-    doc = mock_doc
+    doc = create_doc
 
     exception = Armagh::Support::FTP::ConnectionError.new('connection error')
     Armagh::Support::FTP::Connection.stubs(:open).raises(exception)
@@ -184,7 +130,7 @@ class TestFTPConsume < Test::Unit::TestCase
   end
 
   def test_consume_unhandled_error
-    doc = mock_doc
+    doc = create_doc
     exception = Armagh::Support::FTP::UnhandledError.new('error')
     Armagh::Support::FTP::Connection.stubs(:open).raises(exception)
 
