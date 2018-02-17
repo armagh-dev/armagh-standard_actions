@@ -374,4 +374,55 @@ class TestTacballConsume < Test::Unit::TestCase
 
     return tacball_consume_action_with_template
   end
+
+  def test_consume_dynamic_feed_and_source
+    Armagh::Actions::Loggable.expects(:logger).at_least(0)
+    Armagh::Support::SFTP::Connection.expects(:open)
+    @doc.metadata['tacball_consume'] = {'feed'=>'dynamic_feed',
+                                        'source'=>'dynamic_source'}
+    @tacball_config_values.delete('tacball')
+    tacball_config = Armagh::StandardActions::TacballConsume.create_configuration([], 'test', @tacball_config_values)
+    action = instantiate_action(Armagh::StandardActions::TacballConsume, tacball_config)
+    file_exists = false
+    file_meta   = nil
+    FakeFS do
+      action.consume(@doc)
+      file_exists = File.file?(@expected_tacball_filename)
+      if file_exists
+        tgz_str = StringIO.new(File.read(@expected_tacball_filename))
+        tgz = Gem::Package::TarReader.new(Zlib::GzipReader.new(tgz_str))
+        tgz.rewind
+        tgz.each_with_index do |entry, i|
+          next unless i.zero?
+          file_meta = entry.read
+        end
+        tgz.close
+      end
+    end
+    assert_match %r/name="feed" content="dynamic_feed"/, file_meta
+    assert_match %r/name="source" content="dynamic_source"/, file_meta
+  end
+
+  def test_consume_missing_dynamic_feed
+    @tacball_config_values.delete('tacball')
+    tacball_config = Armagh::StandardActions::TacballConsume.create_configuration([], 'test', @tacball_config_values)
+    action = instantiate_action(Armagh::StandardActions::TacballConsume, tacball_config)
+    assert_notify_dev(action) do |e|
+      assert_equal Armagh::StandardActions::TacballConsume::TacballConsumeError, e.class
+      assert_equal "Required parameter 'feed' has not been set. This can be done via the Consume Action's configuration or by setting doc.metadata['tacball_consume']['feed'] during publish.", e.message
+    end
+    action.consume(@doc)
+  end
+
+  def test_consume_missing_dynamic_source
+    @tacball_config_values['tacball'].delete('source')
+   tacball_config = Armagh::StandardActions::TacballConsume.create_configuration([], 'test', @tacball_config_values)
+    action = instantiate_action(Armagh::StandardActions::TacballConsume, tacball_config)
+    assert_notify_dev(action) do |e|
+      assert_equal Armagh::StandardActions::TacballConsume::TacballConsumeError, e.class
+      assert_equal "Required parameter 'source' has not been set. This can be done via the Consume Action's configuration or by setting doc.metadata['tacball_consume']['source'] during publish.", e.message
+    end
+    action.consume(@doc)
+  end
+
 end

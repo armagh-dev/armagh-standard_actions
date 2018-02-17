@@ -47,6 +47,9 @@ class TestNewsmlPublish < Test::Unit::TestCase
     )
     @contents_hash = {
       'NewsML' => {
+        'NewsEnvelope' => {
+          'TransmissionId' => '260616127'
+        },
         'NewsItem' => {
           'Identification' => {
             'NewsIdentifier' => {
@@ -97,13 +100,13 @@ class TestNewsmlPublish < Test::Unit::TestCase
 
     @newsml_publish_action.stubs(:html_to_text).returns(['breaking news', 'copyright line', 'body'])
     @newsml_publish_action.publish(@doc)
-    assert_equal '193e7679', @doc.document_id
+    assert_equal '260616127', @doc.document_id
     assert_equal Time.parse( "#{expected_ts}#{ ny_tz_offset }" ), @doc.document_timestamp
     assert_equal 'breaking news', @doc.title
     assert_equal 'copyright line', @doc.copyright
     assert_equal 'ABW', @doc.metadata['source_code']
     assert_equal 'english', @doc.metadata['language']
-    assert_equal 'Al Bawaba Business', @doc.metadata['source']
+    assert_equal 'Al Bawaba Business', @doc.metadata.dig(*%w(tacball_consume source))
   end
 
   def test_publish_sets_contents

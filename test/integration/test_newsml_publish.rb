@@ -59,13 +59,13 @@ class TestIntegrationNewsmlPublish < Test::Unit::TestCase
     xml_file = 'test/fixtures/hello_world.xml'
     @doc.raw = File.read(xml_file, mode:'rb')
     @newsml_publish_action.publish(@doc)
-    assert_equal '193e7679', @doc.document_id
+    assert_equal '200531614', @doc.document_id
     assert_equal expected_timestamp, @doc.document_timestamp
     assert_equal 'Breaking News', @doc.title
     assert_equal 'Copyright (C) Euclid Infotech Pvt. Ltd. Provided by Syndigate.info an Albawaba.com company', @doc.copyright
     assert_equal 'ABW', @doc.metadata['source_code']
     assert_equal 'en', @doc.metadata['language']
-    assert_equal 'Al Bawaba Business', @doc.metadata['source']
+    assert_equal 'Al Bawaba Business', @doc.metadata.dig(*%w(tacball_consume source))
     assert_equal 'hello world', @doc.content['text_content']
   end
 
@@ -108,13 +108,13 @@ class TestIntegrationNewsmlPublish < Test::Unit::TestCase
     xml_file = 'test/fixtures/comtex_empty_body_content.xml'
     @doc.raw = File.read(xml_file, mode:'rb')
     @newsml_publish_action.publish(@doc)
-    assert_equal '048n7642', @doc.document_id
+    assert_equal '271116555', @doc.document_id
     assert_equal expected_timestamp, @doc.document_timestamp
     assert_equal '06:55 EDT VF Corp. reports Q4 adjusted EPS 97c, consensus 97c - Reports Q4 revenue $3.3B, consensus $3.44B.', @doc.title
     assert_equal 'Copyright TheFlyOnTheWall.com', @doc.copyright
     assert_equal 'FLY', @doc.metadata['source_code']
     assert_equal 'en', @doc.metadata['language']
-    assert_equal 'The Fly On The Wall', @doc.metadata['source']
+    assert_equal 'The Fly On The Wall', @doc.metadata.dig(*%w(tacball_consume source))
     assert_equal '', @doc.content['text_content']
   end
 
@@ -124,4 +124,12 @@ class TestIntegrationNewsmlPublish < Test::Unit::TestCase
     @newsml_publish_action.publish(@doc)
     assert_equal 'Skydance Media Forms Exclusive Overall Agreement for Television with Award-Winning Writer-Producer Laeta Kalogridis', @doc.title
   end
+
+  # ARM-871
+  def test_transmission_id
+    @doc.raw = File.read('test/fixtures/comtex_sample1.xml', mode: 'rb')
+    @newsml_publish_action.publish(@doc)
+    assert_equal '260616127', @doc.document_id
+  end
+
 end

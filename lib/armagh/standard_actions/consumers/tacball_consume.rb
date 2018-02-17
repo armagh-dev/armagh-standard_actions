@@ -45,12 +45,13 @@ module Armagh
           sftp.put_file(filename, @config.tacball.feed)
         end
         log_debug "Transferred #{filename}"
-        doc.metadata['tacball_consume'] = {
+        doc.metadata['tacball_consume'] ||= {}
+        doc.metadata['tacball_consume'].merge!({
           'timestamp' => Time.now.utc,
           'host' => @config.sftp.host,
           'path' => @config.sftp.directory_path,
           'filename' => filename
-        }
+        })
       rescue Support::SFTP::SFTPError => e
         notify_ops(e)
       rescue => e
@@ -75,9 +76,19 @@ module Armagh
         html_content ||= doc.display || ''
         txt_content  ||= doc.text    || ''
 
+        meta   = doc.metadata['tacball_consume']
+        feed   = @config.tacball.feed   || meta&.[]('feed')
+        source = @config.tacball.source || meta&.[]('source')
+
+        hint = "Required parameter '<param>' has not been set. This can be done via the Consume Action's configuration or by setting doc.metadata['tacball_consume']['<param>'] during publish."
+        raise TacballConsumeError, hint.gsub(/<param>/, 'feed')   unless feed
+        raise TacballConsumeError, hint.gsub(/<param>/, 'source') unless source
+
         Armagh::Support::Tacball.create_tacball_file(
           @config,
           docid:         doc.document_id,
+          feed:          feed,
+          source:        source,
           title:         doc.title,
           timestamp:     doc.document_timestamp.to_i,
           txt_content:   txt_content,

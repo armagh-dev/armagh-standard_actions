@@ -45,7 +45,7 @@ module Armagh
         xml = doc.raw
         xml_hash = to_hash(xml, @config.xml.html_nodes)
         news_item = get_doc_attr(xml_hash, ['NewsML', 'NewsItem'])
-        doc.document_id = get_doc_attr(news_item, ['Identification', 'NewsIdentifier', 'NewsItemId']).strip
+        doc.document_id = get_doc_attr(xml_hash, %w(NewsML NewsEnvelope TransmissionId)).strip
 
         # Comtex does not follow the NewsML standard for timestamp encoding (ISO-8601, which gives zone offset)
         # Instead they use YYYYMMDDTHHMMSS, local to New York.
@@ -79,7 +79,8 @@ module Armagh
         desc_metadata = get_doc_attr(news_item, ['NewsComponent', 'DescriptiveMetadata'])
         doc.metadata['language'] = get_doc_attr(desc_metadata, ['Language', 'attr_FormalName'])
         data_content = get_doc_attr(news_item, ['NewsComponent', 'ContentItem', 'DataContent'])
-        doc.metadata['source'] = get_doc_attr(data_content, ['body', 'body.head', 'distributor']).strip
+        doc.metadata['tacball_consume'] ||= {}
+        doc.metadata['tacball_consume']['source'] = get_doc_attr(data_content, %w(body body.head distributor)).strip
 
         body_content = get_doc_attr(data_content, ['body', 'body.content']).to_s
 
